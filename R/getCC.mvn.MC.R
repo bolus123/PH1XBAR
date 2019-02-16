@@ -13,8 +13,6 @@ getCC.mvn.MC <- function(
     ,tol = 1e-2 
 ){
     
-    require(mvtnorm)
-    
     rmvn.MC <- function(sim, sigma) {
   
         rmvnorm(sim, sigma = sigma)

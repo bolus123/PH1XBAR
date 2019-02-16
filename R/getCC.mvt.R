@@ -8,8 +8,6 @@ getCC.mvt <- function(
 
 ){
 
-    require(mvtnorm)
-
     alternative = '2-sided'                                                   #turn off the alternative
 
     corr.P <- corr.f(m = m, off.diag = off.diag)                              #get correlation matrix with equal correlations

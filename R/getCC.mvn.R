@@ -15,8 +15,6 @@ getCC.mvn <- function(
 
 ){
 
-    require(mvtnorm)
-
     jointPDF.mvn.chisq <- function(
                         Y
                         ,c.i
