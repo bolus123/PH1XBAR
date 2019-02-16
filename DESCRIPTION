@@ -8,7 +8,7 @@ Authors@R: c(
 			)
 Maintainer: Yuhui Yao <yyao17@crimson.ua.edu>
 %Author: Yuhui Yao [aut]
-Description: The utility of this package is in building a Shewhart-type control chart based on new methods for the charting statistics, subgroup means. The Phase I chart is based on multivariate normal/t distribution.
+Description: The purpose of PH1XBAR is to build a Phase I Shewhart X-bar control chart with vairance components model in R.
 License: GPL-3 | file LICENSE
 Encoding: UTF-8
 LazyData: true
