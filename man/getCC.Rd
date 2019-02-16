@@ -3,17 +3,17 @@
 \title{get Phase I corrected charting constant}
  \usage{
 getCC(
-      m
-      ,nu = m - 1
-      ,FAP = 0.1
-      ,off.diag = -1/(m - 1)
-      ,var.est = 'MS'
-      ,ub.option = TRUE
-      ,maxiter = 10000
-      ,ub.lower = 1e-6
-      ,indirect.interval = c(1, 7)
-      ,indirect.subdivisions = 100L
-      ,indirect.tol = .Machine$double.eps^0.25
+    m
+    ,nu = m - 1
+    ,FAP = 0.1
+    ,off.diag = -1/(m - 1)
+    ,var.est = 'MS'
+    ,ub.option = TRUE
+    ,maxiter = 10000
+    ,ub.lower = 1e-6
+    ,indirect.interval = c(1, 7)
+    ,indirect.subdivisions = 100L
+    ,indirect.tol = .Machine$double.eps^0.25
 )
 }
 \arguments{

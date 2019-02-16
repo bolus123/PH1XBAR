@@ -5,16 +5,16 @@
 PH1XBAR(
     X
     ,c.i = NULL
-		,FAP = 0.1
-		,off.diag = -1/(m - 1)
+    ,FAP = 0.1
+    ,off.diag = -1/(m - 1)
     ,var.est = 'MS'
     ,ub.option = TRUE
-		,plot.option = TRUE
-		,maxiter = 10000
+    ,plot.option = TRUE
+    ,maxiter = 10000
     ,ub.lower = 1e-6
-		,indirect.interval = c(1, 7)
-		,indirect.subdivisions = 100L
-		,indirect.tol = .Machine$double.eps^0.25
+    ,indirect.interval = c(1, 7)
+    ,indirect.subdivisions = 100L
+    ,indirect.tol = .Machine$double.eps^0.25
 )
 }
 \arguments{
