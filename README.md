@@ -1,9 +1,9 @@
 # Overview
 The purpose of PH1XBAR is to build a Phase I Shewhart X-bar control chart with vairance components model in R.
 
-## Installation
+# Installation
 
-### Install from GitHub
+## Install from GitHub
 
 PH1XBAR is still under development, so we recommend users installing it through Github as follow
 
@@ -12,7 +12,7 @@ install.packages("devtools")
 devtools::install_github("bolus123/PH1XBAR")
 ```
 
-### Install from local
+## Install from local
 
 Users can also download our release version on Github and then install it from your local path as follow
 ``` r
@@ -20,7 +20,7 @@ install.packages(path_to_file, repos = NULL, type="source")
 ```
 
 
-## Usage
+# Usage
 
 PH1XBAR provides a function to build Phase I X-bar chart with variance components model as follow
 
