@@ -23,7 +23,7 @@ getCC.mvt(
 Obtain a corrected charting constant using the direct method.
 }
 \examples{
-
+%\dontrun{
 getCC.mvt(m = 10, nu = 9)
-
+%}
 }

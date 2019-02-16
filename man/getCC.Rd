@@ -34,13 +34,11 @@ getCC(
 Obtain a corrected charting constant. If var.est is MS, the computation is carried out by the direct method. If var.est is MR, the computation is carried out by the indirect method. Notice that nu only works on when var.est is MS. When var.est is MR, nu will be recalculated.
 }
 \examples{
-
-#### MS-based estimator involved ####
-
+%\dontrun{
+# MS-based estimator involved
 getCC(m = 10, nu = 9, var.est = 'MS')
 
-#### MR-based estimator involved ####
-
+# MR-based estimator involved
 getCC(m = 10, var.est = 'MR')
-
+%}
 }

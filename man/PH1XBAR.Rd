@@ -35,6 +35,8 @@ PH1XBAR(
 Build a Phase I Shewhart X-bar control chart with a variance component model. The charting constant is correted by this approach.
 }
 \examples{
+%\dontrun{
 data(grinder_data)
 PH1XBAR(grinder_data)
+%}
 }

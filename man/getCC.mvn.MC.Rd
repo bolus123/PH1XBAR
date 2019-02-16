@@ -36,13 +36,11 @@ getCC.mvn.MC(
 Obtain a corrected charting constant using the indirect method with Monte Carlo simulation. Notice that this method is significantly slower and much more inaccurate than other methods. We recommend users using other methods except for special demands.
 }
 \examples{
-
-#### MS-based estimator involved ####
-
+%\dontrun{
+# MS-based estimator involved
 getCC.mvn.MC(m = 10, nu = 9, var.est = 'MS')
 
-#### MR-based estimator involved ####
-
+# MR-based estimator involved
 getCC.mvn.MC(m = 10, var.est = 'MR')
-
+%}
 }

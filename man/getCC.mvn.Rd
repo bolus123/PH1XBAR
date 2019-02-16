@@ -34,13 +34,11 @@ getCC.mvn(
 Obtain a corrected charting constant using the indirect method. Notice that this method is significantly slower than the direct method. We recommend users using the direct method instead if var.est is MS. Also, nu only works on when var.est is MS. When var.est is MR, nu will be recalculated.
 }
 \examples{
-
-#### MS-based estimator involved ####
-
+%\dontrun{
+# MS-based estimator involved
 getCC.mvn(m = 10, nu = 9, var.est = 'MS')
 
-#### MR-based estimator involved ####
-
+# MR-based estimator involved
 getCC.mvn(m = 10, var.est = 'MR')
-
+%}
 }
