@@ -16,7 +16,7 @@ devtools::install_github("bolus123/PH1XBAR")
 
 Users can also download our release on Github and then install it from your local path as follow
 ``` r
-install.packages(path_to_file, repos = NULL, type="source")
+install.packages('path_to_file', repos = NULL, type="source")
 ```
 
 
