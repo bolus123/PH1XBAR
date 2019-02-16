@@ -1,16 +1,15 @@
-
 getCC.mvn <- function(
                  m
-                 ,nu
+                 ,nu = m - 1
                  ,FAP = 0.1
                  #,Phase1 = TRUE
                  ,off.diag = -1/(m - 1)
                  #,alternative = '2-sided'
-                 ,var.est = 'MSE'
+                 ,var.est = 'MS'
                  ,ub.option = TRUE
+                 ,maxiter = 10000
                  ,ub.lower = 1e-6
                  ,interval = c(1, 7)
-                 ,maxiter = 10000
                  ,subdivisions = 2000
                  ,tol = 1e-2
 
@@ -102,7 +101,7 @@ getCC.mvn <- function(
     ub.cons <- 1
     lambda <- 1
     
-    if (var.est == 'MSE') {
+    if (var.est == 'MS') {
     
         if (ub.option == TRUE) {
         

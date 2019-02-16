@@ -4,10 +4,9 @@ getCC <- function(
             ,FAP = 0.1
             ,off.diag = -1/(m - 1)
             #,alternative = '2-sided'
+            ,var.est = 'MS'
             ,ub.option = TRUE
             ,maxiter = 10000
-            ,method = 'direct'
-            ,var.est = 'MSE'
             ,ub.lower = 1e-6
             ,indirect.interval = c(1, 7)
             ,indirect.subdivisions = 100L
@@ -25,12 +24,11 @@ getCC <- function(
     is.int <- ifelse(nu == round(nu), 1, 0)
     
     
-    if (method == 'direct') {
+    if (is.int == 1) {
     
-        if (var.est == 'MSE') {
-            if (is.int == 1) {
-            
-                getCC.mvt(
+        cat('Nu is an integer. The direct method is being employed.', '\n')
+        
+        getCC.mvt(
                     m = m
                     ,nu = nu
                     ,FAP = FAP
@@ -39,27 +37,12 @@ getCC <- function(
                     #,alternative = alternative
                     ,ub.option = ub.option
                     ,maxiter = maxiter
-                )
-                
-            } else if (is.int == 0) {
-                
-                stop('Nu is not an integer. Please use the indirect method instead.')
-                
-            }
-        } else {
-        
-            stop('The variance estimation must be MSE for the direct method. Please use the indirect method instead.')
-        
-        }
+        )
     
-    } else if (method == 'indirect') {
+    } else {
     
-        if (is.int == 1 & var.est == 'MSE') {
-        
-            cat('Nu is an integer. Using the indirect method may slow the computation process down.', '\n')
-        } 
-              
-        
+        cat('Nu is a non-integer. The indirect method is being employed.', '\n')
+    
         getCC.mvn(
             m = m
             ,nu = nu
@@ -76,11 +59,7 @@ getCC <- function(
             ,maxiter = maxiter
             ,tol = indirect.tol
         )
-    
-    } else {
-    
-        stop('Unknown method. Please select the direct method or the indirect method.')
-    
+        
     }
 
 

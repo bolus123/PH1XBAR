@@ -1,10 +1,8 @@
 getCC.mvt <- function(
                  m
-                 ,nu
+                 ,nu = m - 1
                  ,FAP = 0.1
-                 #,Phase1 = TRUE
                  ,off.diag = -1/(m - 1)
-                 #,alternative = '2-sided'
                  ,ub.option = TRUE
                  ,maxiter = 10000
 
@@ -18,7 +16,7 @@ getCC.mvt <- function(
 
     pu <- 1 - FAP
 
-    ub.cons <- ub.cons.f(nu, 'c4')
+    ub.cons <- ifelse(ub.option == TRUE, 1, ub.cons.f(nu, 'c4'))
 
     L <- ifelse(
             alternative == '2-sided',
