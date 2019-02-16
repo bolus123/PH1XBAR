@@ -1,0 +1,16 @@
+Package: PH1AND2XBAR
+Type: Package
+Title: Phase I and Phase II Shewhart X-bar Chart 
+Version: 0.9.2
+Authors@R: c(
+				person("Yuhui", "Yao", role = c("aut", "cre"), email = "yyao17@crimson.ua.edu"),
+				person('Subha', 'Chakraborti', role = c('ctb'), email = 'schakrab@cba.ua.edu')
+			)
+Maintainer: Yuhui Yao <yyao17@crimson.ua.edu>
+%Author: Yuhui Yao [aut]
+Description: The utility of this package is in building a Shewhart-type control chart based on new methods for the charting statistics, subgroup means. In Phase I, the chart is based on multivariate normal/t distribution. In Phase II, the chart is based on the uncondtional method or the exceedance probability criterion.
+License: GPL-3
+Encoding: UTF-8
+LazyData: true
+Depends: R (>= 3.3.0), mvtnorm
+URL: https://github.com/bolus123/PH1AND2XBAR
