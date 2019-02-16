@@ -38,9 +38,9 @@ Obtain a corrected charting constant using the indirect method with Monte Carlo 
 \examples{
 %\dontrun{
 # MS-based estimator involved
-getCC.mvn.MC(m = 10, nu = 9, var.est = 'MS')
+getCC.mvn.MC(m = 30, nu = 29, var.est = 'MS')
 
 # MR-based estimator involved
-getCC.mvn.MC(m = 10, var.est = 'MR')
+getCC.mvn.MC(m = 30, var.est = 'MR')
 %}
 }

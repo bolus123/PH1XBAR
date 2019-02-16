@@ -24,6 +24,6 @@ Obtain a corrected charting constant using the direct method.
 }
 \examples{
 %\dontrun{
-getCC.mvt(m = 10, nu = 9)
+getCC.mvt(m = 30, nu = 29)
 %}
 }

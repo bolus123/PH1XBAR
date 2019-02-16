@@ -36,9 +36,9 @@ Obtain a corrected charting constant. If var.est is MS, the computation is carri
 \examples{
 %\dontrun{
 # MS-based estimator involved
-getCC(m = 10, nu = 9, var.est = 'MS')
+getCC(m = 30, nu = 29, var.est = 'MS')
 
 # MR-based estimator involved
-getCC(m = 10, var.est = 'MR')
+getCC(m = 30, var.est = 'MR')
 %}
 }
