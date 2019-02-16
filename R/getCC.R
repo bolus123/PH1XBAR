@@ -50,6 +50,10 @@ getCC <- function(
             ,tol = indirect.tol
         )
         
+    } else {
+    
+        stop('Unexpected variance estimator. The program will stop.')
+    
     }
 
 
