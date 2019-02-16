@@ -9,7 +9,7 @@ Authors@R: c(
 Maintainer: Yuhui Yao <yyao17@crimson.ua.edu>
 %Author: Yuhui Yao [aut]
 Description: The utility of this package is in building a Shewhart-type control chart based on new methods for the charting statistics, subgroup means. The Phase I chart is based on multivariate normal/t distribution.
-License: GPL-3
+License: GPL-3 | file LICENSE
 Encoding: UTF-8
 LazyData: true
 Depends: R (>= 3.3.0), mvtnorm
