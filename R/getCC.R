@@ -21,40 +21,30 @@ getCC <- function(
                                                     #that I do not recommend.
 
 
-    is.int <- ifelse(nu == round(nu), 1, 0)
     
     
-    if (is.int == 1) {
-    
-        cat('Nu is an integer. The direct method is being employed.', '\n')
+    if (var.est == 'MS') {
         
         getCC.mvt(
                     m = m
                     ,nu = nu
                     ,FAP = FAP
-                    #,Phase1 = Phase1
                     ,off.diag = off.diag
-                    #,alternative = alternative
                     ,ub.option = ub.option
                     ,maxiter = maxiter
         )
     
-    } else {
-    
-        cat('Nu is a non-integer. The indirect method is being employed.', '\n')
+    } else if (var.est == 'MR') {
     
         getCC.mvn(
             m = m
             ,nu = nu
             ,FAP = FAP
-            #,Phase1 = Phase1
             ,off.diag = off.diag
-            #,alternative = alternative
             ,var.est = var.est
             ,ub.option = ub.option
             ,ub.lower = ub.lower
             ,interval = indirect.interval
-            #,maxsim = indirect.maxsim
             ,subdivisions = indirect.subdivisions
             ,maxiter = maxiter
             ,tol = indirect.tol
