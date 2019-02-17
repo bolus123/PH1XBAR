@@ -33,10 +33,10 @@ Notice that the variance estimator in the control chart must be MS or MR. Also, 
 
 ``` r
 # MS-based estimator involved
-getCC(m = 10, nu = 9, var.est = 'MS')
+getCC(m = 30, nu = 29, var.est = 'MS')
 
 # MR-based estimator involved
-getCC(m = 10, var.est = 'MR')
+getCC(m = 30, var.est = 'MR')
 ```
 
 More details are on the manual.

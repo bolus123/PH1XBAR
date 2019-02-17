@@ -1,7 +1,7 @@
 Package: PH1XBAR
 Type: Package
 Title: Phase I Shewhart X-bar Chart 
-Version: 0.9.0
+Version: 0.9.1
 Authors@R: c(
 				person("Yuhui", "Yao", role = c("aut", "cre"), email = "yyao17@crimson.ua.edu"),
 				person('Subha', 'Chakraborti', role = c('ctb'), email = 'schakrab@cba.ua.edu')
