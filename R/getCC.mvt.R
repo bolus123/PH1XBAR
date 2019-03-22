@@ -14,7 +14,7 @@ getCC.mvt <- function(
 
     pu <- 1 - FAP
 
-    ub.cons <- ifelse(ub.option == TRUE, 1, ub.cons.f(nu, 'c4'))
+    ub.cons <- ifelse(ub.option == FALSE, 1, ub.cons.f(nu, 'c4'))
 
     L <- ifelse(
             alternative == '2-sided',
