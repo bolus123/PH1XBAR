@@ -83,8 +83,12 @@ getCC.mvn <- function(
                 subdivisions = subdivisions,
                 rel.tol = rel.tol
             )$value
-
-        pu - pp
+            
+        dif <- pu - pp
+        
+        cat('c.i:', c.i, ' and dif:', dif, '\n')
+        
+        return(dif)
 
 
     }
