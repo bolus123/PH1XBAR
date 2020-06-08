@@ -16,9 +16,7 @@ Date: \tab 2018-01-05\cr
 License: \tab GPL (>= 3)\cr
 }
 Function 'PH1XBAR' builds a Phase I Shewhart X-bar control chart with a correct charting constant.
-Function 'getCC' gets a charting constant using multivariate normal or t distribution.
-Function 'getCC.mvn' gets a charting constant using multivariate normal distribution.
-Function 'getCC.mvt' gets a charting constant using multivariate t distribution.
+Function 'getCC' gets a charting constant for the data with a balanced one-way random effects model.
 }
 \author{ Yuhui Yao, Subha Chakraborti.
 
