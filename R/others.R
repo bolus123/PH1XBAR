@@ -64,27 +64,3 @@ d2.f <- function(n){
 }
 
 #############################################################################################
-
-ub.cons.f <- function(nu, ub.option) {
-
-    if (ub.option == 'c4') {
-        ub.cons <- c4.f(nu)
-    } else if (ub.option == 'd2') {
-        ub.cons <- d2.f(2)
-    } else {
-        ub.cons <- 1
-    }
-        
-    ub.cons
-        
-}
-
-
-corr.f <- function(m, off.diag = - 1 / (m - 1)){
-                                                                                   #correlation matrix
-    crr <- diag(m)
-    crr[which(crr == 0)] <- off.diag
-
-    crr
-
-}

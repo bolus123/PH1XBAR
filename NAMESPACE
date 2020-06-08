@@ -1,12 +1,9 @@
 import('mvtnorm')
 
-importFrom("stats", "dchisq", "pnorm", "qchisq", "qnorm", "runif")
+importFrom("stats", "qt", "dchisq", "pnorm", "qchisq", "qnorm", "runif")
 importFrom("graphics", "axis", "plot", "points", "text")
 importFrom("stats", "var")
 importFrom("stats", "dnorm", "integrate", "rchisq", "uniroot")
 
-export('getCC.mvn.MC')
-export('getCC.mvn')
-export('getCC.mvt')
 export('getCC')
 export('PH1XBAR')

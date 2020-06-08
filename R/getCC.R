@@ -1,55 +1,30 @@
 getCC <- function(
-            m
-            ,nu = m - 1
-            ,FAP = 0.1
-            ,off.diag = -1/(m - 1)
-            #,alternative = '2-sided'
-            ,var.est = 'MS'
-            ,ub.option = TRUE
-            ,maxiter = 10000
-            ,ub.lower = 1e-6
-            ,indirect.interval = c(1, 7)
-            ,indirect.subdivisions = 100L
-            ,indirect.tol = .Machine$double.eps^0.25
-
+            FAP0
+			,m
+			,var.est = c('S', 'MR')
+			,ubCons = 1 
+			,method = c('exact', 'BA')
+			,interval = c(1, 5)
+            ,nsim = 10000
+			,seed = 12345
+			,nu = m - 1 
+			,lambda = 1
 
 ){
-    alternative = '2-sided'                                                   #turn off the alternative
-                                                  #The purpose of this function is to obtain L and K
-                                                    #by multivariate T or multivariate normal.
-                                                    #Multivariate normal is so time-consuming
-                                                    #that I do not recommend.
-
-
+   
     
-    
-    if (var.est == 'MS') {
+	var.est <- var.est[1]
+	method <- method[1]
+	
+    if (method == 'exact') {
         
-        getCC.mvt(
-                    m = m
-                    ,nu = nu
-                    ,FAP = FAP
-                    ,off.diag = off.diag
-                    ,ub.option = ub.option
-                    ,maxiter = maxiter
-        )
+		getCC.exact(FAP0 = FAP0, interval = interval, m = m, est = var.est, ubCons = ubCons, 
+                         nsim = nsim, seed = seed)
     
-    } else if (var.est == 'MR') {
+    } else if (method == 'BA') {
     
-        getCC.mvn(
-            m = m
-            ,nu = nu
-            ,FAP = FAP
-            ,off.diag = off.diag
-            ,var.est = var.est
-            ,ub.option = ub.option
-            ,ub.lower = ub.lower
-            ,interval = indirect.interval
-            ,subdivisions = indirect.subdivisions
-            ,maxiter = maxiter
-            ,tol = indirect.tol
-        )
-        
+		getCC.BA(FAP0 = FAP0, m = m, nu = nu, ubCons = ubCons, lambda = lambda)
+   
     } else {
     
         stop('Unexpected variance estimator. The program will stop.')

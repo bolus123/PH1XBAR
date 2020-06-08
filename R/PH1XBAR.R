@@ -1,94 +1,92 @@
 PH1XBAR <- function(
-    X
-    ,c.i = NULL
-		,FAP = 0.1
-		,off.diag = -1/(m - 1)
-    ,var.est = 'MS'
-    ,ub.option = TRUE
-		,plot.option = TRUE
-		,maxiter = 10000
-    ,ub.lower = 1e-6
-		,indirect.interval = c(1, 7)
-		,indirect.subdivisions = 100L
-		,indirect.tol = .Machine$double.eps^0.25
+  X
+  ,cc = NULL
+  ,FAP0 = 0.1
+  ,off.diag = -1/(m - 1)
+  ,var.est = c('S', 'MR')
+  ,ub.option = TRUE
+  ,method = c('exact', 'BA')
+  ,plot.option = TRUE
+  ,interval = c(1, 5)
+  ,nsim = 10000 
+  ,seed = 12345
 ) {
-
-    alternative = '2-sided'                                                   #turn off the alternative
-
-
-	m <- dim(X)[1]
-	n <- dim(X)[2]
-
-	X.bar <- rowMeans(X)
-
-	X.bar.bar <- mean(X.bar)
-
-    ub.cons <- 1
+  
+  var.est <- var.est[1]
+  method <- method[1]
+  
+  m <- dim(X)[1]
+  n <- dim(X)[2]
+  
+  X.bar <- rowMeans(X)
+  
+  X.bar.bar <- mean(X.bar)
+  
+  ubCons <- 1
+  
+  
+  if (var.est == 'S'){
     
-    if (ub.option == TRUE) {
+    nu <- m - 1
+    lambda <- 1
     
-        if (var.est == 'MS'){
-        
-            nu <- m - 1
-        
-            ub.cons <- ub.cons.f(nu, 'c4')
-            
-            sigma.v <- sqrt(var(X.bar)) / ub.cons
-        
-        } else if (var.est == 'MR') {
-        
-            pars <- pars.root.finding(m - 1, 2, lower = ub.lower) 
-            
-            nu <- pars[1]
-        
-            ub.cons <- ub.cons.f(nu, 'd2')
-            
-            sigma.v <- mean(abs(X.bar[2:m] - X.bar[1:(m - 1)])) / ub.cons
-        
-        }
+    ubCons <- ifelse(ub.option == TRUE, c4.f(nu), 1)
     
-    }
-
-    if (is.null(c.i)) {
-         c.i <- getCC(
-            m = m
-            ,nu = nu
-            ,FAP = FAP
-            ,off.diag = off.diag
-            #,alternative = '2-sided'
-            ,ub.option = ub.option
-            ,maxiter = maxiter
-            ,var.est = var.est
-            ,ub.lower = ub.lower
-            ,indirect.interval = indirect.interval
-            ,indirect.subdivisions = indirect.subdivisions
-            ,indirect.tol = indirect.tol
-        )$c.i
-    } else {
-
-            c.i <- c.i
-
-    }
-
-	LCL <- X.bar.bar - c.i * sigma.v
-	UCL <- X.bar.bar + c.i * sigma.v
-
-	if (plot.option == TRUE){
-
-		plot(c(1, m), c(LCL, UCL), xaxt = "n", xlab = 'Subgroup', ylab = 'Sample Mean', type = 'n')
-
-		axis(side = 1, at = 1:m)
-
-		points(1:m, X.bar, type = 'o')
-		points(c(-1, m + 2), c(LCL, LCL), type = 'l', col = 'red')
-		points(c(-1, m + 2), c(UCL, UCL), type = 'l', col = 'red')
-		points(c(-1, m + 2), c(X.bar.bar, X.bar.bar), type = 'l', col = 'blue')
-		text(round(m * 0.8), UCL, paste('UCL = ', round(UCL, 4)), pos = 1)
-		text(round(m * 0.8), LCL, paste('LCL = ', round(LCL, 4)), pos = 3)
-
-
-	}
-
-	list(CL = X.bar.bar, sigma = sigma.v, PH1.cc = c.i, m = m, nu = nu, LCL = LCL, UCL = UCL, CS = X.bar)
-
+    sigma.v <- sqrt(var(X.bar)) / ubCons
+    
+  } else if (var.est == 'MR') {
+    
+    pars <- pars.root.finding(m - 1, 2, lower = 1e-6) 
+    
+    nu <- pars[1]
+    lambda <- pars[2]
+    
+    ubCons <- ifelse(ub.option == TRUE, 1.128, 1)
+    
+    sigma.v <- mean(abs(diff(X.bar))) / ubCons
+    
+  }
+  
+  
+  if (is.null(cc)) {
+    cc <- getCC(
+      FAP0 = FAP0
+      ,m = m
+      ,var.est = var.est
+      ,ubCons = ubCons 
+      ,method = method
+      ,interval = interval
+      ,nsim = nsim
+      ,seed = seed
+      ,nu = nu 
+      ,lambda = lambda
+      
+    )
+  } else {
+    
+    cc <- cc
+    
+  }
+  
+  LCL <- X.bar.bar - cc * sigma.v
+  UCL <- X.bar.bar + cc * sigma.v
+  
+  if (plot.option == TRUE){
+    
+    plot(c(1, m), c(LCL, UCL), xaxt = "n", xlab = 'Subgroup', ylab = 'Sample Mean', type = 'n')
+    
+    axis(side = 1, at = 1:m)
+    
+    points(1:m, X.bar, type = 'o')
+    points(c(-1, m + 2), c(LCL, LCL), type = 'l', col = 'red')
+    points(c(-1, m + 2), c(UCL, UCL), type = 'l', col = 'red')
+    points(c(-1, m + 2), c(X.bar.bar, X.bar.bar), type = 'l', col = 'blue')
+    text(round(m * 0.8), UCL, paste('UCL = ', round(UCL, 4)), pos = 1)
+    text(round(m * 0.8), LCL, paste('LCL = ', round(LCL, 4)), pos = 3)
+    
+    
+  }
+  
+  list(CL = X.bar.bar, sigma = sigma.v, PH1.cc = cc, m = m, nu = nu, lambda = lambda, LCL = LCL, UCL = UCL, CS = X.bar)
+  
 }
