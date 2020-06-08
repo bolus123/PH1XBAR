@@ -32,8 +32,8 @@ PH1XBAR(grinder_data)
 Notice that the variance estimator in the control chart must be MS or MR. Also, PH1XBAR provides a function to get the corrected charting constant as follows
 
 ``` r
-# MS-based estimator involved
-getCC(m = 30, nu = 29, var.est = 'MS')
+# S-based estimator involved
+getCC(m = 30, var.est = 'S')
 
 # MR-based estimator involved
 getCC(m = 30, var.est = 'MR')
