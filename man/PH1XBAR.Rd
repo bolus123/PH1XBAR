@@ -32,7 +32,15 @@ Build a Phase I Shewhart X-bar control chart with a variance component model. Th
 }
 \examples{
 %\dontrun{
+
+# load the data in the package as an example
 data(grinder_data)
-PH1XBAR(grinder_data, nsim = 1000)
+
+# An example using the default setting whose FAP0 = 0.1
+PH1XBAR(grinder_data)
+
+# An example for FAP0 = 0.05
+PH1XBAR(grinder_data, FAP0 = 0.05)
+
 %}
 }

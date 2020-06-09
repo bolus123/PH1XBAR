@@ -34,10 +34,13 @@ Obtain a corrected charting constant.
 \examples{
 %\dontrun{
 # S-based estimator involved
-getCC(FAP0 = 0.1, m = 20, var.est = 'S', nsim = 1000)
+getCC(FAP0 = 0.1, m = 20, var.est = 'S')
 
 # MR-based estimator involved
-getCC(FAP0 = 0.1, m = 20, var.est = 'MR', nsim = 1000)
+getCC(FAP0 = 0.05, m = 20, var.est = 'MR')
+
+# Calculate the charting constant using the BA method
+getCC(FAP0 = 0.05, m = 20, method = 'BA')
 
 %}
 }
