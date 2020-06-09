@@ -18,9 +18,9 @@ For Mac and Linux users, please follow the instruction: https://www.r-project.or
 
 ## Install from local
 
-Users can also download our release from our homepage on Github and then install it from your local path as follows
+Users can also download our release, PH1XBAR_x.y.z.tar.gz, from our homepage on Github and then install it from your local path as follows
 ``` r
-install.packages('path_to_file', repos = NULL, type="source")
+install.packages('path_to_file/PH1XBAR_x.y.z.tar.gz', repos = NULL, type="source")
 ```
 
 
