@@ -22,6 +22,12 @@ install.packages('path_to_file', repos = NULL, type="source")
 
 # Usage
 
+Before using any functions, PH1XBAR may need to be loaded in R
+
+``` r
+library(PH1XBAR)
+```
+
 PH1XBAR provides a function to build Phase I X-bar chart with variance components model as follows
 
 ``` r
@@ -29,7 +35,7 @@ data(grinder_data)
 PH1XBAR(grinder_data)
 ```
 
-Notice that the variance estimator in the control chart must be MS or MR. Also, PH1XBAR provides a function to get the corrected charting constant as follows
+Notice that the variance estimator in the control chart must be S or MR. Also, PH1XBAR provides a function to get the corrected charting constant as follows
 
 ``` r
 # S-based estimator involved
