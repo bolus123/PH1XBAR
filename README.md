@@ -12,6 +12,8 @@ install.packages("devtools")
 devtools::install_github("bolus123/PH1XBAR")
 ```
 
+Note that Rtools may need to be installed in advance.  The detailed instruction is introduced on CRAN: https://cran.r-project.org/bin/windows/Rtools/
+
 ## Install from local
 
 Users can also download our release on Github and then install it from your local path as follows
