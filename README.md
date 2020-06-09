@@ -12,7 +12,7 @@ install.packages("devtools")
 devtools::install_github("bolus123/PH1XBAR")
 ```
 
-Note that for Windows users,  Rtools may need to be installed in advance.  The detailed instruction is introduced: https://cran.r-project.org/bin/windows/Rtools/
+Note that for Windows users,  Rtools may need to be installed in advance.  Please choose the right version of Rtools which is corresponding to your R and Rstudio.  The detailed instruction is introduced: https://cran.r-project.org/bin/windows/Rtools/
 
 For Mac and Linux users, please follow the instruction: https://www.r-project.org/nosvn/pandoc/devtools.html
 
