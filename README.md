@@ -22,7 +22,7 @@ install.packages('path_to_file', repos = NULL, type="source")
 
 # Usage
 
-Before using any functions, PH1XBAR may need to be loaded in R
+Before using any functions, PH1XBAR may need to be loaded into R
 
 ``` r
 library(PH1XBAR)
