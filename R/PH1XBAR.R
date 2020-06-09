@@ -86,6 +86,6 @@ PH1XBAR <- function(
     
   }
   
-  list(CL = X.bar.bar, sigma = sigma.v, PH1.cc = cc, m = m, nu = nu, lambda = lambda, LCL = LCL, UCL = UCL, CS = X.bar)
+  list(CL = X.bar.bar, var.est = sigma.v * ubCons, ubCons = ubCons, cc = cc, m = m, nu = nu, lambda = lambda, LCL = LCL, UCL = UCL, CS = X.bar)
   
 }
