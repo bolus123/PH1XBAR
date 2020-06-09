@@ -3,15 +3,15 @@
 \title{Build Phase I X-bar control chart with a corrected charting constant}
 \usage{
 PH1XBAR(
-    X
-    ,cc = NULL
-    ,FAP0 = 0.1
-    ,var.est = c('S', 'MR')
-    ,ub.option = TRUE
+	X
+	,cc = NULL
+	,FAP0 = 0.1
+	,var.est = c('S', 'MR')
+	,ub.option = TRUE
 	,method = c('exact', 'BA')
-    ,plot.option = TRUE
-    ,interval = c(1, 5)
-    ,nsim = 10000 
+	,plot.option = TRUE
+	,interval = c(1, 5)
+	,nsim = 10000 
 	,seed = 12345
 )
 }
