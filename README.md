@@ -1,5 +1,8 @@
 # Overview
-The purpose of PH1XBAR is to build a Phase I Shewhart X-bar control chart with vairance components model in R.
+The purpose of PH1XBAR is to build two types of Phase I Shewhart control charts:  
+One, a Phase I Shewhart X-bar control chart with a balanced one-way random effects model. (Phase I Process Monitoring: The Case of the Balanced One-Way Random Effects Model, QREI, under revision)  
+
+Two, a Phase I Shewhart individual control chart for the iid case. (Phase I Monitoring of Individual Normal Data: Design and Implementation, QE, under revision)
 
 # Installation
 
