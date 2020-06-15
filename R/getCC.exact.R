@@ -59,7 +59,7 @@ getCC.exact.n <- function(FAP0, interval = c(1, 5), n, est = c('S', 'MR'), ubCon
   root.finding <- function(c, FAP0, n, est = c('S', 'MR'), ubCons = 1, 
                            nsim = 10000, seed = 12345){
     FAPin <- integralMC(n, c, est, ubCons, nsim, seed)
-    cat('FAPin:', FAPin, ' and c:', c, '\n')
+    cat('FAPin:', FAPin, ' and cc:', c, '\n')
     FAP0 - FAPin
   }
   

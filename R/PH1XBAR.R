@@ -72,7 +72,9 @@ PH1XBAR <- function(
   
   if (plot.option == TRUE){
     
-    plot(c(1, m), c(LCL, UCL), xaxt = "n", xlab = 'Subgroup', ylab = 'Sample Mean', type = 'n')
+	main.text <- paste('Phase I X-bar Chart for FAP0 =', FAP0)
+	
+    plot(c(1, m), c(LCL, UCL), xaxt = "n", xlab = 'Subgroup', ylab = 'Sample Mean', type = 'n', main = main.text)
     
     axis(side = 1, at = 1:m)
     
