@@ -11,7 +11,7 @@
    \item{pos5}{Thickness measurement at Position 5}
 }}
 \usage{
-diamonds
+data(grinder_data)
 }
 \description{
 A dataset containing the thickness in micrometer at different positions in a grinder. The variables are as follows:
