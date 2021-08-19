@@ -32,7 +32,7 @@ getCC(
 Obtain a corrected charting constant.  
 }
 \examples{
-%\dontrun{
+\dontrun{
 # S-based estimator involved
 getCC(FAP0 = 0.1, m = 20, var.est = 'S')
 
@@ -42,5 +42,5 @@ getCC(FAP0 = 0.05, m = 20, var.est = 'MR')
 # Calculate the charting constant using the BA method
 getCC(FAP0 = 0.05, m = 20, method = 'BA')
 
-%}
+}
 }

@@ -10,7 +10,7 @@
    \item{pos4}{Thickness measurement at Position 4}
    \item{pos5}{Thickness measurement at Position 5}
 }}
-\usage{
+\examples{
 data(grinder_data)
 }
 \description{
