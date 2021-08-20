@@ -27,12 +27,12 @@ Champ CW, Jones LA. Designing Phase I X-bar charts with small sample sizes. Qual
 Yao Y, Hilton CW, Chakraborti S. Designing Phase I Shewhart X-bar charts: Extended tables and software. Quality and Reliability Engineering International. 2017;33:2667–2672
 }
 \examples{
-%\dontrun{
+\dontrun{
 
 # Build a Phase I basic Shewhart control chart
 data(grinder_data)
 PH1XBAR(grinder_data)
 
 
-%}
+}
 }

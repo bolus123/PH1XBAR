@@ -4,7 +4,8 @@ Title: Phase I Shewhart X-bar Chart
 Version: 0.9.2
 Authors@R: c(
 				person("Yuhui", "Yao", role = c("aut", "cre"), email = "yyao17@crimson.ua.edu"),
-				person('Subha', 'Chakraborti', role = c('ctb'), email = 'schakrab@cba.ua.edu')
+				person("Subha", "Chakraborti", role = c("ctb"), email = "schakrab@cba.ua.edu"),
+				person("Tyler", "Thomas", role = c("ctb"), email = "tjthomas7@crimson.ua.edu")
 			)
 Maintainer: Yuhui Yao <yyao17@crimson.ua.edu>
 %Author: Yuhui Yao [aut]

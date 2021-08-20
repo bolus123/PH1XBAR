@@ -5,7 +5,7 @@ getCC <- function(
 			,ubCons = 1 
 			,method = c('exact', 'BA')
 			,interval = c(1, 5)
-            ,nsim = 10000
+			,nsim = 10000
 			,seed = 12345
 			,nu = m - 1 
 			,lambda = 1
