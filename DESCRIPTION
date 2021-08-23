@@ -1,15 +1,14 @@
 Package: PH1XBAR
 Type: Package
-Title: Phase I Shewhart X-bar Chart 
-Version: 0.9.2
+Title: Phase I Shewhart X-Bar Chart 
+Version: 0.9.3
 Authors@R: c(
-				person("Yuhui", "Yao", role = c("aut", "cre"), email = "yyao17@crimson.ua.edu"),
+				person("Yuhui", "Yao", role = c("aut", "cre"), email = "yyao17@cba.ua.edu"),
 				person("Subha", "Chakraborti", role = c("ctb"), email = "schakrab@cba.ua.edu"),
 				person("Tyler", "Thomas", role = c("ctb"), email = "tjthomas7@crimson.ua.edu")
 			)
 Maintainer: Yuhui Yao <yyao17@crimson.ua.edu>
-%Author: Yuhui Yao [aut]
-Description: The purpose of PH1XBAR is to build a Phase I Shewhart X-bar control chart with vairance components model in R.
+Description: The purpose of PH1XBAR is to build a Phase I Shewhart X-Bar control chart with variance components model in R. More details can be found: Yao and Chakraborti (2020) <doi: 10.1002/qre.2793>, and Yao and Chakraborti (2021) <doi: 10.1080/08982112.2021.1878220>.
 License: GPL-3 | file LICENSE
 Encoding: UTF-8
 LazyData: true
