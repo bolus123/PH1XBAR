@@ -13,3 +13,7 @@
 #' }
 #' @source Roes, Kit CB, and Ronald JMM Does. "Shewhart-type charts in nonstandard situations." Technometrics 37.1 (1995): 15-24
 "grinder_data"
+
+
+#' @source Woodall, William H. "Controversies and contradictions in statistical process control." Journal of quality technology 32.4 (2000): 341-350.
+"bore_diameter_data"
