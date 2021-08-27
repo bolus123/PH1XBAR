@@ -35,7 +35,10 @@ Obtain a corrected charting constant.
 }
 \examples{
 
-# Using the BA method, calculate the charting constant with a 0.05 false alarm probability
-getCC(FAP0 = 0.05, m = 20, method = 'BA')
+# Using the BA method and mean-square-based estimator, calculate the charting constant with a 0.05 false alarm probability
+getCC(FAP0 = 0.05, m = 20, method = 'BA', var.est='S')
+
+# Using the BA method and moving-range-based estimator, calculate the charting constant with a 0.05 false alarm probability
+getCC(FAP0 = 0.05, m = 20, method = 'BA', var.est='MR')
 
 }
