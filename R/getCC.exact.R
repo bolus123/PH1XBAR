@@ -37,7 +37,7 @@ integrandMRBar <- function(Z, n, c, ubCons = 1) {
 }
 
 integralMC <- function(n, c, est = c('S', 'MR'), ubCons = 1, nsim = 10000, seed = 12345) {
-  set.seed(12345)
+  set.seed(seed)
   
   sigmaMat <- sigmaMatF(n)
   
