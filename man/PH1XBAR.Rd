@@ -27,6 +27,19 @@ PH1XBAR(
   \item{nsim}{ number of simulation for the exact method }
   \item{seed}{ random seed for the exact method }
 }
+\value{
+Object of type list. A named list with the following objects:
+  \item{CL}{Object type double - central line}
+  \item{var.est}{Object type double - variance estimate}
+  \item{ubCons}{Object type double - unbiasing constant}
+  \item{cc}{Object type double - charting constant}
+  \item{m}{Object type integer - number of observations}
+  \item{nu}{Object type integer - degrees of freedom}
+  \item{lambda}{Object type integer - chi-squared unbiasing constant}
+  \item{LCL}{Object type double - lower charting limit}
+  \item{UCL}{Object type double - upper charting limit}
+  \item{CS}{Object type double - charting statistic}
+}
 \description{
 Build a Phase I Shewhart X-bar control chart with a variance component model. The charting constant is correted by this approach.
 }
