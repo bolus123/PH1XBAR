@@ -45,10 +45,12 @@ Build a Phase I Shewhart X-bar control chart with a variance component model. Th
 }
 \examples{
 
+set.seed(12345)
+
 # load the data in the package as an example
 data(grinder_data)
 
-# An example using a false alarm probability of 0.05, and the Bonfferoni approximation
-PH1XBAR(grinder_data, FAP0 = 0.05, method='BA')
+# An example using a false alarm probability of 0.05, and 10 simulations
+PH1XBAR(grinder_data, FAP0 = 0.05, nsim=10)
 
 }

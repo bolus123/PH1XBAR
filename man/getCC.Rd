@@ -35,10 +35,12 @@ Obtain a corrected charting constant.
 }
 \examples{
 
-# Calculate the charting constant using the BA method and mean-square-based estimator
-getCC(FAP0 = 0.05, m = 20, method = 'BA', var.est='S')
+set.seed(12345)
 
-# Calculate the charting constant using the BA method and moving-range-based estimator
-getCC(FAP0 = 0.05, m = 20, method = 'BA', var.est='MR')
+# Calculate the charting constant using 10 simulations and mean-square-based estimator
+getCC(FAP0=0.05, m=20, nsim=10, var.est='S')
+
+# Calculate the charting constant using 10 simulations and moving-range-based estimator
+getCC(FAP0=0.05, m=20, nsim=10, var.est='MR')
 
 }

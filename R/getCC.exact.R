@@ -36,8 +36,7 @@ integrandMRBar <- function(Z, n, c, ubCons = 1) {
   
 }
 
-integralMC <- function(n, c, est = c('S', 'MR'), ubCons = 1, nsim = 10000, seed = 12345) {
-  set.seed(seed)
+integralMC <- function(n, c, est = c('S', 'MR'), ubCons = 1, nsim = 10000) {
   
   sigmaMat <- sigmaMatF(n)
   
@@ -58,7 +57,7 @@ getCC.exact.n <- function(FAP0, interval = c(1, 5), n, est = c('S', 'MR'), ubCon
   
   root.finding <- function(c, FAP0, n, est = c('S', 'MR'), ubCons = 1, 
                            nsim = 10000, seed = 12345){
-    FAPin <- integralMC(n, c, est, ubCons, nsim, seed)
+    FAPin <- integralMC(n, c, est, ubCons, nsim)
     cat('FAPin:', FAPin, ' and cc:', c, '\n')
     FAP0 - FAPin
   }
