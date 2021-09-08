@@ -12,7 +12,6 @@ PH1XBAR(
 	,plot.option = TRUE
 	,interval = c(1, 5)
 	,nsim = 10000 
-	,seed = 12345
 )
 }
 \arguments{
@@ -25,7 +24,6 @@ PH1XBAR(
   \item{plot.option}{TRUE - draw a plot for the process; FALSE - Not draw a plot for the process}
   \item{interval}{ searching range of charting constants for the exact method }
   \item{nsim}{ number of simulation for the exact method }
-  \item{seed}{ random seed for the exact method }
 }
 \value{
 Object of type list. A named list with the following objects:

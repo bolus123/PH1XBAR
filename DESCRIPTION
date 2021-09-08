@@ -1,7 +1,7 @@
 Package: PH1XBAR
 Type: Package
 Title: Phase I Shewhart X-Bar Chart 
-Version: 0.9.3
+Version: 0.9.4
 Authors@R: c(
 				person("Yuhui", "Yao", role = c("aut", "cre"), email = "yyao17@cba.ua.edu"),
 				person("Subha", "Chakraborti", role = c("ctb"), email = "schakrab@cba.ua.edu"),
@@ -12,5 +12,5 @@ Description: The purpose of 'PH1XBAR' is to build a Phase I Shewhart X-Bar contr
 License: GPL-3 | file LICENSE
 Encoding: UTF-8
 LazyData: true
-Depends: R (>= 3.3.0), mvtnorm
+Depends: R (>= 3.5.0), mvtnorm
 URL: https://github.com/bolus123/PH1XBAR

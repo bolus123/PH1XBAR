@@ -6,7 +6,6 @@ getCC <- function(
 			,method = c('exact', 'BA')
 			,interval = c(1, 5)
 			,nsim = 10000
-			,seed = 12345
 			,nu = m - 1 
 			,lambda = 1
 
@@ -18,7 +17,7 @@ getCC <- function(
   if (method == 'exact') {
       
     getCC.exact(FAP0 = FAP0, interval = interval, m = m, est = var.est, 
-                ubCons = ubCons, nsim = nsim, seed = seed)
+                ubCons = ubCons, nsim = nsim)
   
   } else if (method == 'BA') {
   

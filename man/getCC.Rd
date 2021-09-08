@@ -10,7 +10,6 @@ getCC(
 	,method = c('exact', 'BA')
 	,interval = c(1, 5)
 	,nsim = 10000 
-	,seed = 12345
 	,nu = m - 1 
 	,lambda = 1
 )
@@ -23,7 +22,6 @@ getCC(
   \item{method}{ 'exact' - calculate results using the exact method, 'BA' - calculate results using the Bonfferoni approximation }
   \item{interval}{ searching range of charting constants for the exact method }
   \item{nsim}{ number of simulation for the exact method }
-  \item{seed}{ random seed for the exact method }
   \item{nu}{ degrees of freedom for the Bonfferoni approximation}
   \item{lambda}{ constant for the Bonfferoni approximation }
 }

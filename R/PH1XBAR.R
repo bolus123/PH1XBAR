@@ -8,7 +8,6 @@ PH1XBAR <- function(
   ,plot.option = TRUE
   ,interval = c(1, 5)
   ,nsim = 10000 
-  ,seed = 12345
 ) {
   
   var.est <- var.est[1]
@@ -56,7 +55,6 @@ PH1XBAR <- function(
       ,method = method
       ,interval = interval
       ,nsim = nsim
-      ,seed = seed
       ,nu = nu 
       ,lambda = lambda
       
