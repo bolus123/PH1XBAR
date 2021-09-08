@@ -27,20 +27,30 @@ PH1XBAR(
   \item{nsim}{ number of simulation for the exact method }
   \item{seed}{ random seed for the exact method }
 }
+\value{
+Object of type list. A named list with the following objects:
+  \item{CL}{Object type double - central line}
+  \item{var.est}{Object type double - variance estimate}
+  \item{ubCons}{Object type double - unbiasing constant}
+  \item{cc}{Object type double - charting constant}
+  \item{m}{Object type integer - number of observations}
+  \item{nu}{Object type integer - degrees of freedom}
+  \item{lambda}{Object type integer - chi-squared unbiasing constant}
+  \item{LCL}{Object type double - lower charting limit}
+  \item{UCL}{Object type double - upper charting limit}
+  \item{CS}{Object type double - charting statistic}
+}
 \description{
 Build a Phase I Shewhart X-bar control chart with a variance component model. The charting constant is correted by this approach.
 }
 \examples{
-\dontrun{
+
+set.seed(12345)
 
 # load the data in the package as an example
 data(grinder_data)
 
-# An example using the default setting whose FAP0 = 0.1
-PH1XBAR(grinder_data)
+# An example using a false alarm probability of 0.05, and 10 simulations
+PH1XBAR(grinder_data, FAP0 = 0.05, nsim=10)
 
-# An example for FAP0 = 0.05
-PH1XBAR(grinder_data, FAP0 = 0.05)
-
-}
 }

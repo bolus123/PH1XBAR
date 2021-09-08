@@ -26,21 +26,21 @@ getCC(
   \item{seed}{ random seed for the exact method }
   \item{nu}{ degrees of freedom for the Bonfferoni approximation}
   \item{lambda}{ constant for the Bonfferoni approximation }
-
+}
+\value{
+Object type double. The corrected charting constant. 
 }
 \description{
 Obtain a corrected charting constant.  
 }
 \examples{
-\dontrun{
-# S-based estimator involved
-getCC(FAP0 = 0.1, m = 20, var.est = 'S')
 
-# MR-based estimator involved
-getCC(FAP0 = 0.05, m = 20, var.est = 'MR')
+set.seed(12345)
 
-# Calculate the charting constant using the BA method
-getCC(FAP0 = 0.05, m = 20, method = 'BA')
+# Calculate the charting constant using 10 simulations and mean-square-based estimator
+getCC(FAP0=0.05, m=20, nsim=10, var.est='S')
 
-}
+# Calculate the charting constant using 10 simulations and moving-range-based estimator
+getCC(FAP0=0.05, m=20, nsim=10, var.est='MR')
+
 }
