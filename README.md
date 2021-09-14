@@ -8,9 +8,17 @@ The purpose of PH1XBAR is to build two types of Phase I Shewhart control charts:
 
 # Installation
 
+## Install from CRAN
+
+PH1XBAR is published on CRAN, so we recommend users installing it in a regular way as follows
+
+``` r
+install.packages("PH1XBAR")
+```
+
 ## Install from GitHub
 
-PH1XBAR is still under development, so we recommend users installing it through Github as follows
+PH1XBAR is still under development, so if users are more interested in the experimental version, there is an alternative installation through Github as follows
 
 ``` r
 install.packages("devtools")
@@ -23,11 +31,10 @@ For Mac and Linux users, please follow the instruction: https://www.r-project.or
 
 ## Install from local
 
-Users can also download our release, PH1XBAR_x.y.z.tar.gz, from our homepage on Github and then install it from your local path as follows
+Users can also download our release, PH1XBAR_x.y.z.tar.gz, from our homepage on CRAN or Github and then install it from your local path as follows
 ``` r
 install.packages('path_to_file/PH1XBAR_x.y.z.tar.gz', repos = NULL, type="source")
 ```
-
 
 # Usage
 
