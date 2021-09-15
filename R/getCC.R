@@ -34,7 +34,7 @@ getCC <- function(
 
 
 getCC.ARMA <- function(FAP0 = 0.1, interval = c(1, 4), n = 50, mvVec = NULL, order = c(1, 0, 0), phiVec = 0.5, thetaVec = NULL, case = 'U',
-              method = 'Method 3', nsimCoefs = 100, nsimProcess = 1000, burnIn = 50, simType = 'Matrix', logliktol = 1e-2, seed = 12345) {
+              method = 'Method 3', nsimCoefs = 100, nsimProcess = 1000, burnIn = 50, simType = 'Matrix', logliktol = 1e-2) {
 
 
   if (case == 'K') {
@@ -44,7 +44,7 @@ getCC.ARMA <- function(FAP0 = 0.1, interval = c(1, 4), n = 50, mvVec = NULL, ord
     } else {
       if (is.null(mvVec)) {
         out <- getCCPH1ARMASim(FAP0, interval, n, order, phiVec = phiVec, thetaVec = thetaVec, case = case, method = method,
-                               nsim = nsimProcess, burnIn = burnIn, simType = simType, seed = seed)
+                               nsim = nsimProcess, burnIn = burnIn, simType = simType)
       } else {
         out <- getCCPH1ARMASimMissingValue(FAP0, interval, n, mvVec, order, phiVec = phiVec, thetaVec = thetaVec, case = case, method = method,
                                nsim = nsimProcess, burnIn = burnIn, simType = simType, logliktol = logliktol)
@@ -57,7 +57,7 @@ getCC.ARMA <- function(FAP0 = 0.1, interval = c(1, 4), n = 50, mvVec = NULL, ord
       CoefDist <- simCoefDist(n, order, phiVec, thetaVec, method, nsim = nsimCoefs, burnIn = burnIn, simType = simType)
 
       out <- getCCPH1ARMASim(FAP0, interval, n, order, phiVec = CoefDist$phiVec, thetaVec = CoefDist$thetaVec, case = case, method = method,
-                             nsim = nsimProcess, burnIn = burnIn, simType = simType, seed = seed)
+                             nsim = nsimProcess, burnIn = burnIn, simType = simType)
     } else {
 
       CoefDist <- simCoefDistMissingValue(n, mvVec, order, phiVec, thetaVec, method, nsim = nsimCoefs, burnIn = burnIn, tol = logliktol, simType = simType)
