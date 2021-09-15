@@ -7,10 +7,10 @@ PH1ARMA(
 	,cc = NULL
 	,FAP0 = 0.1
 	,order = NULL
-	,method = 'Method 3'
 	,plot.option = TRUE
 	,interval = c(1, 4)
 	,case = 'U'
+  ,method = 'Method 3'
 	,nsimCoefs = 100
 	,nsimProcess = 1000
 	,burnIn = 50
@@ -33,7 +33,6 @@ PH1ARMA(
   \item{burnIn}{ number of burn-ins.  When burnIn = 0, the ECM gets involved.  When burnIn is large enough, the ACM gets involved. }
   \item{simType}{ type of simulation.  When simType = 'Matrix', the simulation is generated using matrix computation.  When simType = 'Recursive', the simulation is based on a recursion. }
   \item{logliktol}{ convergence tolerance for the log likelihood }
-  \item{seed}{ random seed for uniroot }
 }
 \description{
 Build a Phase I individual control chart with an ARMA model. The charting constant is correted by this approach.
@@ -45,7 +44,7 @@ data(chambers_data)
 X <- chambers_data ^ (1/3)
 
 # An example using the default setting whose FAP0 = 0.1
-PH1ARMA(X, nsimCoefs = 100, nsimProcess = 10, nsimCoefs = 10)
+PH1ARMA(X, nsimProcess = 10, nsimCoefs = 10)
 
 # An example using the default setting for FAP0 = 0.05
 PH1ARMA(X, FAP0 = 0.05, nsimProcess = 10, nsimCoefs = 10)
