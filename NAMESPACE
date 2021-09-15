@@ -10,16 +10,5 @@ importFrom("stats", "arima", "arima.sim", "dnorm", "integrate",
 
 export('getCC')
 export('PH1XBAR')
-
-
-
-import('forecast')
-import('pracma')
-
-importFrom("stats", "arima", "arima.sim", "dnorm", "integrate", 
-            "rbeta", "rchisq", "rgamma", "rnorm", "rt", "sd", 
-            "uniroot", "var")
-
-export('getCC')
 export('PH1ARMA')
 
