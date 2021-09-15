@@ -266,7 +266,7 @@ simCoefDist <- function(n, order = c(1, 0, 0), phiVec = 0.5, thetaVec = NULL, me
 simCoefDistMissingValue <- function(n, mvVec = NULL, order = c(1, 0, 0), phiVec = 0.5, thetaVec = NULL, method = 'Method 3',
                         nsim = 100, burnIn = 50, simType = 'Matrix',
                         SigMat = SigmaMat(n, order, phiVec, thetaVec, sigma2 = 1, burnIn = burnIn),
-                        tol = 1e-2,) {
+                        tol = 1e-2) {
 
   outAR <- matrix(NA, nrow = nsim, ncol = order[1])
   outMA <- matrix(NA, nrow = nsim, ncol = order[3])
