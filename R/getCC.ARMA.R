@@ -541,7 +541,7 @@ fapPH1ARMAMissingValue <- function(cc = 3, n = 50, mvVec = NULL, order = c(1, 0,
 
 
 getCCPH1ARMASim <- function(FAP0 = 0.1, interval = c(1, 4), n = 50, order = c(1, 0, 0), phiVec = 0.5, thetaVec = NULL, case = 'U', method = 'Method 3',
-                         nsim = 1000, burnIn = 50, simType = 'Matrix', seed = 12345) {
+                         nsim = 1000, burnIn = 50, simType = 'Matrix') {
 
   root.finding <- function(FAP0, cc, n, order, phiVec, thetaVec, case, method, nsim1, nsim2, burnIn, simType) {
 
@@ -590,7 +590,7 @@ getCCPH1ARMASim <- function(FAP0 = 0.1, interval = c(1, 4), n = 50, order = c(1,
   ##cat('phiVec:', phiVec, 'thetaVec:', thetaVec, sep = ', ')
 
   uniroot(root.finding, interval, FAP0 = FAP0, n = n, order = order, phiVec = phiVec, thetaVec = thetaVec, case = case, method = method,
-          nsim1 = nsim1, nsim2 = nsim, burnIn = burnIn, simType = simType, seed = seed)$root
+          nsim1 = nsim1, nsim2 = nsim, burnIn = burnIn, simType = simType)$root
 
 
 
@@ -648,6 +648,6 @@ getCCPH1ARMASimMissingValue <- function(FAP0 = 0.1, interval = c(1, 4), n = 50, 
   ##cat('phiVec:', phiVec, 'thetaVec:', thetaVec, sep = ', ')
 
   uniroot(root.finding, interval, FAP0 = FAP0, n = n, mvVec = mvVec, order = order, phiVec = phiVec, thetaVec = thetaVec, case = case, method = method,
-          nsim1 = nsim1, nsim2 = nsim, burnIn = burnIn, simType = simType, logliktol = logliktol, seed = seed)$root
+          nsim1 = nsim1, nsim2 = nsim, burnIn = burnIn, simType = simType, logliktol = logliktol)$root
 
 }
