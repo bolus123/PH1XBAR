@@ -15,6 +15,7 @@ PH1ARMA(
 	,nsimProcess = 1000
 	,burnIn = 50
 	,simType = 'Matrix'
+  ,logliktol = 1e-2
 	,seed = 12345
 )
 }
@@ -23,14 +24,15 @@ PH1ARMA(
   \item{cc}{ nominal Phase I charting constant. If this is given, the function will not re-compute the charting constant. }
   \item{FAP0}{ nominal false Alarm Probabilty in Phase I }
   \item{order}{ order for ARMA model }
-  \item{method}{ estimation method for the control chart. When method = 'Method 3' is maximum likehood estimations plus method of moments. Other options are 'Method 1' which is pure MLE and 'Method 2' which is pure CSS. }
   \item{plot.option}{TRUE - draw a plot for the process; FALSE - Not draw a plot for the process}
   \item{interval}{ searching range of charting constants for the exact method }
   \item{case}{ known or unknown case.  When case = 'U', the parameters are estimated }
+  \item{method}{ estimation method for the control chart. When method = 'Method 3' is maximum likehood estimations plus method of moments. Other options are 'Method 1' which is pure MLE and 'Method 2' which is pure CSS. }
   \item{nsimCoefs}{ number of simulation for coeficients.  It is functional when double.sim = TRUE. }
   \item{nsimProcess}{ number of simulation for ARMA processes }
   \item{burnIn}{ number of burn-ins.  When burnIn = 0, the ECM gets involved.  When burnIn is large enough, the ACM gets involved. }
   \item{simType}{ type of simulation.  When simType = 'Matrix', the simulation is generated using matrix computation.  When simType = 'Recursive', the simulation is based on a recursion. }
+  \item{logliktol}{ convergence tolerance for the log likelihood }
   \item{seed}{ random seed for uniroot }
 }
 \description{

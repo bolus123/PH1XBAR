@@ -697,7 +697,7 @@ getCC.ARMA <- function(FAP0 = 0.1, interval = c(1, 4), n = 50, mvVec = NULL, ord
 
 PH1ARMA <- function(X, cc = NULL, FAP0 = 0.1, order = NULL, plot.option = TRUE, interval = c(1, 4),
                     case = 'U', method = 'Method 3', nsimCoefs = 100, nsimProcess = 1000, burnIn = 50, simType = 'Matrix',
-                    iteractive = TRUE, ccReplace = TRUE, logliktol = 1e-2, seed = 12345) {
+                    logliktol = 1e-2, seed = 12345) {
 
   Y <- X
 
