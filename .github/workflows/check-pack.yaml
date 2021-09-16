@@ -70,12 +70,6 @@ jobs:
           key: ${{ matrix.config.os }}-${{ steps.install-r.outputs.installed-r-version }}-2-${{ hashFiles('.github/r-depends.rds') }}
           restore-keys: ${{ matrix.config.os }}-${{ steps.install-r.outputs.installed-r-version }}-2-
 
-      - name: Install system dependencies
-        if: runner.os == 'Linux'
-        run: |
-          PH1XBAR::local_system_requirements(execute = TRUE)
-        shell: Rscript {0}
-
       - name: Session info
         run: |
           options(width = 100)
