@@ -67,15 +67,12 @@ PH1XBAR provides a function to build Phase I individual chart with an ARMA model
 ``` r
 data(chambers_data)
 X <- chambers_data ^ (1/3)
-PH1ARMA(X)
-```
 
-When users get an error message about the size of matrix, the function needs to use the alternative simulation type as follows
+# using the default setting whose FAP0 = 0.1
+PH1ARMA(X, nsimProcess = nsimProcess, nsimCoefs = nsimCoefs)
 
-``` r
-data(chambers_data)
-X <- chambers_data ^ (1/3)
-PH1ARMA(X, FAP0 = 0.05, nsimProcess = nsimProcess, nsimCoefs = nsimCoefs, simType = 'Recursive')
+# using known parameters with FAP0 = 0.1
+PH1ARMA(X, case = 'K', nsimProcess = nsimProcess, nsimCoefs = nsimCoefs)
 ```
 
 Also, PH1XBAR provides a function to get the ARMA corrected charting constant as follows
