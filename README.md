@@ -53,10 +53,29 @@ Notice that the variance estimator in the control chart must be S or MR. Also, P
 
 ``` r
 # S-based estimator involved
-getCC(FAP0 = 0.1, m = 30, var.est = 'S')
+getCC.XBAR(FAP0 = 0.1, m = 30, var.est = 'S')
 
 # MR-based estimator involved
-getCC(FAP0 = 0.1, m = 30, var.est = 'MR')
+getCC.XBAR(FAP0 = 0.1, m = 30, var.est = 'MR')
+```
+
+
+PH1XBAR provides a function to build Phase I individual chart with an ARMA model as follows
+
+``` r
+data(chambers_data)
+X <- chambers_data ^ (1/3)
+PH1ARMA(X)
+```
+
+Also, PH1XBAR provides a function to get the ARMA corrected charting constant as follows
+
+``` r
+# double simulation gets involved if estimators are unknown
+getCC.ARMA(FAP0 = 0.1, double.sim = TRUE)
+
+# single simulation gets involved if estimators are known
+getCC.ARMA(FAP0 = 0.1, double.sim = FALSE)
 ```
 
 More details are on the manual.
