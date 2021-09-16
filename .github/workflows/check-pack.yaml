@@ -73,13 +73,13 @@ jobs:
       - name: Install system dependencies
         if: runner.os == 'Linux'
         run: |
-          pak::local_system_requirements(execute = TRUE)
+          PH1XBAR::local_system_requirements(execute = TRUE)
         shell: Rscript {0}
 
       - name: Install dependencies
         run: |
-          pak::local_install_dev_deps(upgrade = TRUE)
-          pak::pkg_install("local::.")
+          PH1XBAR::local_install_dev_deps(upgrade = TRUE)
+          PH1XBAR::pkg_install("local::.")
         shell: Rscript {0}
 
       - name: Session info
