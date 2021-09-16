@@ -1,8 +1,10 @@
 # Overview
-The purpose of PH1XBAR is to build two types of Phase I Shewhart control charts:  
+The purpose of PH1XBAR is to build three types of Phase I Shewhart control charts:  
 1. Phase I Shewhart X-bar control chart with a balanced one-way random effects model (doi:10.1002/qre.2793). 
 
 2. Phase I Shewhart individual control chart for the iid case (doi:10.1080/08982112.2021.1878220). 
+
+3. Phase I individual control chart with an ARMA model.  
 
 # Installation
 
@@ -57,6 +59,30 @@ getCC.XBAR(FAP0 = 0.1, m = 30, var.est = 'S')
 
 # MR-based estimator involved
 getCC.XBAR(FAP0 = 0.1, m = 30, var.est = 'MR')
+```
+
+
+PH1XBAR provides a function to build Phase I individual chart with an ARMA model as follows
+
+``` r
+data(chambers_data)
+X <- chambers_data ^ (1/3)
+
+# using the default setting whose FAP0 = 0.1
+PH1ARMA(X, nsimProcess = nsimProcess, nsimCoefs = nsimCoefs)
+
+# using known parameters with FAP0 = 0.1
+PH1ARMA(X, case = 'K', nsimProcess = nsimProcess, nsimCoefs = nsimCoefs)
+```
+
+Also, PH1XBAR provides a function to get the ARMA corrected charting constant as follows
+
+``` r
+# double simulation gets involved if estimators are unknown
+getCC.ARMA(FAP0 = 0.1, double.sim = TRUE)
+
+# single simulation gets involved if estimators are known
+getCC.ARMA(FAP0 = 0.1, double.sim = FALSE)
 ```
 
 More details are on the manual.
