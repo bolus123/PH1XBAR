@@ -57,8 +57,8 @@ jobs:
 
       - name: Install pak and query dependencies
         run: |
-          install.packages("pak", repos = "https://r-lib.github.io/p/pak/dev/")
-          saveRDS(pak::pkg_deps("local::.", dependencies = TRUE), ".github/r-depends.rds")
+          install.packages("devtools")
+          devtools::install_github("tylerjthomas9/PH1XBAR")
         shell: Rscript {0}
 
       - name: Restore R package cache
@@ -97,12 +97,7 @@ jobs:
           options(rcmdcheck.test_output = TRUE)
           rcmdcheck::rcmdcheck(args = c("--no-manual", "--as-cran"), error_on = "warning", check_dir = "check")
         shell: Rscript {0}
-
-      - name: Show testthat output
-        if: always()
-        run: find check -name 'testthat.Rout*' -exec cat '{}' \; || true
-        shell: bash
-
+        
       - name: Upload check results
         if: failure()
         uses: actions/upload-artifact@main
