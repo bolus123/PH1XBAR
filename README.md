@@ -70,6 +70,14 @@ X <- chambers_data ^ (1/3)
 PH1ARMA(X)
 ```
 
+When users get an error message about the size of matrix, the function needs to use the alternative simulation type as follows
+
+``` r
+data(chambers_data)
+X <- chambers_data ^ (1/3)
+PH1ARMA(X, FAP0 = 0.05, nsimProcess = nsimProcess, nsimCoefs = nsimCoefs, simType = 'Recursive')
+```
+
 Also, PH1XBAR provides a function to get the ARMA corrected charting constant as follows
 
 ``` r
