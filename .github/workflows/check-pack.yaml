@@ -50,11 +50,6 @@ jobs:
           r-version: ${{ matrix.config.r }}
           http-user-agent: ${{ matrix.config.http-user-agent }}
 
-      - name: Install TinyTeX
-        uses: r-lib/actions/setup-tinytex@v1
-
-      - uses: r-lib/actions/setup-pandoc@v1
-
       - name: Install PH1XBAR and query dependencies
         run: |
           install.packages("devtools")
