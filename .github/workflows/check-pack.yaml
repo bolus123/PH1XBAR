@@ -55,7 +55,7 @@ jobs:
 
       - uses: r-lib/actions/setup-pandoc@v1
 
-      - name: Install pak and query dependencies
+      - name: Install PH1XBAR and query dependencies
         run: |
           install.packages("devtools")
           devtools::install_github("tylerjthomas9/PH1XBAR")
@@ -66,7 +66,7 @@ jobs:
         with:
           path: |
             ${{ env.R_LIBS_USER }}/*
-            !${{ env.R_LIBS_USER }}/pak
+            !${{ env.R_LIBS_USER }}/PH1XBAR
           key: ${{ matrix.config.os }}-${{ steps.install-r.outputs.installed-r-version }}-2-${{ hashFiles('.github/r-depends.rds') }}
           restore-keys: ${{ matrix.config.os }}-${{ steps.install-r.outputs.installed-r-version }}-2-
 
