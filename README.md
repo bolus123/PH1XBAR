@@ -1,3 +1,9 @@
+[![R build
+status](https://github.com/tylerjthomas9/PH1XBAR/workflows/R-CMD-check/badge.svg)](https://github.com/tylerjthomas9/PH1XBAR/actions)
+[![](http://www.r-pkg.org/badges/version/PH1XBAR)](http://www.r-pkg.org/pkg/PH1XBAR)
+[![CRAN RStudio mirror
+downloads](http://cranlogs.r-pkg.org/badges/PH1XBAR)](http://www.r-pkg.org/pkg/PH1XBAR)
+
 # Overview
 The purpose of PH1XBAR is to build three types of Phase I Shewhart control charts:  
 1. Phase I Shewhart X-bar control chart with a balanced one-way random effects model (doi:10.1002/qre.2793). 
