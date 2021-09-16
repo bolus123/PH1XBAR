@@ -53,12 +53,12 @@ integralMC <- function(n, c, est = c('S', 'MR'), ubCons = 1, nsim = 10000) {
 }
 
 getCC.exact.n <- function(FAP0, interval = c(1, 5), n, est = c('S', 'MR'), ubCons = 1, 
-                         nsim = 10000) {
+                         nsim = 10000, verbose=FALSE) {
   
   root.finding <- function(c, FAP0, n, est = c('S', 'MR'), ubCons = 1, 
                            nsim = 10000){
     FAPin <- integralMC(n, c, est, ubCons, nsim)
-    cat('FAPin:', FAPin, ' and cc:', c, '\n')
+    if (verbose) {cat('FAPin:', FAPin, ' and cc:', c, '\n')}
     FAP0 - FAPin
   }
   
@@ -70,11 +70,11 @@ getCC.exact.n <- function(FAP0, interval = c(1, 5), n, est = c('S', 'MR'), ubCon
 }
 
 getCC.exact <- function(FAP0, interval = c(1, 5), m, est = c('S', 'MR'), ubCons = 1, 
-                         nsim = 10000) {
+                         nsim = 10000, verbose=FALSE) {
 		
 	est <- est[1]
 		
 	getCC.exact.n(FAP0, interval, m, est = est, ubCons = ubCons, 
-                         nsim = nsim)
+                         nsim = nsim, verbose=verbose)
 		
 }

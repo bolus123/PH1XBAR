@@ -42,20 +42,15 @@ Build a Phase I individual control chart with an ARMA model. The charting consta
 data(chambers_data)
 X <- chambers_data ^ (1/3)
 
+# set number of simulations
+nsimProcess <- 10
+nsimCoefs <- 10
+
 # An example using the default setting whose FAP0 = 0.1
-PH1ARMA(X, nsimProcess = 10, nsimCoefs = 10)
-
-# An example using the default setting for FAP0 = 0.05
-PH1ARMA(X, FAP0 = 0.05, nsimProcess = 10, nsimCoefs = 10)
-
-# An example using known parameters with FAP0 = 0.1
-PH1ARMA(X, case = 'K', nsimProcess = 10, nsimCoefs = 10)
-
-# An example using the single simualtion with FAP0 = 0.05
-PH1ARMA(X, FAP0 = 0.05, case = 'K', nsimProcess = 10, nsimCoefs = 10)
+PH1ARMA(X, nsimProcess = nsimProcess, nsimCoefs = nsimCoefs)
 
 # When users get an error message about the size of matrix,
 # the function needs to use the alternative simulation type as follows
-PH1ARMA(X, FAP0 = 0.05, nsimProcess = 10, nsimCoefs = 10, simType = 'Recursive')
+PH1ARMA(X, FAP0 = 0.05, nsimProcess = nsimProcess, nsimCoefs = nsimCoefs, simType = 'Recursive')
 
 }

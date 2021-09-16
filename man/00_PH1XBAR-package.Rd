@@ -16,7 +16,9 @@ Date: \tab 2018-01-05\cr
 License: \tab GPL (>= 3)\cr
 }
 Function 'PH1XBAR' builds a Phase I Shewhart X-bar control chart with a correct charting constant.
-Function 'getCC' gets a charting constant for the data with a balanced one-way random effects model.
+Function 'getCC.XBAR' gets a charting constant for the data with a balanced one-way random effects model.
+Function 'PH1ARMA' builds a Phase I individual control chart with an ARMA model using a correct charting constant.
+Function 'getCC.ARMA' gets a charting constant for the data with an ARMA model.
 }
 \author{ Yuhui Yao, Subha Chakraborti.
 
