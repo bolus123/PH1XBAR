@@ -15,6 +15,7 @@ PH1ARMA(
 	,nsimProcess = 1000
 	,burnIn = 50
 	,simType = 'Matrix'
+  ,logliktol = 1e-2
 )
 }
 \arguments{
