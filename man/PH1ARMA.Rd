@@ -38,7 +38,7 @@ PH1ARMA(
 \value{
 Object of type list. A named list with the following objects:
   \item{CL}{Object type double - central line}
-  \item{gamma}{Object type double - process variance estimate}
+  \item{gamma0}{Object type double - process variance estimate}
   \item{cc}{Object type double - charting constant}
   \item{order}{Object type integer - order for ARMA model}
   \item{phiVec}{Object type integer - values of autoregressors}

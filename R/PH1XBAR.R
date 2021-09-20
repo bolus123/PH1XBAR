@@ -48,7 +48,7 @@ PH1XBAR <- function(
   
   
   if (is.null(cc)) {
-    cc <- getCC.XBAR(
+    cc <- getCC(
       FAP0 = FAP0
       ,m = m
       ,var.est = var.est
