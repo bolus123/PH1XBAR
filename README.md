@@ -74,10 +74,10 @@ PH1XBAR provides a function to build Phase I individual chart with an ARMA model
 data(preston_data)
 
 # using the default setting whose FAP0 = 0.1
-PH1ARMA(preston_data, nsimProcess = nsimProcess, nsimCoefs = nsimCoefs)
+PH1ARMA(preston_data)
 
 # using known parameters with FAP0 = 0.1
-PH1ARMA(preston_data, case = 'K', nsimProcess = nsimProcess, nsimCoefs = nsimCoefs)
+PH1ARMA(preston_data, case = 'K')
 ```
 
 Also, PH1XBAR provides a function to get the ARMA corrected charting constant as follows
