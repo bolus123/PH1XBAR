@@ -1,5 +1,5 @@
 [![R build
-status](https://github.com/tylerjthomas9/PH1XBAR/workflows/R-CMD-check/badge.svg)](https://github.com/tylerjthomas9/PH1XBAR/actions)
+status](https://github.com/bolus123/PH1XBAR/workflows/R-CMD-check/badge.svg)](https://github.com/bolus123/PH1XBAR/actions)
 [![](http://www.r-pkg.org/badges/version/PH1XBAR)](http://www.r-pkg.org/pkg/PH1XBAR)
 [![CRAN RStudio mirror
 downloads](http://cranlogs.r-pkg.org/badges/PH1XBAR)](http://www.r-pkg.org/pkg/PH1XBAR)
