@@ -530,7 +530,7 @@ getCCPH1ARMASim <- function(FAP0 = 0.1, interval = c(1, 4), n = 50, order = c(1,
 
     }
 	  
-    if (verbose) {cat('FAPin:', FAPin, ' and cc:', c, '\n')}
+    if (verbose) {cat('FAPin:', FAPin, ' and cc:', cc, '\n')}
     FAP0 - FAPin
 
   }
