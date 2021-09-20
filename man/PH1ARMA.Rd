@@ -16,7 +16,7 @@ PH1ARMA(
 	,burnIn = 50
 	,simType = 'Matrix'
   	,logliktol = 1e-2
-	,verbose = TRUE
+	,verbose = FALSE
 )
 }
 \arguments{
