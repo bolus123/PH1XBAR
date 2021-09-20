@@ -10,7 +10,7 @@ Authors@R: c(
 				person("Xin", "Yang", role = c("ctb"), email = "xyang15@cba.ua.edu")
 			)
 Maintainer: Yuhui Yao <yyao17@cba.ua.edu>
-Description: The purpose of 'PH1XBAR' is to build a Phase I Shewhart X-Bar control chart with variance components and ARMA models in R. More details can be found: Yao and Chakraborti (2020) <doi: 10.1002/qre.2793>, and Yao and Chakraborti (2021) <doi: 10.1080/08982112.2021.1878220>.
+Description: The purpose of 'PH1XBAR' is to build a Phase I Shewhart control chart with variance components and ARMA models in R for subgrouped and individual data. More details can be found: Yao and Chakraborti (2020) <doi: 10.1002/qre.2793>, and Yao and Chakraborti (2021) <doi: 10.1080/08982112.2021.1878220>.
 License: GPL-3
 Encoding: UTF-8
 LazyData: true

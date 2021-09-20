@@ -5,7 +5,7 @@
 Phase I Shewhart X-bar Control Chart
 }
 \description{
-The utility of this package is in building a Shewhart-type control chart based on new methods. The Phase I chart is based on multivariate normal/t distribution.
+The utility of this package is in building a Shewhart-type control chart based on new methods for subgrouped and individual data. The Phase I chart is based on multivariate normal/t distribution.
 }
 \details{
 \tabular{ll}{
@@ -15,7 +15,7 @@ Type: \tab Package\cr
 Date: \tab 2021-09-20\cr
 License: \tab GPL (>= 3)\cr
 }
-Function 'PH1XBAR' builds a Phase I Shewhart X-bar control chart with a correct charting constant.
+Function 'PH1XBAR' builds a Phase I Shewhart X-bar/individual control chart with a correct charting constant.
 Function 'getCC.XBAR' gets a charting constant for the data with a balanced one-way random effects model.
 Function 'PH1ARMA' builds a Phase I individual control chart with an ARMA model using a correct charting constant.
 Function 'getCC.ARMA' gets a charting constant for the data with an ARMA model.
