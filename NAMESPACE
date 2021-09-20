@@ -9,6 +9,7 @@ importFrom("stats", "arima", "arima.sim", "dnorm", "integrate",
             "uniroot", "var")
 
 export('getCC.XBAR')
+export('getCC')
 export('PH1XBAR')
 export('getCC.ARMA')
 export('PH1ARMA')

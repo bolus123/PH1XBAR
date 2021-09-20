@@ -1,8 +1,22 @@
 \name{getCC.XBAR}
 \alias{getCC.XBAR}
+\alias{getCC}
 \title{get Phase I corrected charting constant}
  \usage{
 getCC.XBAR(
+	FAP0
+	,m 
+	,var.est = c('S', 'MR') 
+	,ubCons = 1 
+	,method = c('exact', 'BA')
+	,interval = c(1, 5)
+	,nsim = 10000 
+	,nu = m - 1 
+	,lambda = 1
+  	,verbose = FALSE
+)
+
+getCC(
 	FAP0
 	,m 
 	,var.est = c('S', 'MR') 
