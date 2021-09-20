@@ -5,7 +5,7 @@
 Phase I Shewhart X-bar Control Chart
 }
 \description{
-The utility of this package is in building a Shewhart-type control chart based on new methods for subgrouped and individual data. The Phase I chart is based on multivariate normal/t distribution.
+The utility of this package is in building a Shewhart-type control chart based on new methods for subgrouped and individual data. The Phase I chart is based on multivariate normal/t or ARMA process.
 }
 \details{
 \tabular{ll}{
