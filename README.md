@@ -1,5 +1,5 @@
 [![R build
-status](https://github.com/tylerjthomas9/PH1XBAR/workflows/R-CMD-check/badge.svg)](https://github.com/tylerjthomas9/PH1XBAR/actions)
+status](https://github.com/bolus123/PH1XBAR/workflows/R-CMD-check/badge.svg)](https://github.com/bolus123/PH1XBAR/actions)
 [![](http://www.r-pkg.org/badges/version/PH1XBAR)](http://www.r-pkg.org/pkg/PH1XBAR)
 [![CRAN RStudio mirror
 downloads](http://cranlogs.r-pkg.org/badges/PH1XBAR)](http://www.r-pkg.org/pkg/PH1XBAR)
@@ -71,14 +71,13 @@ getCC.XBAR(FAP0 = 0.1, m = 30, var.est = 'MR')
 PH1XBAR provides a function to build Phase I individual chart with an ARMA model as follows
 
 ``` r
-data(chambers_data)
-X <- chambers_data ^ (1/3)
+data(preston_data)
 
 # using the default setting whose FAP0 = 0.1
-PH1ARMA(X, nsimProcess = nsimProcess, nsimCoefs = nsimCoefs)
+PH1ARMA(preston_data)
 
 # using known parameters with FAP0 = 0.1
-PH1ARMA(X, case = 'K', nsimProcess = nsimProcess, nsimCoefs = nsimCoefs)
+PH1ARMA(preston_data, case = 'K')
 ```
 
 Also, PH1XBAR provides a function to get the ARMA corrected charting constant as follows
