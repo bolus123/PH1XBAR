@@ -28,3 +28,5 @@
 #' }
 #' @source Woodall, William H. "Controversies and contradictions in statistical process control." Journal of quality technology 32.4 (2000): 341-350.
 "bore_diameter_data"
+
+"chambers_data"

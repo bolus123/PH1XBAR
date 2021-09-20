@@ -12,6 +12,7 @@ PH1XBAR(
 	,plot.option = TRUE
 	,interval = c(1, 5)
 	,nsim = 10000 
+  ,verbose = FALSE
 )
 }
 \arguments{
@@ -24,6 +25,7 @@ PH1XBAR(
   \item{plot.option}{TRUE - draw a plot for the process; FALSE - Not draw a plot for the process}
   \item{interval}{ searching range of charting constants for the exact method }
   \item{nsim}{ number of simulation for the exact method }
+  \item{verbose}{ print diagnostic information about FAP0 and the charting constant during the simulations for the exact method }
 }
 \value{
 Object of type list. A named list with the following objects:
@@ -49,6 +51,6 @@ set.seed(12345)
 data(grinder_data)
 
 # An example using a false alarm probability of 0.05, and 10 simulations
-PH1XBAR(grinder_data, FAP0 = 0.05, nsim=10)
+PH1XBAR(grinder_data, FAP0 = 0.05, nsim=10, verbose=TRUE)
 
 }

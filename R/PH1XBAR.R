@@ -8,6 +8,7 @@ PH1XBAR <- function(
   ,plot.option = TRUE
   ,interval = c(1, 5)
   ,nsim = 10000 
+  ,verbose = FALSE
 ) {
   
   var.est <- var.est[1]
@@ -47,7 +48,7 @@ PH1XBAR <- function(
   
   
   if (is.null(cc)) {
-    cc <- getCC(
+    cc <- getCC.XBAR(
       FAP0 = FAP0
       ,m = m
       ,var.est = var.est
@@ -57,7 +58,7 @@ PH1XBAR <- function(
       ,nsim = nsim
       ,nu = nu 
       ,lambda = lambda
-      
+      ,verbose=verbose
     )
   } else {
     
