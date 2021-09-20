@@ -4,18 +4,18 @@
  \usage{
 getCC.ARMA(
 	FAP0 = 0.1 
-  ,interval = c(1, 4)
-  ,n = 50 
-  ,order = c(1, 0, 0)
-  ,phiVec = 0.5
-  ,thetaVec = NULL
-  ,case = 'U'
-  ,method = 'Method 3'
-  ,nsimCoefs = 100
-  ,nsimProcess = 1000
-  ,burnIn = 50
-  ,simType = 'Matrix'
-  ,logliktol = 1e-2
+  	,interval = c(1, 4)
+  	,n = 50 
+  	,order = c(1, 0, 0)
+  	,phiVec = 0.5
+  	,thetaVec = NULL
+  	,case = 'U'
+  	,method = 'Method 3'
+  	,nsimCoefs = 100
+  	,nsimProcess = 1000
+  	,burnIn = 50
+  	,simType = 'Matrix'
+  	,logliktol = 1e-2
 )
 }
 \arguments{
