@@ -54,8 +54,7 @@ jobs:
 
       - name: Install PH1XBAR and query dependencies
         run: |
-          install.packages("devtools")
-          devtools::install_github("bolus123/PH1XBAR")
+          install.packages("./")
         shell: Rscript {0}
 
       - name: Restore R package cache
