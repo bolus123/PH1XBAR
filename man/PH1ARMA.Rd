@@ -10,12 +10,12 @@ PH1ARMA(
 	,plot.option = TRUE
 	,interval = c(1, 4)
 	,case = 'U'
-  ,method = 'Method 3'
+  	,method = 'Method 3'
 	,nsimCoefs = 100
 	,nsimProcess = 1000
 	,burnIn = 50
 	,simType = 'Matrix'
-  ,logliktol = 1e-2
+  	,logliktol = 1e-2
 )
 }
 \arguments{
@@ -33,24 +33,36 @@ PH1ARMA(
   \item{simType}{ type of simulation.  When simType = 'Matrix', the simulation is generated using matrix computation.  When simType = 'Recursive', the simulation is based on a recursion. }
   \item{logliktol}{ convergence tolerance for the log likelihood }
 }
+\value{
+Object of type list. A named list with the following objects:
+  \item{CL}{Object type double - central line}
+  \item{gamma}{Object type double - process variance estimate}
+  \item{cc}{Object type double - charting constant}
+  \item{order}{Object type integer - order for ARMA model}
+  \item{phiVec}{Object type integer - values of autoregressors}
+  \item{thetaVec}{Object type integer - values of moving averages}
+  \item{LCL}{Object type double - lower charting limit}
+  \item{UCL}{Object type double - upper charting limit}
+  \item{CS}{Object type double - charting statistic}
+}
 \description{
 Build a Phase I individual control chart with an ARMA model. The charting constant is correted by this approach.
 }
 \examples{
 
 # load the data in the package as an example
-data(chambers_data)
-X <- chambers_data ^ (1/3)
+data(preston_data)
 
 # set number of simulations
 nsimProcess <- 10
 nsimCoefs <- 10
 
 # An example using the default setting whose FAP0 = 0.1
-PH1ARMA(X, nsimProcess = nsimProcess, nsimCoefs = nsimCoefs)
+PH1ARMA(preston_data, nsimProcess = nsimProcess, nsimCoefs = nsimCoefs)
 
 # When users get an error message about the size of matrix,
 # the function needs to use the alternative simulation type as follows
-PH1ARMA(X, FAP0 = 0.05, nsimProcess = nsimProcess, nsimCoefs = nsimCoefs, simType = 'Recursive')
+PH1ARMA(preston_data, FAP0 = 0.05, 
+	nsimProcess = nsimProcess, nsimCoefs = nsimCoefs, simType = 'Recursive')
 
 }

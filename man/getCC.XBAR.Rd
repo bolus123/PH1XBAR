@@ -12,7 +12,7 @@ getCC.XBAR(
 	,nsim = 10000 
 	,nu = m - 1 
 	,lambda = 1
-  ,verbose = FALSE
+  	,verbose = FALSE
 )
 }
 \arguments{

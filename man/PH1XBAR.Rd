@@ -12,7 +12,7 @@ PH1XBAR(
 	,plot.option = TRUE
 	,interval = c(1, 5)
 	,nsim = 10000 
-  ,verbose = FALSE
+  	,verbose = FALSE
 )
 }
 \arguments{
