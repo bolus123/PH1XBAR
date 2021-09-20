@@ -44,7 +44,7 @@ getCC <- function(
 		,verbose = FALSE
   ) {
  
-	warning("This function has been renamed.  Please use getCC.XBAR")
+	warning("This function has been renamed.  Please use getCC.XBAR instead.")
  
 	getCC.XBAR(
 		FAP0 = FAP0
