@@ -1,4 +1,4 @@
-getCC <- function(
+getCC.XBAR <- function(
       FAP0
 			,m
 			,var.est = c('S', 'MR')
