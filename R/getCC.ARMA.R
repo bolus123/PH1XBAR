@@ -496,7 +496,7 @@ fapPH1ARMAMissingValue <- function(cc = 3, n = 50, order = c(1, 0, 0), phiVec = 
 
 
 getCCPH1ARMASim <- function(FAP0 = 0.1, interval = c(1, 4), n = 50, order = c(1, 0, 0), phiVec = 0.5, thetaVec = NULL, case = 'U', method = 'Method 3',
-                         nsim = 1000, burnIn = 50, simType = 'Matrix') {
+                         nsim = 1000, burnIn = 50, simType = 'Matrix', verbose = FALSE) {
 
   root.finding <- function(FAP0, cc, n, order, phiVec, thetaVec, case, method, nsim1, nsim2, burnIn, simType) {
 
@@ -520,7 +520,6 @@ getCCPH1ARMASim <- function(FAP0 = 0.1, interval = c(1, 4), n = 50, order = c(1,
 			    case = case, method = method, nsim = nsim2, burnIn = burnIn, simType = simType)
 
       })
-
       FAPin <- mean(unlist(FAPin))
 
     } else {
@@ -530,8 +529,8 @@ getCCPH1ARMASim <- function(FAP0 = 0.1, interval = c(1, 4), n = 50, order = c(1,
 			  case = case, method = method, nsim = nsim2, burnIn = burnIn, simType = simType)
 
     }
-
-    cat('FAPin:', FAPin, 'and cc:', cc, '\n')
+	  
+    if (verbose) {cat('FAPin:', FAPin, ' and cc:', c, '\n')}
     FAP0 - FAPin
 
   }
@@ -554,7 +553,8 @@ getCCPH1ARMASim <- function(FAP0 = 0.1, interval = c(1, 4), n = 50, order = c(1,
 
 
 getCCPH1ARMASimMissingValue <- function(FAP0 = 0.1, interval = c(1, 4), n = 50, order = c(1, 0, 0), phiVec = 0.5, thetaVec = NULL,
-                                        case = 'U', method = 'Method 3', nsim = 1000, burnIn = 50, simType = 'Matrix', logliktol = 1e-2) {
+                                        case = 'U', method = 'Method 3', nsim = 1000, burnIn = 50, simType = 'Matrix', logliktol = 1e-2,
+				        verbose = FALSE) {
 
   root.finding <- function(FAP0, cc, n, order, phiVec, thetaVec, case, method, nsim1, nsim2, burnIn, simType, logliktol) {
 
@@ -588,8 +588,8 @@ getCCPH1ARMASimMissingValue <- function(FAP0 = 0.1, interval = c(1, 4), n = 50, 
                           case = case, method = method, nsim = nsim2, burnIn = burnIn, simType = simType, tol = logliktol)
 
     }
-
-    cat('FAPin:', FAPin, 'and cc:', cc, '\n')
+    
+    if (verbose) {cat('FAPin:', FAPin, ' and cc:', c, '\n')}
     FAP0 - FAPin
 
   }
@@ -622,6 +622,7 @@ getCC.ARMA <- function(
         ,burnIn = 50
         ,simType = 'Matrix'
         ,logliktol = 1e-2
+	,verbose = FALSE
       ) {
 
 
@@ -631,14 +632,14 @@ getCC.ARMA <- function(
       out <- qmvnorm(1 - FAP0, tail = 'both.tails', sigma = sigMat$SigmaMat / sigMat$gamma0)$quantile
     } else {
       out <- getCCPH1ARMASim(FAP0, interval, n, order, phiVec = phiVec, thetaVec = thetaVec, case = case, method = method,
-                               nsim = nsimProcess, burnIn = burnIn, simType = simType)
+                               nsim = nsimProcess, burnIn = burnIn, simType = simType, verbose = verbose)
     }
   } else if (case == 'U') {
 
     CoefDist <- simCoefDist(n, order, phiVec, thetaVec, method, nsim = nsimCoefs, burnIn = burnIn, simType = simType)
 
     out <- getCCPH1ARMASim(FAP0, interval, n, order, phiVec = CoefDist$phiVec, thetaVec = CoefDist$thetaVec, case = case, method = method,
-                            nsim = nsimProcess, burnIn = burnIn, simType = simType)
+                            nsim = nsimProcess, burnIn = burnIn, simType = simType, verbose = verbose)
   }
 
   out
