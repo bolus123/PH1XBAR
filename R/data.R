@@ -1,6 +1,6 @@
 #' Thickness measurement of silicon wafer
 #'
-#' A dataset containing the thickness measurements in nm 
+#' A dataset containing the thickness measurements in nm
 #' at different positions on the silicon wafer
 #'
 #' @format A data frame with 30 rows and 5 variables:
@@ -14,7 +14,7 @@
 #' @source Roes, Kit CB, and Ronald JMM Does. "Shewhart-type charts in nonstandard situations." Technometrics 37.1 (1995): 15-24
 "grinder_data"
 
-#' Bore diameter in manufacturing automotive driver gears 
+#' Bore diameter in manufacturing automotive driver gears
 #'
 #' A dataset cotaining bore diameter measurements in mm
 #'
