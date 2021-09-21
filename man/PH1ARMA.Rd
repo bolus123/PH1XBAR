@@ -48,7 +48,7 @@ Object of type list. A named list with the following objects:
   \item{CS}{Object type double - charting statistic}
 }
 \description{
-Build a Phase I individual control chart with an ARMA model. The charting constant is correted by this approach.
+Build a Phase I individual control chart for the ARMA models. The charting constant is correted by this approach.
 }
 \examples{
 

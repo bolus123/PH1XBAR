@@ -41,7 +41,7 @@ Object of type list. A named list with the following objects:
   \item{CS}{Object type double - charting statistic}
 }
 \description{
-Build a Phase I Shewhart X-bar control chart with a variance component model. The charting constant is correted by this approach.
+Build a Phase I Shewhart control chart for the variance components model if the data are subgrouped or for the basic Shewhart model if the data are individual. The charting constant is correted by this approach.
 }
 \examples{
 
