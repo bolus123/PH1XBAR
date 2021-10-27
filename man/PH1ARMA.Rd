@@ -28,7 +28,7 @@ PH1ARMA(
   \item{interval}{ searching range of charting constants for the exact method }
   \item{case}{ known or unknown case.  When case = 'U', the parameters are estimated }
   \item{method}{ estimation method for the control chart. When method = 'Method 3' is maximum likehood estimations plus method of moments. Other options are 'Method 1' which is pure MLE and 'Method 2' which is pure CSS. }
-  \item{nsimCoefs}{ number of simulation for coeficients.  It is functional when double.sim = TRUE. }
+  \item{nsimCoefs}{ number of simulation for coeficients.}
   \item{nsimProcess}{ number of simulation for ARMA processes }
   \item{burnIn}{ number of burn-ins.  When burnIn = 0, the ECM gets involved.  When burnIn is large enough, the ACM gets involved. }
   \item{simType}{ type of simulation.  When simType = 'Matrix', the simulation is generated using matrix computation.  When simType = 'Recursive', the simulation is based on a recursion. }
@@ -48,7 +48,7 @@ Object of type list. A named list with the following objects:
   \item{CS}{Object type double - charting statistic}
 }
 \description{
-Build a Phase I individual control chart for the ARMA models. The charting constant is correted by this approach.
+Build a Phase I individual control chart for the ARMA models. The charting constant is corrected by this approach.
 }
 \examples{
 
