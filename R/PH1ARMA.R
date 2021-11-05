@@ -35,8 +35,10 @@ PH1ARMA <- function(X, cc = NULL, FAP0 = 0.1, order = NULL, plot.option = TRUE, 
     }
 
     cc <- getCC.ARMA(
-      FAP0 = FAP0, interval = interval, n, order = order, phiVec = phiVec, thetaVec = thetaVec, case = case,
-      method = method, nsimCoefs = nsimCoefs, nsimProcess = nsimProcess, burnIn = burnIn, simType = simType, verbose = verbose
+      FAP0 = FAP0, interval = interval, n, order = order, phiVec = phiVec,
+      thetaVec = thetaVec, case = case, method = method, nsimCoefs = nsimCoefs,
+      nsimProcess = nsimProcess, burnIn = burnIn, simType = simType,
+      verbose = verbose
     )
   }
 
@@ -53,9 +55,12 @@ PH1ARMA <- function(X, cc = NULL, FAP0 = 0.1, order = NULL, plot.option = TRUE, 
   UCL <- cc
 
   if (plot.option == TRUE) {
-    main.text <- paste("Phase I Individual Chart for FAP0 =", FAP0, "with an ARMA model")
+    main.text <- paste("Phase I Individual Chart for FAP0 =",
+                        FAP0, "with an ARMA model")
 
-    plot(c(1, n), c(min(LCL, stdX), max(UCL, stdX)), xaxt = "n", xlab = "Observation", ylab = "Charting Statistic", type = "n", main = main.text)
+    plot(c(1, n), c(min(LCL, stdX), max(UCL, stdX)), xaxt = "n",
+        xlab = "Observation", ylab = "Charting Statistic",
+        type = "n", main = main.text)
 
     axis(side = 1, at = 1:n)
 
@@ -67,5 +72,7 @@ PH1ARMA <- function(X, cc = NULL, FAP0 = 0.1, order = NULL, plot.option = TRUE, 
     text(round(n * 0.8), LCL, paste("LCL = ", round(LCL, 4)), pos = 3)
   }
 
-  list(CL = mu, gamma = gamma, cc = cc, order = order, phiVec = phiVec, thetaVec = thetaVec, LCL = LCL, UCL = UCL, CS = stdX)
+  res <- list(CL = mu, gamma = gamma, cc = cc, order = order, phiVec = phiVec,
+              thetaVec = thetaVec, LCL = LCL, UCL = UCL, CS = stdX)
+  invisible(res)
 }

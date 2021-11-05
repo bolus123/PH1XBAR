@@ -63,7 +63,8 @@ PH1XBAR <- function(X,
   if (plot.option == TRUE) {
     main.text <- paste("Phase I X-bar Chart for FAP0 =", FAP0)
 
-    plot(c(1, m), c(LCL, UCL), xaxt = "n", xlab = "Subgroup", ylab = "Sample Mean", type = "n", main = main.text)
+    plot(c(1, m), c(LCL, UCL), xaxt = "n", xlab = "Subgroup",
+        ylab = "Sample Mean", type = "n", main = main.text)
 
     axis(side = 1, at = 1:m)
 
@@ -75,5 +76,8 @@ PH1XBAR <- function(X,
     text(round(m * 0.8), LCL, paste("LCL = ", round(LCL, 4)), pos = 3)
   }
 
-  list(CL = X.bar.bar, var.est = sigma.v * ubCons, ubCons = ubCons, cc = cc, m = m, nu = nu, lambda = lambda, LCL = LCL, UCL = UCL, CS = X.bar)
+  res <- list(CL = X.bar.bar, var.est = sigma.v * ubCons, ubCons = ubCons,
+              cc = cc, m = m, nu = nu, lambda = lambda, LCL = LCL, UCL = UCL,
+              CS = X.bar)
+  invisible(res)
 }
