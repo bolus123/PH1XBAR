@@ -30,6 +30,14 @@ PH1ARMA <- function(X, cc = NULL, FAP0 = 0.1, order = NULL, plot.option = TRUE, 
       order[2] <- length(model$model$Delta)
       order[3] <- length(model$model$theta)
 
+	  if (sum(model$model$phi) == 0) {
+		order[1] <- 0
+	  }
+	  
+	  if (sum(model$model$theta) == 0) {
+		order[3] <- 0
+	  }
+
     } else {
 
       model <- arima(Y, order = order, method = method)
