@@ -9,7 +9,7 @@ PH1ARMA <- function(X, cc = NULL, FAP0 = 0.1, order = NULL, plot.option = TRUE, 
 	if (dim(Y)[1] == 1 | dim(Y)[2] == 1) {
 		Y <- as.vector(Y)
 	} else {
-		stop(X is not a vector, or a m x 1 or 1 x m matrix.)
+		stop('X is not a vector, or a m x 1 or 1 x m matrix.')
 	}
   } 
 
