@@ -67,7 +67,7 @@ PH1ARMA <- function(X, cc = NULL, FAP0 = 0.1, order = NULL, plot.option = TRUE, 
 
     axis(side = 1, at = 1:n)
 
-    points(1:n, stdX, type = 'o')
+    points((1 + order[2]):n, stdX, type = 'o')
     points(c(-1, n + 2), c(LCL, LCL), type = 'l', col = 'red')
     points(c(-1, n + 2), c(UCL, UCL), type = 'l', col = 'red')
     points(c(-1, n + 2), c(mu, mu), type = 'l', col = 'blue')
