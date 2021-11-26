@@ -16,7 +16,7 @@ data(bore_diameter_data)
 }
 \description{
 Source:
-Woodall, William H. "Controversies and contradictions in statistical process control." Journal of quality technology 32.4 (2000): 341-350.
+Wooluru, Yerriswamy, D. R. Swamy, and P. Nagesh. "THE PROCESS CAPABILITY ANALYSIS-A TOOL FOR PROCESS PERFORMANCE MEASURES AND METRICS-A CASE STUDY." International Journal for Quality Research 8.3 (2014).
   
 A dataset containing the diameter of the bore in manufacturing automotive driver gears. The variables are as follows:
 }
