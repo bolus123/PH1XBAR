@@ -10,6 +10,9 @@ PH1ARMA <- function(X, cc = NULL, FAP0 = 0.1, order = NULL, plot.option = TRUE, 
     if (is.null(order)) {
       if (method == "Method 1" | method == "Method 3") {
         model <- auto.arima(Y, method = "CSS-ML")
+        if (any(model$model$phi > 1.0)){
+          model <- auto.arima(Y, method = "CSS")
+        }
       } else if (method == "Method 2") {
         model <- auto.arima(Y, method = "CSS")
       }
@@ -21,7 +24,6 @@ PH1ARMA <- function(X, cc = NULL, FAP0 = 0.1, order = NULL, plot.option = TRUE, 
     } else {
       model <- arima(Y, order = order, method = method)
     }
-
     if (length(model$model$phi) > 0) {
       phiVec <- model$model$phi
     } else {
