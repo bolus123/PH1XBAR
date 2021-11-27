@@ -47,7 +47,8 @@ PH1ARMA <- function(X, cc = NULL, FAP0 = 0.1, order = NULL, plot.option = TRUE, 
 
     if (length(model$model$phi) > 0) {
       if (any(model$model$phi > 1.0)){
-        model$model$phi[model$model$phi > 1.0] = 1.0
+        model$model$phi[model$model$phi >= 1.0] = 0.99
+        model$model$phi[model$model$phi <= -1.0] = -0.99
       }
       phiVec <- model$model$phi
     } else {
@@ -56,7 +57,8 @@ PH1ARMA <- function(X, cc = NULL, FAP0 = 0.1, order = NULL, plot.option = TRUE, 
 
     if (length(model$model$theta) > 0) {
       if (any(model$model$theta > 1.0)){
-        model$model$theta[model$model$theta > 1.0] = 1.0
+        model$model$theta[model$model$theta >= 1.0] = 0.99
+        model$model$theta[model$model$theta <= -1.0] = -0.99
       }
       thetaVec <- model$model$theta
     } else {
