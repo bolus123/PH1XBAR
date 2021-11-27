@@ -36,7 +36,7 @@ pars.root.finding <- function(k, n, lower = 1e-6) {
 
   ratio <- V / M^2
 
-  cat("dn2/Vn = ", 1 / ratio, "\n")
+  # cat("dn2/Vn = ", 1 / ratio, "\n")
 
   nu <- uniroot(root.finding, c(lower, k * n), k = k, n = n, ratio = ratio)$root
 
