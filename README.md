@@ -61,10 +61,10 @@ Notice that the variance estimator in the control chart must be S or MR. Also, P
 
 ``` r
 # S-based estimator involved
-getcc.xbar(FAP0 = 0.1, m = 30, var.est = 'S')
+getcc.XBAR(FAP0 = 0.1, m = 30, var.est = 'S')
 
 # MR-based estimator involved
-getcc.xbar(FAP0 = 0.1, m = 30, var.est = 'MR')
+getcc.XBAR(FAP0 = 0.1, m = 30, var.est = 'MR')
 ```
 
 
