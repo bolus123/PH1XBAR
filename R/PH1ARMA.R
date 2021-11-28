@@ -21,9 +21,9 @@ PH1ARMA <- function(X, cc = NULL, FAP0 = 0.1, order = NULL, plot.option = TRUE, 
     if (is.null(order)) {
 
       if (method == 'Method 1' | method == 'Method 3') {
-        model <- auto.arima(Y, method = 'CSS-ML')
+        model <- auto.arima(x, method="CSS-ML", max.p=1, max.q=0, max.d=0)
       } else if (method == 'Method 2') {
-        model <- auto.arima(Y, method = 'CSS')
+        model <- auto.arima(x, method="CSS", max.p=1, max.q=0, max.d=0)
       }
 
       order <- rep(0, 3)
