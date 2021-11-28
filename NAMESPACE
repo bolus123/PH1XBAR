@@ -10,7 +10,7 @@ importFrom("stats", "arima", "arima.sim", "dnorm", "integrate",
 
 export('getcc.xbar')
 export('getcc')
-export('PH1XBAR')
+export('ph1xbar')
 export('getcc.arma')
 export('ph1arma')
 
