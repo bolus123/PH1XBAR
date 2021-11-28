@@ -1,8 +1,8 @@
-\name{getCC.ARMA}
-\alias{getCC.ARMA}
+\name{getcc.arma}
+\alias{getcc.arma}
 \title{get Phase I corrected charting constant with an ARMA model}
  \usage{
-getCC.ARMA(
+getcc.arma(
 	FAP0 = 0.1 
   	,interval = c(1, 4)
   	,n = 50 
@@ -46,6 +46,6 @@ Obtain a corrected charting constant.
 set.seed(12345)
 
 # Calculate the charting constant using FAP0 of 0.05, and 50 observations
-getCC.ARMA(FAP0=0.05, n=50, nsimCoefs=10, nsimProcess=10)
+getcc.arma(FAP0=0.05, n=50, nsimCoefs=10, nsimProcess=10)
 
 }

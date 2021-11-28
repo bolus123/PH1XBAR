@@ -1,9 +1,9 @@
-\name{getCC.XBAR}
-\alias{getCC.XBAR}
-\alias{getCC}
+\name{getcc.xbar}
+\alias{getcc.xbar}
+\alias{getcc}
 \title{get Phase I corrected charting constant}
  \usage{
-getCC.XBAR(
+getcc.xbar(
 	FAP0
 	,m 
 	,var.est = c('S', 'MR') 
@@ -16,7 +16,7 @@ getCC.XBAR(
   	,verbose = FALSE
 )
 
-getCC(
+getcc(
 	FAP0
 	,m 
 	,var.est = c('S', 'MR') 
@@ -52,9 +52,9 @@ Obtain a corrected charting constant.
 set.seed(12345)
 
 # Calculate the charting constant using 10 simulations and mean-square-based estimator
-getCC.XBAR(FAP0=0.05, m=20, nsim=10, var.est='S', verbose = TRUE)
+getcc.xbar(FAP0=0.05, m=20, nsim=10, var.est='S', verbose = TRUE)
 
 # Calculate the charting constant using 10 simulations and moving-range-based estimator
-getCC.XBAR(FAP0=0.05, m=20, nsim=10, var.est='MR', verbose = TRUE)
+getcc.xbar(FAP0=0.05, m=20, nsim=10, var.est='MR', verbose = TRUE)
 
 }

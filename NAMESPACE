@@ -8,9 +8,9 @@ importFrom("stats", "arima", "arima.sim", "dnorm", "integrate",
             "rbeta", "rchisq", "rgamma", "rnorm", "rt", "sd", 
             "uniroot", "var")
 
-export('getCC.XBAR')
-export('getCC')
+export('getcc.xbar')
+export('getcc')
 export('PH1XBAR')
-export('getCC.ARMA')
-export('PH1ARMA')
+export('getcc.arma')
+export('ph1arma')
 

@@ -54,17 +54,17 @@ PH1XBAR provides a function to build Phase I X-bar chart with variance component
 
 ``` r
 data(grinder_data)
-PH1XBAR(grinder_data)
+ph1xbar(grinder_data)
 ```
 
 Notice that the variance estimator in the control chart must be S or MR. Also, PH1XBAR provides a function to get the corrected charting constant as follows
 
 ``` r
 # S-based estimator involved
-getCC.XBAR(FAP0 = 0.1, m = 30, var.est = 'S')
+getcc.xbar(FAP0 = 0.1, m = 30, var.est = 'S')
 
 # MR-based estimator involved
-getCC.XBAR(FAP0 = 0.1, m = 30, var.est = 'MR')
+getcc.xbar(FAP0 = 0.1, m = 30, var.est = 'MR')
 ```
 
 
@@ -74,17 +74,17 @@ PH1XBAR provides a function to build Phase I individual chart with an ARMA model
 data(preston_data)
 
 # using the default setting whose FAP0 = 0.1
-PH1ARMA(preston_data)
+ph1arma(preston_data)
 
 # using known parameters with FAP0 = 0.1
-PH1ARMA(preston_data, case = 'K')
+ph1arma(preston_data, case = 'K')
 ```
 
 PH1XBAR provides a function to get the corrected charting constant for the ARMA model as follows
 
 ``` r
 # Calculate the charting constant using FAP0 of 0.05, and 50 observations
-getCC.ARMA(FAP0=0.05, n=50)
+getcc.arma(FAP0=0.05, n=50)
 ```
 
 More details are on the manual.
