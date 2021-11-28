@@ -3,27 +3,25 @@
 PH1ARMA <- function(X, cc = NULL, FAP0 = 0.1, order = NULL, plot.option = TRUE, interval = c(1, 4),
                     case = 'U', method = 'Method 3', nsimCoefs = 100, nsimProcess = 1000, burnIn = 50, 
                     simType = 'Matrix', logliktol = 1e-2, verbose = FALSE) {
-
-  Y <- X
   
-  if (!is.vector(Y)) {
-	if (dim(Y)[1] == 1 | dim(Y)[2] == 1) {
-		Y <- as.vector(Y)
+  if (!is.vector(X)) {
+	if (dim(X)[1] == 1 | dim(X)[2] == 1) {
+		X <- as.vector(X)
 	} else {
 		stop('X is not a vector, or a m x 1 or 1 x m matrix.')
 	}
   } 
 
-  n <- length(Y)
+  n <- length(X)
 
   if (is.null(cc)) {
 
     if (is.null(order)) {
 
       if (method == 'Method 1' | method == 'Method 3') {
-        model <- auto.arima(Y, method="CSS-ML", max.p=1, max.q=0, max.d=0)
+        model <- auto.arima(X, method="CSS-ML", max.p=1, max.q=0, max.d=0)
       } else if (method == 'Method 2') {
-        model <- auto.arima(Y, method="CSS", max.p=1, max.q=0, max.d=0)
+        model <- auto.arima(X, method="CSS", max.p=1, max.q=0, max.d=0)
       }
 
       order <- rep(0, 3)
@@ -41,7 +39,7 @@ PH1ARMA <- function(X, cc = NULL, FAP0 = 0.1, order = NULL, plot.option = TRUE, 
 
     } else {
 
-      model <- arima(Y, order = order, method = method)
+      model <- arima(X, order = order, method = method)
 
     }
 
@@ -72,14 +70,14 @@ PH1ARMA <- function(X, cc = NULL, FAP0 = 0.1, order = NULL, plot.option = TRUE, 
 
   if (order[2] > 0) {
 
-    Y <- diff(Y, differences = order[2])
+    X <- diff(X, differences = order[2])
 
   }
 
-  mu <- mean(Y)
-  gamma <- sd(Y)
+  mu <- mean(X)
+  gamma <- sd(X)
 
-  stdX <- (Y - mu) / gamma
+  stdX <- (X - mu) / gamma
 
   LCL <- -cc
   UCL <- cc
