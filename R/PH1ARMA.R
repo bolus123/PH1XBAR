@@ -1,8 +1,8 @@
 
 
-ph1arma <- function(X, cc = NULL, FAP0 = 0.1, order = NULL, plot.option = TRUE, interval = c(1, 4),
-                    case = 'U', method = 'Method 3', nsimCoefs = 100, nsimProcess = 1000, burnIn = 50, 
-                    simType = 'Matrix', logliktol = 1e-2, verbose = FALSE) {
+ph1arma <- function(X, cc = NULL, fap0 = 0.1, order = NULL, plot.option = TRUE, interval = c(1, 4),
+                    case = 'U', method = 'Method 3', nsim.coefs = 100, nsim.process = 1000, burn.in = 50, 
+                    sim.type = 'Matrix', logliktol = 1e-2, verbose = FALSE) {
   
   if (!is.vector(X)) {
 	if (dim(X)[1] == 1 | dim(X)[2] == 1) {
@@ -48,9 +48,9 @@ ph1arma <- function(X, cc = NULL, FAP0 = 0.1, order = NULL, plot.option = TRUE, 
         model$model$phi[model$model$phi >= 1.0] = 0.99
         model$model$phi[model$model$phi <= -1.0] = -0.99
       }
-      phiVec <- model$model$phi
+      phi.vec <- model$model$phi
     } else {
-      phiVec <- NULL
+      phi.vec <- NULL
     }
 
     if (length(model$model$theta) > 0) {
@@ -58,13 +58,13 @@ ph1arma <- function(X, cc = NULL, FAP0 = 0.1, order = NULL, plot.option = TRUE, 
         model$model$theta[model$model$theta >= 1.0] = 0.99
         model$model$theta[model$model$theta <= -1.0] = -0.99
       }
-      thetaVec <- model$model$theta
+      theta.vec <- model$model$theta
     } else {
-      thetaVec <- NULL
+      theta.vec <- NULL
     }
 
-    cc <- getcc.arma(FAP0 = FAP0, interval = interval, n, order = order, phiVec = phiVec, thetaVec = thetaVec, case = case,
-      method = method, nsimCoefs = nsimCoefs, nsimProcess = nsimProcess, burnIn = burnIn, simType = simType, verbose = verbose)
+    cc <- getcc.arma(fap0 = fap0, interval = interval, n, order = order, phi.vec = phi.vec, theta.vec = theta.vec, case = case,
+      method = method, nsim.coefs = nsim.coefs, nsim.process = nsim.process, burn.in = burn.in, sim.type = sim.type, verbose = verbose)
 
   }
 
@@ -84,7 +84,7 @@ ph1arma <- function(X, cc = NULL, FAP0 = 0.1, order = NULL, plot.option = TRUE, 
 
   if (plot.option == TRUE) {
 
-    main.text <- paste('Phase I Individual Chart for FAP0 =', FAP0, 'with an ARMA model')
+    main.text <- paste('Phase I Individual Chart for fap0 =', fap0, 'with an ARMA model')
 
     plot(c(1, n), c(min(LCL, stdX), max(UCL, stdX)), xaxt = "n", xlab = 'Observation', ylab = 'Charting Statistic', type = 'n', main = main.text)
 
@@ -99,7 +99,7 @@ ph1arma <- function(X, cc = NULL, FAP0 = 0.1, order = NULL, plot.option = TRUE, 
 
   }
 
-  res <- list(CL = mu, gamma = gamma, cc = cc, order = order, phiVec = phiVec, thetaVec = thetaVec, LCL = LCL, UCL = UCL, CS = stdX)
+  res <- list(CL = mu, gamma = gamma, cc = cc, order = order, phi.vec = phi.vec, theta.vec = theta.vec, LCL = LCL, UCL = UCL, CS = stdX)
 
   return(invisible(res))
 }

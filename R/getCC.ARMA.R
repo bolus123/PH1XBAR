@@ -32,25 +32,25 @@ pars.mat <- function(n, parsVec, norder = 1) {
 
 
 
-sigma.mat <- function(n, order = c(1, 0, 0), phiVec = 0.5, thetaVec = NULL, sigma2 = 1, burnIn = 50) {
+sigma.mat <- function(n, order = c(1, 0, 0), phi.vec = 0.5, theta.vec = NULL, sigma2 = 1, burn.in = 50) {
   if (order[1] == 0) {
-    phiMat <- diag(n + burnIn)
+    phiMat <- diag(n + burn.in)
   } else {
-    phiMat <- pars.mat(n + burnIn, -phiVec, norder = order[1])
+    phiMat <- pars.mat(n + burn.in, -phi.vec, norder = order[1])
   }
 
   if (order[3] == 0) {
-    thetaMat <- diag(n + burnIn)
+    thetaMat <- diag(n + burn.in)
   } else {
-    thetaMat <- pars.mat(n + burnIn, thetaVec, norder = order[3])
+    thetaMat <- pars.mat(n + burn.in, theta.vec, norder = order[3])
   }
 
   out <- solve(phiMat) %*% thetaMat %*% t(thetaMat) %*% t(solve(phiMat)) * sigma2
 
   gamma0 <- out[dim(out)[1], dim(out)[2]]
 
-  if (burnIn > 0) {
-    out <- out[-c(1:burnIn), -c(1:burnIn)]
+  if (burn.in > 0) {
+    out <- out[-c(1:burn.in), -c(1:burn.in)]
   }
 
   list(sigma.mat = out, sqrtsigma.mat = sqrtm(out)$B, gamma0 = gamma0)
@@ -103,30 +103,30 @@ sim.innov <- function(n, sigma2 = 1, XSim = "norm", XPars = c(0, 1)) {
 
 
 
-sim.arma.process <- function(n, order = c(1, 0, 0), phiVec = 0.5, thetaVec = NULL, sigma2 = 1, innovDist = "norm", innovPars = c(0, 1), burnIn = 50,
-                           simType = "Matrix", SigMat = sigma.mat(n = n, order = order, phiVec = phiVec, thetaVec = thetaVec, sigma2 = sigma2, burnIn = burnIn)) {
-  if (simType == "Matrix") {
+sim.arma.process <- function(n, order = c(1, 0, 0), phi.vec = 0.5, theta.vec = NULL, sigma2 = 1, innovDist = "norm", innovPars = c(0, 1), burn.in = 50,
+                           sim.type = "Matrix", SigMat = sigma.mat(n = n, order = order, phi.vec = phi.vec, theta.vec = theta.vec, sigma2 = sigma2, burn.in = burn.in)) {
+  if (sim.type == "Matrix") {
     as.vector(SigMat$sqrtsigma.mat %*% matrix(sim.innov(n, sigma2 = 1, XSim = innovDist, XPars = innovPars), ncol = 1))
-  } else if (simType == "Recursive") {
-    innov <- sim.innov(n + burnIn + order[1] + order[3], sigma2 = sigma2, XSim = innovDist, XPars = innovPars)
+  } else if (sim.type == "Recursive") {
+    innov <- sim.innov(n + burn.in + order[1] + order[3], sigma2 = sigma2, XSim = innovDist, XPars = innovPars)
 
     n.start <- order[1] + order[3]
 
-    if (burnIn > 0) {
-      arima.sim(list(order = order, ar = phiVec, ma = thetaVec),
-        n = n + burnIn, innov = innov[-c(1:(n.start))], n.start = n.start, start.innov = innov[c(1:(n.start))]
-      )[(burnIn + 1):(n + burnIn)]
+    if (burn.in > 0) {
+      arima.sim(list(order = order, ar = phi.vec, ma = theta.vec),
+        n = n + burn.in, innov = innov[-c(1:(n.start))], n.start = n.start, start.innov = innov[c(1:(n.start))]
+      )[(burn.in + 1):(n + burn.in)]
     } else {
-      arima.sim(list(order = order, ar = phiVec, ma = thetaVec),
-        n = n + burnIn, innov = innov[-c(1:(n.start))], n.start = n.start, start.innov = innov[c(1:(n.start))]
+      arima.sim(list(order = order, ar = phi.vec, ma = theta.vec),
+        n = n + burn.in, innov = innov[-c(1:(n.start))], n.start = n.start, start.innov = innov[c(1:(n.start))]
       )
     }
   }
 }
 
-sim.coef.dist <- function(n, order = c(1, 0, 0), phiVec = 0.5, thetaVec = NULL, method = "Method 3",
-                        nsim = 100, burnIn = 50, simType = "Matrix",
-                        SigMat = sigma.mat(n, order, phiVec, thetaVec, sigma2 = 1, burnIn = burnIn)) {
+sim.coef.dist <- function(n, order = c(1, 0, 0), phi.vec = 0.5, theta.vec = NULL, method = "Method 3",
+                        nsim = 100, burn.in = 50, sim.type = "Matrix",
+                        SigMat = sigma.mat(n, order, phi.vec, theta.vec, sigma2 = 1, burn.in = burn.in)) {
   outAR <- matrix(NA, nrow = nsim, ncol = order[1])
   outMA <- matrix(NA, nrow = nsim, ncol = order[3])
   outMean <- rep(NA, nsim)
@@ -136,9 +136,9 @@ sim.coef.dist <- function(n, order = c(1, 0, 0), phiVec = 0.5, thetaVec = NULL, 
     flg <- 1
 
     while (flg == 1) {
-      sim <- sim.arma.process(n, order, phiVec, thetaVec,
-        sigma2 = 1, innovDist = "norm", innovPars = c(0, 1), burnIn = burnIn,
-        simType = simType, SigMat = SigMat
+      sim <- sim.arma.process(n, order, phi.vec, theta.vec,
+        sigma2 = 1, innovDist = "norm", innovPars = c(0, 1), burn.in = burn.in,
+        sim.type = sim.type, SigMat = SigMat
       )
 
       if (method == "Method 1" | method == "Method 3") {
@@ -180,13 +180,13 @@ sim.coef.dist <- function(n, order = c(1, 0, 0), phiVec = 0.5, thetaVec = NULL, 
     }
   }
 
-  list(phiVec = outAR, thetaVec = outMA)
+  list(phi.vec = outAR, theta.vec = outMA)
 }
 
 
-sim.coef.dist.missing.value <- function(n, order = c(1, 0, 0), phiVec = 0.5, thetaVec = NULL, method = "Method 3",
-                                    nsim = 100, burnIn = 50, simType = "Matrix",
-                                    SigMat = sigma.mat(n, order, phiVec, thetaVec, sigma2 = 1, burnIn = burnIn),
+sim.coef.dist.missing.value <- function(n, order = c(1, 0, 0), phi.vec = 0.5, theta.vec = NULL, method = "Method 3",
+                                    nsim = 100, burn.in = 50, sim.type = "Matrix",
+                                    SigMat = sigma.mat(n, order, phi.vec, theta.vec, sigma2 = 1, burn.in = burn.in),
                                     tol = 1e-2) {
   outAR <- matrix(NA, nrow = nsim, ncol = order[1])
   outMA <- matrix(NA, nrow = nsim, ncol = order[3])
@@ -199,9 +199,9 @@ sim.coef.dist.missing.value <- function(n, order = c(1, 0, 0), phiVec = 0.5, the
     flg <- 1
 
     while (flg == 1) {
-      sim <- sim.arma.process(n, order, phiVec, thetaVec,
-        sigma2 = 1, innovDist = "norm", innovPars = c(0, 1), burnIn = burnIn,
-        simType = simType, SigMat = SigMat
+      sim <- sim.arma.process(n, order, phi.vec, theta.vec,
+        sigma2 = 1, innovDist = "norm", innovPars = c(0, 1), burn.in = burn.in,
+        sim.type = sim.type, SigMat = SigMat
       )
 
       oldLogLikelihood <- -Inf
@@ -260,19 +260,19 @@ sim.coef.dist.missing.value <- function(n, order = c(1, 0, 0), phiVec = 0.5, the
     }
   }
 
-  list(phiVec = outAR, thetaVec = outMA)
+  list(phi.vec = outAR, theta.vec = outMA)
 }
 
 
 
-fap.ph1arma <- function(cc = 3, n = 50, order = c(1, 0, 0), phiVec = 0.5, thetaVec = NULL, case = "U", method = "Method 3",
-                       nsim = 1000, burnIn = 50, simType = "Matrix") {
-  if (simType == "Matrix") {
-    sigMat1 <- sigma.mat(n, order, phiVec, thetaVec, sigma2 = 1, burnIn = burnIn)
+fap.ph1arma <- function(cc = 3, n = 50, order = c(1, 0, 0), phi.vec = 0.5, theta.vec = NULL, case = "U", method = "Method 3",
+                       nsim = 1000, burn.in = 50, sim.type = "Matrix") {
+  if (sim.type == "Matrix") {
+    sigMat1 <- sigma.mat(n, order, phi.vec, theta.vec, sigma2 = 1, burn.in = burn.in)
     gamma0 <- sigMat1$gamma0
-  } else if (simType == "Recursive") {
+  } else if (sim.type == "Recursive") {
     if (case == "K") {
-      sigMat1 <- sigma.mat(100, order, phiVec, thetaVec, sigma2 = 1, burnIn = 50)
+      sigMat1 <- sigma.mat(100, order, phi.vec, theta.vec, sigma2 = 1, burn.in = 50)
       gamma0 <- sigMat1$gamma0
     } else {
       sigMat1 <- NULL
@@ -282,9 +282,9 @@ fap.ph1arma <- function(cc = 3, n = 50, order = c(1, 0, 0), phiVec = 0.5, thetaV
   out <- lapply(1:nsim, function(X) {
     flg <- 1
     while (flg == 1) {
-      sim <- sim.arma.process(n, order, phiVec, thetaVec,
+      sim <- sim.arma.process(n, order, phi.vec, theta.vec,
         sigma2 = 1,
-        innovDist = "norm", innovPars = c(0, 1), burnIn = burnIn, simType = simType, SigMat = sigMat1
+        innovDist = "norm", innovPars = c(0, 1), burn.in = burn.in, sim.type = sim.type, SigMat = sigMat1
       )
 
       if (case == "U") {
@@ -297,22 +297,22 @@ fap.ph1arma <- function(cc = 3, n = 50, order = c(1, 0, 0), phiVec = 0.5, thetaV
           m1 <- try(arima(sim, order = order, method = "CSS-ML"), silent = TRUE)
 
           if (class(m1) != "try-error") {
-            if (!is.null(phiVec)) {
-              phiVecNew <- m1$coef[1:order[1]]
+            if (!is.null(phi.vec)) {
+              phi.vecNew <- m1$coef[1:order[1]]
             } else {
-              phiVecNew <- NULL
+              phi.vecNew <- NULL
             }
 
-            if (!is.null(thetaVec)) {
-              thetaVecNew <- m1$coef[(order[1] + 1):(order[1] + order[3])]
+            if (!is.null(theta.vec)) {
+              theta.vecNew <- m1$coef[(order[1] + 1):(order[1] + order[3])]
             } else {
-              thetaVecNew <- NULL
+              theta.vecNew <- NULL
             }
 
             Intercept <- m1$coef[order[1] + order[3] + 1]
-            mu0 <- Intercept * (1 - sum(phiVecNew))
+            mu0 <- Intercept * (1 - sum(phi.vecNew))
             sigma2 <- m1$sigma2
-            gamma0 <- sigma.mat(100, order = order, phiVec = phiVec, thetaVec = thetaVec, sigma2 = sigma2, burnIn = 50)$gamma0
+            gamma0 <- sigma.mat(100, order = order, phi.vec = phi.vec, theta.vec = theta.vec, sigma2 = sigma2, burn.in = 50)$gamma0
 
             sim <- (sim - mu0) / sqrt(gamma0)
             flg0 <- 0
@@ -333,14 +333,14 @@ fap.ph1arma <- function(cc = 3, n = 50, order = c(1, 0, 0), phiVec = 0.5, thetaV
 }
 
 
-fap.ph1arma.missing.value <- function(cc = 3, n = 50, order = c(1, 0, 0), phiVec = 0.5, thetaVec = NULL, case = "U", method = "Method 3",
-                                   nsim = 1000, burnIn = 50, simType = "Matrix", tol = 1e-2) {
-  if (simType == "Matrix") {
-    sigMat1 <- sigma.mat(n, order, phiVec, thetaVec, sigma2 = 1, burnIn = burnIn)
+fap.ph1arma.missing.value <- function(cc = 3, n = 50, order = c(1, 0, 0), phi.vec = 0.5, theta.vec = NULL, case = "U", method = "Method 3",
+                                   nsim = 1000, burn.in = 50, sim.type = "Matrix", tol = 1e-2) {
+  if (sim.type == "Matrix") {
+    sigMat1 <- sigma.mat(n, order, phi.vec, theta.vec, sigma2 = 1, burn.in = burn.in)
     gamma0 <- sigMat1$gamma0
-  } else if (simType == "Recursive") {
+  } else if (sim.type == "Recursive") {
     if (case == "K") {
-      sigMat1 <- sigma.mat(100, order, phiVec, thetaVec, sigma2 = 1, burnIn = 50)
+      sigMat1 <- sigma.mat(100, order, phi.vec, theta.vec, sigma2 = 1, burn.in = 50)
       gamma0 <- sigMat1$gamma0
     } else {
       sigMat1 <- NULL
@@ -352,9 +352,9 @@ fap.ph1arma.missing.value <- function(cc = 3, n = 50, order = c(1, 0, 0), phiVec
   out <- lapply(1:nsim, function(X) {
     flg <- 1
     while (flg == 1) {
-      sim <- sim.arma.process(n, order, phiVec, thetaVec,
+      sim <- sim.arma.process(n, order, phi.vec, theta.vec,
         sigma2 = 1,
-        innovDist = "norm", innovPars = c(0, 1), burnIn = burnIn, simType = simType, SigMat = sigMat1
+        innovDist = "norm", innovPars = c(0, 1), burn.in = burn.in, sim.type = sim.type, SigMat = sigMat1
       )
 
 
@@ -382,22 +382,22 @@ fap.ph1arma.missing.value <- function(cc = 3, n = 50, order = c(1, 0, 0), phiVec
           }
 
           if (class(m1) != "try-error") {
-            if (!is.null(phiVec)) {
-              phiVecNew <- m1$coef[1:order[1]]
+            if (!is.null(phi.vec)) {
+              phi.vecNew <- m1$coef[1:order[1]]
             } else {
-              phiVecNew <- NULL
+              phi.vecNew <- NULL
             }
 
-            if (!is.null(thetaVec)) {
-              thetaVecNew <- m1$coef[(order[1] + 1):(order[1] + order[3])]
+            if (!is.null(theta.vec)) {
+              theta.vecNew <- m1$coef[(order[1] + 1):(order[1] + order[3])]
             } else {
-              thetaVecNew <- NULL
+              theta.vecNew <- NULL
             }
 
             Intercept <- m1$coef[order[1] + order[3] + 1]
-            mu0 <- Intercept * (1 - sum(phiVecNew))
+            mu0 <- Intercept * (1 - sum(phi.vecNew))
             sigma2 <- m1$sigma2
-            gamma0 <- sigma.mat(100, order = order, phiVec = phiVec, thetaVec = thetaVec, sigma2 = sigma2, burnIn = 50)$gamma0
+            gamma0 <- sigma.mat(100, order = order, phi.vec = phi.vec, theta.vec = theta.vec, sigma2 = sigma2, burn.in = 50)$gamma0
 
             sim <- (sim - mu0) / sqrt(gamma0)
             flg0 <- 0
@@ -418,140 +418,140 @@ fap.ph1arma.missing.value <- function(cc = 3, n = 50, order = c(1, 0, 0), phiVec
 }
 
 
-getcc.ph1arma.sim <- function(FAP0 = 0.1, interval = c(1, 4), n = 50, order = c(1, 0, 0), phiVec = 0.5, thetaVec = NULL, case = "U", method = "Method 3",
-                            nsim = 1000, burnIn = 50, simType = "Matrix", verbose = FALSE) {
-  root.finding <- function(FAP0, cc, n, order, phiVec, thetaVec, case, method, nsim1, nsim2, burnIn, simType) {
+getcc.ph1arma.sim <- function(fap0 = 0.1, interval = c(1, 4), n = 50, order = c(1, 0, 0), phi.vec = 0.5, theta.vec = NULL, case = "U", method = "Method 3",
+                            nsim = 1000, burn.in = 50, sim.type = "Matrix", verbose = FALSE) {
+  root.finding <- function(fap0, cc, n, order, phi.vec, theta.vec, case, method, nsim1, nsim2, burn.in, sim.type) {
     if (nsim1 > 0) {
-      FAPin <- lapply(1:nsim1, function(X) {
-        phiVecTmp <- phiVec[X, ]
-        if (length(phiVecTmp) == 0) phiVecTmp <- rep(0, order[1])
+      fapin <- lapply(1:nsim1, function(X) {
+        phi.vecTmp <- phi.vec[X, ]
+        if (length(phi.vecTmp) == 0) phi.vecTmp <- rep(0, order[1])
 
-        thetaVecTmp <- thetaVec[X, ]
-        if (length(thetaVecTmp) == 0) thetaVecTmp <- rep(0, order[3])
+        theta.vecTmp <- theta.vec[X, ]
+        if (length(theta.vecTmp) == 0) theta.vecTmp <- rep(0, order[3])
 
-        # cat('AR:', phiVecTmp, '\n')
+        # cat('AR:', phi.vecTmp, '\n')
         # cat('checkAR:', all(abs(outAR[i, ]) < 1), '\n')
 
-        # cat('MA:', thetaVecTmp, '\n')
+        # cat('MA:', theta.vecTmp, '\n')
         # cat('checkMA:', all(abs(outMA[i, ]) < 1), '\n')
 
         fap.ph1arma(
-          cc = cc, n = n, order = order, phiVec = phiVecTmp, thetaVec = thetaVecTmp,
-          case = case, method = method, nsim = nsim2, burnIn = burnIn, simType = simType
+          cc = cc, n = n, order = order, phi.vec = phi.vecTmp, theta.vec = theta.vecTmp,
+          case = case, method = method, nsim = nsim2, burn.in = burn.in, sim.type = sim.type
         )
       })
-      FAPin <- mean(unlist(FAPin))
+      fapin <- mean(unlist(fapin))
     } else {
-      FAPin <- fap.ph1arma(
-        cc = cc, n = n, order = order, phiVec = phiVec, thetaVec = thetaVec,
-        case = case, method = method, nsim = nsim2, burnIn = burnIn, simType = simType
+      fapin <- fap.ph1arma(
+        cc = cc, n = n, order = order, phi.vec = phi.vec, theta.vec = theta.vec,
+        case = case, method = method, nsim = nsim2, burn.in = burn.in, sim.type = sim.type
       )
     }
 
     if (verbose) {
-      cat("FAPin:", FAPin, " and cc:", cc, "\n")
+      cat("fapin:", fapin, " and cc:", cc, "\n")
     }
-    FAP0 - FAPin
+    fap0 - fapin
   }
 
-  if (is.matrix(phiVec) | is.matrix(thetaVec)) {
-    nsim1 <- max(dim(phiVec)[1], dim(thetaVec)[1])
+  if (is.matrix(phi.vec) | is.matrix(theta.vec)) {
+    nsim1 <- max(dim(phi.vec)[1], dim(theta.vec)[1])
   } else {
     nsim1 <- 0
   }
 
-  ## cat('phiVec:', phiVec, 'thetaVec:', thetaVec, sep = ', ')
+  ## cat('phi.vec:', phi.vec, 'theta.vec:', theta.vec, sep = ', ')
 
   uniroot(root.finding, interval,
-    FAP0 = FAP0, n = n, order = order, phiVec = phiVec, thetaVec = thetaVec, case = case, method = method,
-    nsim1 = nsim1, nsim2 = nsim, burnIn = burnIn, simType = simType
+    fap0 = fap0, n = n, order = order, phi.vec = phi.vec, theta.vec = theta.vec, case = case, method = method,
+    nsim1 = nsim1, nsim2 = nsim, burn.in = burn.in, sim.type = sim.type
   )$root
 }
 
 
-getcc.ph1arma.sim.missing.value <- function(FAP0 = 0.1, interval = c(1, 4), n = 50, order = c(1, 0, 0), phiVec = 0.5, thetaVec = NULL,
-                                        case = "U", method = "Method 3", nsim = 1000, burnIn = 50, simType = "Matrix", logliktol = 1e-2,
+getcc.ph1arma.sim.missing.value <- function(fap0 = 0.1, interval = c(1, 4), n = 50, order = c(1, 0, 0), phi.vec = 0.5, theta.vec = NULL,
+                                        case = "U", method = "Method 3", nsim = 1000, burn.in = 50, sim.type = "Matrix", logliktol = 1e-2,
                                         verbose = FALSE) {
-  root.finding <- function(FAP0, cc, n, order, phiVec, thetaVec, case, method, nsim1, nsim2, burnIn, simType, logliktol) {
+  root.finding <- function(fap0, cc, n, order, phi.vec, theta.vec, case, method, nsim1, nsim2, burn.in, sim.type, logliktol) {
     if (nsim1 > 0) {
-      FAPin <- lapply(1:nsim1, function(X) {
-        phiVecTmp <- phiVec[X, ]
-        if (length(phiVecTmp) == 0) phiVecTmp <- rep(0, order[1])
+      fapin <- lapply(1:nsim1, function(X) {
+        phi.vecTmp <- phi.vec[X, ]
+        if (length(phi.vecTmp) == 0) phi.vecTmp <- rep(0, order[1])
 
-        thetaVecTmp <- thetaVec[X, ]
-        if (length(thetaVecTmp) == 0) thetaVecTmp <- rep(0, order[3])
+        theta.vecTmp <- theta.vec[X, ]
+        if (length(theta.vecTmp) == 0) theta.vecTmp <- rep(0, order[3])
 
-        # cat('AR:', phiVecTmp, '\n')
+        # cat('AR:', phi.vecTmp, '\n')
         # cat('checkAR:', all(abs(outAR[i, ]) < 1), '\n')
 
-        # cat('MA:', thetaVecTmp, '\n')
+        # cat('MA:', theta.vecTmp, '\n')
         # cat('checkMA:', all(abs(outMA[i, ]) < 1), '\n')
 
         fap.ph1arma.missing.value(
-          cc = cc, n = n, order = order, phiVec = phiVecTmp, thetaVec = thetaVecTmp,
-          case = case, method = method, nsim = nsim2, burnIn = burnIn, simType = simType, tol = logliktol
+          cc = cc, n = n, order = order, phi.vec = phi.vecTmp, theta.vec = theta.vecTmp,
+          case = case, method = method, nsim = nsim2, burn.in = burn.in, sim.type = sim.type, tol = logliktol
         )
       })
 
-      FAPin <- mean(unlist(FAPin))
+      fapin <- mean(unlist(fapin))
     } else {
-      FAPin <- fap.ph1arma.missing.value(
-        cc = cc, n = n, order = order, phiVec = phiVec, thetaVec = thetaVec,
-        case = case, method = method, nsim = nsim2, burnIn = burnIn, simType = simType, tol = logliktol
+      fapin <- fap.ph1arma.missing.value(
+        cc = cc, n = n, order = order, phi.vec = phi.vec, theta.vec = theta.vec,
+        case = case, method = method, nsim = nsim2, burn.in = burn.in, sim.type = sim.type, tol = logliktol
       )
     }
 
     if (verbose) {
-      cat("FAPin:", FAPin, " and cc:", c, "\n")
+      cat("fapin:", fapin, " and cc:", c, "\n")
     }
-    FAP0 - FAPin
+    fap0 - fapin
   }
 
-  if (is.matrix(phiVec) | is.matrix(thetaVec)) {
-    nsim1 <- max(dim(phiVec)[1], dim(thetaVec)[1])
+  if (is.matrix(phi.vec) | is.matrix(theta.vec)) {
+    nsim1 <- max(dim(phi.vec)[1], dim(theta.vec)[1])
   } else {
     nsim1 <- 0
   }
 
-  ## cat('phiVec:', phiVec, 'thetaVec:', thetaVec, sep = ', ')
+  ## cat('phi.vec:', phi.vec, 'theta.vec:', theta.vec, sep = ', ')
 
   uniroot(root.finding, interval,
-    FAP0 = FAP0, n = n, order = order, phiVec = phiVec, thetaVec = thetaVec, case = case, method = method,
-    nsim1 = nsim1, nsim2 = nsim, burnIn = burnIn, simType = simType, logliktol = logliktol
+    fap0 = fap0, n = n, order = order, phi.vec = phi.vec, theta.vec = theta.vec, case = case, method = method,
+    nsim1 = nsim1, nsim2 = nsim, burn.in = burn.in, sim.type = sim.type, logliktol = logliktol
   )$root
 }
 
 
-getcc.arma <- function(FAP0 = 0.1,
+getcc.arma <- function(fap0 = 0.1,
                        interval = c(1, 4),
                        n = 50,
                        order = c(1, 0, 0),
-                       phiVec = 0.5,
-                       thetaVec = NULL,
+                       phi.vec = 0.5,
+                       theta.vec = NULL,
                        case = "U",
                        method = "Method 3",
-                       nsimCoefs = 100,
-                       nsimProcess = 1000,
-                       burnIn = 50,
-                       simType = "Matrix",
+                       nsim.coefs = 100,
+                       nsim.process = 1000,
+                       burn.in = 50,
+                       sim.type = "Matrix",
                        logliktol = 1e-2,
                        verbose = FALSE) {
   if (case == "K") {
-    if (simType == "Matrix") {
-      sigMat <- sigma.mat(n, order = order, phiVec = phiVec, thetaVec = thetaVec, sigma2 = 1, burnIn = burnIn)
-      out <- qmvnorm(1 - FAP0, tail = "both.tails", sigma = sigMat$sigma.mat / sigMat$gamma0)$quantile
+    if (sim.type == "Matrix") {
+      sigMat <- sigma.mat(n, order = order, phi.vec = phi.vec, theta.vec = theta.vec, sigma2 = 1, burn.in = burn.in)
+      out <- qmvnorm(1 - fap0, tail = "both.tails", sigma = sigMat$sigma.mat / sigMat$gamma0)$quantile
     } else {
-      out <- getcc.ph1arma.sim(FAP0, interval, n, order,
-        phiVec = phiVec, thetaVec = thetaVec, case = case, method = method,
-        nsim = nsimProcess, burnIn = burnIn, simType = simType, verbose = verbose
+      out <- getcc.ph1arma.sim(fap0, interval, n, order,
+        phi.vec = phi.vec, theta.vec = theta.vec, case = case, method = method,
+        nsim = nsim.process, burn.in = burn.in, sim.type = sim.type, verbose = verbose
       )
     }
   } else if (case == "U") {
-    CoefDist <- sim.coef.dist(n, order, phiVec, thetaVec, method, nsim = nsimCoefs, burnIn = burnIn, simType = simType)
+    CoefDist <- sim.coef.dist(n, order, phi.vec, theta.vec, method, nsim = nsim.coefs, burn.in = burn.in, sim.type = sim.type)
 
-    out <- getcc.ph1arma.sim(FAP0, interval, n, order,
-      phiVec = CoefDist$phiVec, thetaVec = CoefDist$thetaVec, case = case, method = method,
-      nsim = nsimProcess, burnIn = burnIn, simType = simType, verbose = verbose
+    out <- getcc.ph1arma.sim(fap0, interval, n, order,
+      phi.vec = CoefDist$phi.vec, theta.vec = CoefDist$theta.vec, case = case, method = method,
+      nsim = nsim.process, burn.in = burn.in, sim.type = sim.type, verbose = verbose
     )
   }
 

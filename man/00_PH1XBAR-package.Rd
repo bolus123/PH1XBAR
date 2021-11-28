@@ -38,6 +38,6 @@ ph1xbar(grinder_data, nsim=10)
 
 # Build a Phase I individual control chart with an ARMA model
 data(preston_data)
-ph1arma(preston_data, nsimProcess=10, nsimCoefs=10)
+ph1arma(preston_data, nsim.process=10, nsim.coefs=10)
 
 }

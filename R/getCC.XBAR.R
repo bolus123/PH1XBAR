@@ -1,7 +1,7 @@
-getcc.xbar <- function(FAP0,
+getcc.xbar <- function(fap0,
                        m,
                        var.est = c("S", "MR"),
-                       ubCons = 1,
+                       ub.cons = 1,
                        method = c("exact", "BA"),
                        interval = c(1, 5),
                        nsim = 10000,
@@ -13,20 +13,20 @@ getcc.xbar <- function(FAP0,
 
   if (method == "exact") {
     getcc.exact(
-      FAP0 = FAP0, interval = interval, m = m, est = var.est,
-      ubCons = ubCons, nsim = nsim, verbose = verbose
+      fap0 = fap0, interval = interval, m = m, est = var.est,
+      ub.cons = ub.cons, nsim = nsim, verbose = verbose
     )
   } else if (method == "BA") {
-    getcc.ba(FAP0 = FAP0, m = m, nu = nu, ubCons = ubCons, lambda = lambda)
+    getcc.ba(fap0 = fap0, m = m, nu = nu, ub.cons = ub.cons, lambda = lambda)
   } else {
     stop('Unexpected variance estimator. The method must be in c("exact", "BA"). The program will stop.')
   }
 }
 
-getcc <- function(FAP0,
+getcc <- function(fap0,
                   m,
                   var.est = c("S", "MR"),
-                  ubCons = 1,
+                  ub.cons = 1,
                   method = c("exact", "BA"),
                   interval = c(1, 5),
                   nsim = 10000,
@@ -36,10 +36,10 @@ getcc <- function(FAP0,
   warning("This function has been renamed.  Please use getcc.xbar instead.")
 
   getcc.xbar(
-    FAP0 = FAP0,
+    fap0 = fap0,
     m = m,
     var.est = var.est,
-    ubCons = ubCons,
+    ub.cons = ub.cons,
     method = method,
     interval = interval,
     nsim = nsim,
