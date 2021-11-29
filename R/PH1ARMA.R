@@ -2,7 +2,7 @@
 
 ph1arma <- function(X, cc = NULL, fap0 = 0.1, order = NULL, plot.option = TRUE, interval = c(1, 4),
                     case = 'U', method = 'Method 3', nsim.coefs = 100, nsim.process = 1000, burn.in = 50, 
-                    sim.type = 'Matrix', logliktol = 1e-2, verbose = FALSE) {
+                    sim.type = 'Matrix', logliktol = 1e-2, verbose = FALSE, max.p=1, max.q=0, max.d=0) {
   
   if (!is.vector(X)) {
 	if (dim(X)[1] == 1 | dim(X)[2] == 1) {
@@ -19,9 +19,9 @@ ph1arma <- function(X, cc = NULL, fap0 = 0.1, order = NULL, plot.option = TRUE, 
     if (is.null(order)) {
 
       if (method == 'Method 1' | method == 'Method 3') {
-        model <- auto.arima(X, method="CSS-ML", max.p=1, max.q=0, max.d=1)
+        model <- auto.arima(X, method="CSS-ML", max.p=max.p, max.q=max.q, max.d=max.d)
       } else if (method == 'Method 2') {
-        model <- auto.arima(X, method="CSS", max.p=1, max.q=0, max.d=1)
+        model <- auto.arima(X, method="CSS", max.p=max.p, max.q=max.q, max.d=max.d)
       }
 
       order <- rep(0, 3)
