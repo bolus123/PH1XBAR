@@ -10,13 +10,16 @@ ph1arma(
 	,plot.option = TRUE
 	,interval = c(1, 4)
 	,case = 'U'
-  	,method = 'Method 3'
+  ,method = 'Method 3'
 	,nsim.coefs = 100
 	,nsim.process = 1000
 	,burn.in = 50
 	,sim.type = 'Matrix'
-  	,logliktol = 1e-2
+  ,logliktol = 1e-2
 	,verbose = FALSE
+  ,max.p=1
+  ,max.q=0
+  ,max.d=0
 )
 }
 \arguments{
@@ -34,6 +37,9 @@ ph1arma(
   \item{sim.type}{ type of simulation.  When sim.type = 'Matrix', the simulation is generated using matrix computation.  When sim.type = 'Recursive', the simulation is based on a recursion. }
   \item{logliktol}{ convergence tolerance for the log likelihood }
   \item{verbose}{ print diagnostic information about fap0 and the charting constant during the simulations for the exact method }
+  \item{max.p}{ max.p for auto.arima }
+  \item{max.q}{ max.q for auto.arima }
+  \item{max.d}{ max.d for auto.arima }
 }
 \value{
 Object of type list. A named list with the following objects:
