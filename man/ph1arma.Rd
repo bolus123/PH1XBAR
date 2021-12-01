@@ -10,16 +10,16 @@ ph1arma(
 	,plot.option = TRUE
 	,interval = c(1, 4)
 	,case = 'U'
-  ,method = 'Method 3'
+	,method = 'Method 3'
 	,nsim.coefs = 100
 	,nsim.process = 1000
 	,burn.in = 50
 	,sim.type = 'Matrix'
-  ,logliktol = 1e-2
+	,logliktol = 1e-2
 	,verbose = FALSE
-  ,max.p=1
-  ,max.q=0
-  ,max.d=0
+	,max.p=1
+	,max.q=0
+	,max.d=0
 )
 }
 \arguments{
