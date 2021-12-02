@@ -1,6 +1,6 @@
 
 
-ph1arma <- function(X, cc = NULL, fap0 = 0.1, order = NULL, plot.option = TRUE, interval = c(1, 4),
+PH1ARMA <- function(X, cc = NULL, fap0 = 0.1, order = NULL, plot.option = TRUE, interval = c(1, 4),
                     case = 'U', method = 'Method 3', nsim.coefs = 100, nsim.process = 1000, burn.in = 50, 
                     sim.type = 'Matrix', logliktol = 1e-2, verbose = FALSE, max.p=1, max.q=0, max.d=0) {
   
@@ -55,7 +55,7 @@ ph1arma <- function(X, cc = NULL, fap0 = 0.1, order = NULL, plot.option = TRUE, 
       theta.vec <- NULL
     }
 
-    cc <- getcc.arma(fap0 = fap0, interval = interval, n, order = order, phi.vec = phi.vec, theta.vec = theta.vec, case = case,
+    cc <- getCC.ARMA(fap0 = fap0, interval = interval, n, order = order, phi.vec = phi.vec, theta.vec = theta.vec, case = case,
       method = method, nsim.coefs = nsim.coefs, nsim.process = nsim.process, burn.in = burn.in, sim.type = sim.type, verbose = verbose)
 
   }

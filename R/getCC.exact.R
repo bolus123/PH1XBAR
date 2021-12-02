@@ -45,7 +45,7 @@ integral.mc <- function(n, c, est = c("S", "MR"), ub.cons = 1, nsim = 10000) {
   1 - mean(unlist(res))
 }
 
-getcc.exact.n <- function(fap0, interval = c(1, 5), n, est = c("S", "MR"), ub.cons = 1,
+getCC.exact.n <- function(fap0, interval = c(1, 5), n, est = c("S", "MR"), ub.cons = 1,
                           nsim = 10000, verbose = FALSE) {
   root.finding <- function(c, fap0, n, est = c("S", "MR"), ub.cons = 1,
                            nsim = 10000) {
@@ -64,11 +64,11 @@ getcc.exact.n <- function(fap0, interval = c(1, 5), n, est = c("S", "MR"), ub.co
   )$root
 }
 
-getcc.exact <- function(fap0, interval = c(1, 5), m, est = c("S", "MR"), ub.cons = 1,
+getCC.exact <- function(fap0, interval = c(1, 5), m, est = c("S", "MR"), ub.cons = 1,
                         nsim = 10000, verbose = FALSE) {
   est <- est[1]
 
-  getcc.exact.n(fap0, interval, m,
+  getCC.exact.n(fap0, interval, m,
     est = est, ub.cons = ub.cons,
     nsim = nsim, verbose = verbose
   )

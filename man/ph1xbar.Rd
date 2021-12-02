@@ -1,8 +1,8 @@
-\name{ph1xbar}
-\alias{ph1xbar}
+\name{PH1XBAR}
+\alias{PH1XBAR}
 \title{Build Phase I X-bar control chart with a corrected charting constant}
 \usage{
-ph1xbar(
+PH1XBAR(
 	X
 	,cc = NULL
 	,fap0 = 0.1
@@ -51,6 +51,6 @@ set.seed(12345)
 data(grinder_data)
 
 # An example using a false alarm probability of 0.05, and 10 simulations
-ph1xbar(grinder_data, fap0 = 0.05, nsim=10, verbose=TRUE)
+PH1XBAR(grinder_data, fap0 = 0.05, nsim=10, verbose=TRUE)
 
 }

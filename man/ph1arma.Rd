@@ -1,8 +1,8 @@
-\name{ph1arma}
-\alias{ph1arma}
+\name{PH1ARMA}
+\alias{PH1ARMA}
 \title{Build Phase I individual control chart with an ARMA model using a corrected charting constant}
 \usage{
-ph1arma(
+PH1ARMA(
 	X
 	,cc = NULL
 	,fap0 = 0.1
@@ -66,11 +66,11 @@ nsim.process <- 10
 nsim.coefs <- 10
 
 # An example using the default setting whose fap0 = 0.1
-ph1arma(preston_data, nsim.process = nsim.process, nsim.coefs = nsim.coefs)
+PH1ARMA(preston_data, nsim.process = nsim.process, nsim.coefs = nsim.coefs)
 
 # When users get an error message about the size of matrix,
 # the function needs to use the alternative simulation type as follows
-ph1arma(preston_data, fap0 = 0.05, 
+PH1ARMA(preston_data, fap0 = 0.05, 
 	nsim.process = nsim.process, nsim.coefs = nsim.coefs, sim.type = 'Recursive')
 
 }

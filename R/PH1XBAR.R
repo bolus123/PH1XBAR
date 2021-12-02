@@ -1,4 +1,4 @@
-ph1xbar <- function(X,
+PH1XBAR <- function(X,
                     cc = NULL,
                     fap0 = 0.1,
                     var.est = c("S", "MR"),
@@ -41,7 +41,7 @@ ph1xbar <- function(X,
 
 
   if (is.null(cc)) {
-    cc <- getcc.xbar(
+    cc <- getCC.XBAR(
       fap0 = fap0,
       m = m,
       var.est = var.est,
