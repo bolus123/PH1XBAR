@@ -1,28 +1,27 @@
 
-PH1ARMA <- function(X, cc = NULL, FAP0 = 0.1, order = NULL, plot.option = TRUE, interval = c(1, 4),
-                    case = 'U', method = 'Method 3', nsimCoefs = 100, nsimProcess = 1000, burnIn = 50, 
-                    simType = 'Matrix', logliktol = 1e-2, verbose = FALSE) {
 
-  Y <- X
+PH1ARMA <- function(X, cc = NULL, fap0 = 0.1, order = NULL, plot.option = TRUE, interval = c(1, 4),
+                    case = 'U', method = 'Method 3', nsim.coefs = 100, nsim.process = 1000, burn.in = 50, 
+                    sim.type = 'Matrix', logliktol = 1e-2, verbose = FALSE, max.p=1, max.q=0, max.d=0) {
   
-  if (!is.vector(Y)) {
-	if (dim(Y)[1] == 1 | dim(Y)[2] == 1) {
-		Y <- as.vector(Y)
+  if (!is.vector(X)) {
+	if (dim(X)[1] == 1 | dim(X)[2] == 1) {
+		X <- as.vector(X)
 	} else {
 		stop('X is not a vector, or a m x 1 or 1 x m matrix.')
 	}
   } 
 
-  n <- length(Y)
+  n <- length(X)
 
   if (is.null(cc)) {
 
     if (is.null(order)) {
 
       if (method == 'Method 1' | method == 'Method 3') {
-        model <- auto.arima(Y, method = 'CSS-ML')
+        model <- auto.arima(X, method="CSS-ML", max.p=max.p, max.q=max.q, max.d=max.d)
       } else if (method == 'Method 2') {
-        model <- auto.arima(Y, method = 'CSS')
+        model <- auto.arima(X, method="CSS", max.p=max.p, max.q=max.q, max.d=max.d)
       }
 
       order <- rep(0, 3)
@@ -40,44 +39,44 @@ PH1ARMA <- function(X, cc = NULL, FAP0 = 0.1, order = NULL, plot.option = TRUE, 
 
     } else {
 
-      model <- arima(Y, order = order, method = method)
+      model <- arima(X, order = order, method = method)
 
     }
 
     if (length(model$model$phi) > 0) {
-      phiVec <- model$model$phi
+      phi.vec <- model$model$phi
     } else {
-      phiVec <- NULL
+      phi.vec <- NULL
     }
 
     if (length(model$model$theta) > 0) {
-      thetaVec <- model$model$theta
+      theta.vec <- model$model$theta
     } else {
-      thetaVec <- NULL
+      theta.vec <- NULL
     }
 
-    cc <- getCC.ARMA(FAP0 = FAP0, interval = interval, n, order = order, phiVec = phiVec, thetaVec = thetaVec, case = case,
-      method = method, nsimCoefs = nsimCoefs, nsimProcess = nsimProcess, burnIn = burnIn, simType = simType, verbose = verbose)
+    cc <- getCC.ARMA(fap0 = fap0, interval = interval, n, order = order, phi.vec = phi.vec, theta.vec = theta.vec, case = case,
+      method = method, nsim.coefs = nsim.coefs, nsim.process = nsim.process, burn.in = burn.in, sim.type = sim.type, verbose = verbose)
 
   }
 
   if (order[2] > 0) {
 
-    Y <- diff(Y, differences = order[2])
+    X <- diff(X, differences = order[2])
 
   }
 
-  mu <- mean(Y)
-  gamma <- sd(Y)
+  mu <- mean(X)
+  gamma <- sd(X)
 
-  stdX <- (Y - mu) / gamma
+  stdX <- (X - mu) / gamma
 
   LCL <- -cc
   UCL <- cc
 
   if (plot.option == TRUE) {
 
-    main.text <- paste('Phase I Individual Chart for FAP0 =', FAP0, 'with an ARMA model')
+    main.text <- paste('Phase I Individual Chart for fap0 =', fap0, 'with an ARMA model')
 
     plot(c(1, n), c(min(LCL, stdX), max(UCL, stdX)), xaxt = "n", xlab = 'Observation', ylab = 'Charting Statistic', type = 'n', main = main.text)
 
@@ -92,7 +91,7 @@ PH1ARMA <- function(X, cc = NULL, FAP0 = 0.1, order = NULL, plot.option = TRUE, 
 
   }
 
-  list(CL = mu, gamma = gamma, cc = cc, order = order, phiVec = phiVec, thetaVec = thetaVec, LCL = LCL, UCL = UCL, CS = stdX)
+  res <- list(CL = mu, gamma = gamma, cc = cc, order = order, phi.vec = phi.vec, theta.vec = theta.vec, LCL = LCL, UCL = UCL, CS = stdX)
 
-
+  return(invisible(res))
 }

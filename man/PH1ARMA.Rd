@@ -5,35 +5,41 @@
 PH1ARMA(
 	X
 	,cc = NULL
-	,FAP0 = 0.1
+	,fap0 = 0.1
 	,order = NULL
 	,plot.option = TRUE
 	,interval = c(1, 4)
 	,case = 'U'
-  	,method = 'Method 3'
-	,nsimCoefs = 100
-	,nsimProcess = 1000
-	,burnIn = 50
-	,simType = 'Matrix'
-  	,logliktol = 1e-2
+	,method = 'Method 3'
+	,nsim.coefs = 100
+	,nsim.process = 1000
+	,burn.in = 50
+	,sim.type = 'Matrix'
+	,logliktol = 1e-2
 	,verbose = FALSE
+	,max.p=1
+	,max.q=0
+	,max.d=0
 )
 }
 \arguments{
   \item{X}{ input and it must be a vector }
   \item{cc}{ nominal Phase I charting constant. If this is given, the function will not re-compute the charting constant. }
-  \item{FAP0}{ nominal false Alarm Probabilty in Phase I }
+  \item{fap0}{ nominal false Alarm Probabilty in Phase I }
   \item{order}{ order for ARMA model }
   \item{plot.option}{TRUE - draw a plot for the process; FALSE - Not draw a plot for the process}
   \item{interval}{ searching range of charting constants for the exact method }
   \item{case}{ known or unknown case.  When case = 'U', the parameters are estimated }
   \item{method}{ estimation method for the control chart. When method = 'Method 3' is maximum likehood estimations plus method of moments. Other options are 'Method 1' which is pure MLE and 'Method 2' which is pure CSS. }
-  \item{nsimCoefs}{ number of simulation for coeficients.  It is functional when double.sim = TRUE. }
-  \item{nsimProcess}{ number of simulation for ARMA processes }
-  \item{burnIn}{ number of burn-ins.  When burnIn = 0, the ECM gets involved.  When burnIn is large enough, the ACM gets involved. }
-  \item{simType}{ type of simulation.  When simType = 'Matrix', the simulation is generated using matrix computation.  When simType = 'Recursive', the simulation is based on a recursion. }
+  \item{nsim.coefs}{ number of simulation for coeficients.}
+  \item{nsim.process}{ number of simulation for ARMA processes }
+  \item{burn.in}{ number of burn-ins.  When burn.in = 0, the ECM gets involved.  When burn.in is large enough, the ACM gets involved. }
+  \item{sim.type}{ type of simulation.  When sim.type = 'Matrix', the simulation is generated using matrix computation.  When sim.type = 'Recursive', the simulation is based on a recursion. }
   \item{logliktol}{ convergence tolerance for the log likelihood }
-  \item{verbose}{ print diagnostic information about FAP0 and the charting constant during the simulations for the exact method }
+  \item{verbose}{ print diagnostic information about fap0 and the charting constant during the simulations for the exact method }
+  \item{max.p}{ max.p for auto.arima }
+  \item{max.q}{ max.q for auto.arima }
+  \item{max.d}{ max.d for auto.arima }
 }
 \value{
 Object of type list. A named list with the following objects:
@@ -41,14 +47,14 @@ Object of type list. A named list with the following objects:
   \item{gamma}{Object type double - process variance estimate}
   \item{cc}{Object type double - charting constant}
   \item{order}{Object type integer - order for ARMA model}
-  \item{phiVec}{Object type integer - values of autoregressors}
-  \item{thetaVec}{Object type integer - values of moving averages}
+  \item{phi.vec}{Object type integer - values of autoregressors}
+  \item{theta.vec}{Object type integer - values of moving averages}
   \item{LCL}{Object type double - lower charting limit}
   \item{UCL}{Object type double - upper charting limit}
   \item{CS}{Object type double - charting statistic}
 }
 \description{
-Build a Phase I individual control chart for the ARMA models. The charting constant is correted by this approach.
+Build a Phase I individual control chart for the ARMA models. The charting constant is corrected by this approach.
 }
 \examples{
 
@@ -56,15 +62,15 @@ Build a Phase I individual control chart for the ARMA models. The charting const
 data(preston_data)
 
 # set number of simulations
-nsimProcess <- 10
-nsimCoefs <- 10
+nsim.process <- 10
+nsim.coefs <- 10
 
-# An example using the default setting whose FAP0 = 0.1
-PH1ARMA(preston_data, nsimProcess = nsimProcess, nsimCoefs = nsimCoefs)
+# An example using the default setting whose fap0 = 0.1
+PH1ARMA(preston_data, nsim.process = nsim.process, nsim.coefs = nsim.coefs)
 
 # When users get an error message about the size of matrix,
 # the function needs to use the alternative simulation type as follows
-PH1ARMA(preston_data, FAP0 = 0.05, 
-	nsimProcess = nsimProcess, nsimCoefs = nsimCoefs, simType = 'Recursive')
+PH1ARMA(preston_data, fap0 = 0.05, 
+	nsim.process = nsim.process, nsim.coefs = nsim.coefs, sim.type = 'Recursive')
 
 }

@@ -80,14 +80,11 @@ PH1ARMA(preston_data)
 PH1ARMA(preston_data, case = 'K')
 ```
 
-Also, PH1XBAR provides a function to get the ARMA corrected charting constant as follows
+PH1XBAR provides a function to get the corrected charting constant for the ARMA model as follows
 
 ``` r
-# double simulation gets involved if estimators are unknown
-getCC.ARMA(FAP0 = 0.1, double.sim = TRUE)
-
-# single simulation gets involved if estimators are known
-getCC.ARMA(FAP0 = 0.1, double.sim = FALSE)
+# Calculate the charting constant using FAP0 of 0.05, and 50 observations
+getCC.ARMA(FAP0=0.05, n=50)
 ```
 
 More details are on the manual.
