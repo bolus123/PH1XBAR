@@ -20,6 +20,7 @@ PH1ARMA(
 	,max.p=1
 	,max.q=0
 	,max.d=0
+  ,standardize=TRUE
 )
 }
 \arguments{
@@ -40,6 +41,7 @@ PH1ARMA(
   \item{max.p}{ max.p for auto.arima }
   \item{max.q}{ max.q for auto.arima }
   \item{max.d}{ max.d for auto.arima }
+  \item{standardize}{ Output z-scores instead of raw data }
 }
 \value{
 Object of type list. A named list with the following objects:
