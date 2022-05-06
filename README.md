@@ -2,7 +2,7 @@
 status](https://github.com/bolus123/PH1XBAR/workflows/R-CMD-check/badge.svg)](https://github.com/bolus123/PH1XBAR/actions)
 [![](https://www.r-pkg.org/badges/version/PH1XBAR)](https://www.r-pkg.org/pkg/PH1XBAR)
 [![CRAN RStudio mirror
-downloads](https://cranlogs.r-pkg.org/badges/PH1XBAR)](http://www.r-pkg.org/pkg/PH1XBAR)
+downloads](https://cranlogs.r-pkg.org/badges/PH1XBAR)](https://www.r-pkg.org/pkg/PH1XBAR)
 
 # Overview
 The purpose of PH1XBAR is to build three types of Phase I Shewhart control charts:  
