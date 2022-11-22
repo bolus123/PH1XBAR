@@ -2,7 +2,7 @@
 
 PH1ARMA <- function(X, cc = NULL, fap0 = 0.1, order = NULL, plot.option = TRUE, interval = c(1, 4),
                     case = 'U', method = 'Method 3', nsim.coefs = 100, nsim.process = 1000, burn.in = 50, 
-                    sim.type = 'Matrix', logliktol = 1e-2, verbose = FALSE, max.p=1, max.q=0, max.d=0) {
+                    sim.type = 'Matrix', logliktol = 1e-2, verbose = FALSE, max.p=1, max.q=0, max.d=0, standardize=TRUE) {
   
   if (!is.vector(X)) {
 	if (dim(X)[1] == 1 | dim(X)[2] == 1) {
@@ -66,13 +66,23 @@ PH1ARMA <- function(X, cc = NULL, fap0 = 0.1, order = NULL, plot.option = TRUE, 
 
   }
 
-  mu <- mean(X)
-  gamma <- sd(X)
+  if (standardize){
+    mu <- mean(X)
+    gamma <- sd(X)
 
-  stdX <- (X - mu) / gamma
+    stdX <- (X - mu) / gamma
 
-  LCL <- -cc
-  UCL <- cc
+    LCL <- -cc
+    UCL <- cc
+  }else{
+    mu <- mean(X)
+    gamma <- sd(X)
+
+    stdX <- X
+
+    LCL <- -cc * gamma + mu
+    UCL <- cc * gamma + mu
+  }
 
   if (plot.option == TRUE) {
 
