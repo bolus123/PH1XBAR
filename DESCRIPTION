@@ -3,7 +3,7 @@ Type: Package
 Title: Phase I Shewhart X-Bar Chart 
 Version: 0.11.1
 Authors@R: c(
-				person("Yuhui", "Yao", role = c("aut", "cre"), email = "yyao17@cba.ua.edu"),
+				person("Yuhui", "Yao", role = c("aut", "cre"), email = "yyao17@ua.edu"),
 				person("Subha", "Chakraborti", role = c("ctb"), email = "schakrab@cba.ua.edu"),
 				person("Tyler", "Thomas", role = c("ctb"), email = "tjthomas7@crimson.ua.edu"),
 				person("Jason", "Parton", role = c("ctb"), email = "jmparton@cba.ua.edu"),
