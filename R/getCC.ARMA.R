@@ -150,7 +150,7 @@ sim.coef.dist <- function(n, order = c(1, 0, 0), phi.vec = 0.5, theta.vec = NULL
       check1 <- 1
       check2 <- 1
 
-      if (class(model) != "try-error") {
+      if (class(model)[1] != "try-error") {
         if (order[1] > 0) {
           outAR[i, ] <- model$coef[1:order[1]]
           check1 <- invert.q(outAR[i, ]) == 1
@@ -214,7 +214,7 @@ sim.coef.dist.missing.value <- function(n, order = c(1, 0, 0), phi.vec = 0.5, th
           model <- try(arima(sim, order = order, method = "CSS"), silent = TRUE)
         }
 
-        if (class(model) != "try-error") {
+        if (class(model)[1] != "try-error") {
           sim[mv] <- sim[mv] - model$residuals[mv]
           oldLogLikelihood <- newLogLikelihood
           newLogLikelihood <- model$loglik
@@ -230,7 +230,7 @@ sim.coef.dist.missing.value <- function(n, order = c(1, 0, 0), phi.vec = 0.5, th
       check1 <- 1
       check2 <- 1
 
-      if (class(model) != "try-error") {
+      if (class(model)[1] != "try-error") {
         if (order[1] > 0) {
           outAR[i, ] <- model$coef[1:order[1]]
           check1 <- invert.q(outAR[i, ]) == 1
@@ -296,7 +296,7 @@ fap.PH1ARMA <- function(cc = 3, n = 50, order = c(1, 0, 0), phi.vec = 0.5, theta
         } else if (method == "Method 1") {
           m1 <- try(arima(sim, order = order, method = "CSS-ML"), silent = TRUE)
 
-          if (class(m1) != "try-error") {
+          if (class(m1)[1] != "try-error") {
             if (!is.null(phi.vec)) {
               phi.vecNew <- m1$coef[1:order[1]]
             } else {
@@ -371,7 +371,7 @@ fap.PH1ARMA.missing.value <- function(cc = 3, n = 50, order = c(1, 0, 0), phi.ve
           while (abs(newLogLikelihood - oldLogLikelihood) > tol) {
             m1 <- try(arima(sim, order = order, method = "CSS-ML"), silent = TRUE)
 
-            if (class(m1) != "try-error") {
+            if (class(m1)[1] != "try-error") {
               sim[mv] <- sim[mv] - m1$residuals[mv]
               oldLogLikelihood <- newLogLikelihood
               newLogLikelihood <- m1$loglik
@@ -381,7 +381,7 @@ fap.PH1ARMA.missing.value <- function(cc = 3, n = 50, order = c(1, 0, 0), phi.ve
             }
           }
 
-          if (class(m1) != "try-error") {
+          if (class(m1)[1] != "try-error") {
             if (!is.null(phi.vec)) {
               phi.vecNew <- m1$coef[1:order[1]]
             } else {
