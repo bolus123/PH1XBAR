@@ -4,8 +4,8 @@
 \title{get Phase I corrected charting constant}
  \usage{
 getCC.XBAR(
-	fap0
-	,m 
+	m 
+	,fap0 = 0.05
 	,var.est = c('S', 'MR') 
 	,ub.cons = 1 
 	,method = c('exact', 'BA')
@@ -13,12 +13,12 @@ getCC.XBAR(
 	,nsim = 10000 
 	,nu = m - 1 
 	,lambda = 1
-  	,verbose = FALSE
+  ,verbose = FALSE
 )
 
 getCC(
-	fap0
-	,m 
+	m 
+	,fap0 = 0.05
 	,var.est = c('S', 'MR') 
 	,ub.cons = 1 
 	,method = c('exact', 'BA')
@@ -26,7 +26,7 @@ getCC(
 	,nsim = 10000 
 	,nu = m - 1 
 	,lambda = 1
-  	,verbose = FALSE
+  ,verbose = FALSE
 )
 }
 \arguments{

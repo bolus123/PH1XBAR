@@ -23,8 +23,8 @@ getCC.XBAR <- function(m,
   }
 }
 
-getCC <- function(fap0,
-                  m,
+getCC <- function(m,
+                  fap0 = 0.05,
                   var.est = c("S", "MR"),
                   ub.cons = 1,
                   method = c("exact", "BA"),

@@ -3,7 +3,7 @@
 \title{get Phase I corrected charting constant with an ARMA model}
  \usage{
 getCC.ARMA(
-	fap0 = 0.1 
+	fap0 = 0.05
   	,interval = c(1, 4)
   	,n = 50 
   	,order = c(1, 0, 0)
@@ -15,8 +15,7 @@ getCC.ARMA(
   	,nsim.process = 1000
   	,burn.in = 50
   	,sim.type = 'Matrix'
-  	,logliktol = 1e-2
-	,verbose = FALSE
+	  ,verbose = FALSE
 )
 }
 \arguments{

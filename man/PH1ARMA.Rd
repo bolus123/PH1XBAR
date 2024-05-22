@@ -10,8 +10,10 @@ PH1ARMA(
 	,plot.option = TRUE
 	,interval = c(1, 4)
 	,case = 'U'
-	,phi = NULL
-	,theta = NULL
+	,phi.vec = NULL
+	,theta.vec = NULL
+	,mu0 = NULL, 
+	,sigma0 = NULL
 	,method = 'MLE+MOM'
 	,nsim.coefs = 100
 	,nsim.process = 1000
@@ -29,8 +31,10 @@ PH1ARMA(
   \item{plot.option}{TRUE - draw a plot for the process; FALSE - Not draw a plot for the process}
   \item{interval}{ searching range of charting constants for the exact method }
   \item{case}{ known or unknown case.  When case = 'U', the parameters are estimated }
-  \item{phi}{ vector of autoregressive coefficient(s).  When case = 'K', the vector needs to be provided with the length same as the first value in the order.  If autoregressive coefficents does not present, phi needs to be NULL}
-  \item{theta}{ vector of moving-average coefficient(s).  When case = 'K', the vector needs to be provided with the length same as the third value in the order.  If moving-average coefficents does not present, theta needs to be NULL}
+  \item{phi.vec}{ vector of autoregressive coefficient(s).  When case = 'K', the vector needs to be provided with the length same as the first value in the order.  If autoregressive coefficents does not present, phi needs to be NULL}
+  \item{theta.vec}{ vector of moving-average coefficient(s).  When case = 'K', the vector needs to be provided with the length same as the third value in the order.  If moving-average coefficents does not present, theta needs to be NULL}
+  \item{mu0}{ value of the IC process mean.  When case = 'K', the value needs to be provided.}
+  \item{sigma0}{ value of the IC process standard deviation.  When case = 'K', the value needs to be provided.}
   \item{method}{ estimation method for the control chart. When method = 'MLE+MOM' is maximum likehood estimations plus method of moments. Other options are 'MLE' which is pure MLE and 'CSS' which is pure CSS. }
   \item{nsim.coefs}{ number of simulation for coeficients.}
   \item{nsim.process}{ number of simulation for ARMA processes }

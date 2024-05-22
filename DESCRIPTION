@@ -21,3 +21,4 @@ Imports:
 	mvtnorm,
 	pracma
 URL: https://github.com/bolus123/PH1XBAR
+RoxygenNote: 7.2.3

@@ -1,7 +1,6 @@
 
-
 PH1ARMA <- function(X, cc = NULL, fap0 = 0.05, order = c(1, 0, 0), plot.option = TRUE, interval = c(1, 4),
-                    case = 'U', phiVec = NULL, thetaVec = NULL, mu0 = NULL, sigma0 = NULL, method = 'MLE+MOM', nsim.coefs = 100, nsim.process = 1000, burn.in = 50, 
+                    case = 'U', phi.vec = NULL, theta.vec = NULL, mu0 = NULL, sigma0 = NULL, method = 'MLE+MOM', nsim.coefs = 100, nsim.process = 1000, burn.in = 50, 
                     sim.type = 'Matrix', standardize=TRUE, verbose = FALSE) {
 
   if (!is.vector(X)) {
@@ -40,9 +39,6 @@ PH1ARMA <- function(X, cc = NULL, fap0 = 0.05, order = c(1, 0, 0), plot.option =
         method = method, nsim.coefs = nsim.coefs, nsim.process = nsim.process, burn.in = burn.in, sim.type = sim.type, verbose = verbose)
 
     } else if (case == 'K') {
-      phi.vec <- phiVec
-      theta.vec <- thetaVec
-      
       cc <- getCC.ARMA(fap0 = fap0, interval = interval, n, order = order, phi.vec = phi, theta.vec = theta, case = case,
         method = method, nsim.coefs = nsim.coefs, nsim.process = nsim.process, burn.in = burn.in, sim.type = sim.type, verbose = verbose)
 
