@@ -1,5 +1,5 @@
-getCC.XBAR <- function(fap0,
-                       m,
+getCC.XBAR <- function(m,
+                       fap0 = 0.05,
                        var.est = c("S", "MR"),
                        ub.cons = 1,
                        method = c("exact", "BA"),

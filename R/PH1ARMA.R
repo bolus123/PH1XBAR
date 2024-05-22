@@ -1,17 +1,9 @@
 
 
 PH1ARMA <- function(X, cc = NULL, fap0 = 0.05, order = c(1, 0, 0), plot.option = TRUE, interval = c(1, 4),
-                    case = 'U', phi = NULL, theta = NULL, method = 'Method 3', nsim.coefs = 100, nsim.process = 1000, burn.in = 50, 
+                    case = 'U', phiVec = NULL, thetaVec = NULL, mu0 = NULL, sigma0 = NULL, method = 'MLE+MOM', nsim.coefs = 100, nsim.process = 1000, burn.in = 50, 
                     sim.type = 'Matrix', standardize=TRUE, verbose = FALSE) {
 
-  if (method == "MLE") {
-    method <- "Method 1"
-  } else if (method == "CSS") {
-    method <- "Method 2"
-  } else if (method == "MLE+MOM") {
-    method <- "Method 3"
-  }
-    
   if (!is.vector(X)) {
 	if (dim(X)[1] == 1 | dim(X)[2] == 1) {
 		X <- as.vector(X)
@@ -25,7 +17,7 @@ PH1ARMA <- function(X, cc = NULL, fap0 = 0.05, order = c(1, 0, 0), plot.option =
   if (is.null(cc)) {
 
     if (case == 'U') {
-      if ((method == "Method 1")||(method == "Method 3")) {
+      if ((method == "MLE")||(method == "MLE+MOM")) {
         model <- arima(X, order = order, method = "CSS-ML")
       } else {
         model <- arima(X, order = order, method = "CSS")
@@ -48,8 +40,8 @@ PH1ARMA <- function(X, cc = NULL, fap0 = 0.05, order = c(1, 0, 0), plot.option =
         method = method, nsim.coefs = nsim.coefs, nsim.process = nsim.process, burn.in = burn.in, sim.type = sim.type, verbose = verbose)
 
     } else if (case == 'K') {
-      phi.vec <- phi
-      theta.vec <- theta
+      phi.vec <- phiVec
+      theta.vec <- thetaVec
       
       cc <- getCC.ARMA(fap0 = fap0, interval = interval, n, order = order, phi.vec = phi, theta.vec = theta, case = case,
         method = method, nsim.coefs = nsim.coefs, nsim.process = nsim.process, burn.in = burn.in, sim.type = sim.type, verbose = verbose)
@@ -65,23 +57,47 @@ PH1ARMA <- function(X, cc = NULL, fap0 = 0.05, order = c(1, 0, 0), plot.option =
 
   }
 
-  if (standardize){
-    mu <- mean(X)
-    gamma <- sd(X)
-
-    stdX <- (X - mu) / gamma
-
-    LCL <- -cc
-    UCL <- cc
-  }else{
-    mu <- mean(X)
-    gamma <- sd(X)
-
-    stdX <- X
-
-    LCL <- -cc * gamma + mu
-    UCL <- cc * gamma + mu
+  if (case == "U") {
+    if (standardize){
+      mu <- mean(X)
+      gamma <- sd(X)
+  
+      stdX <- (X - mu) / gamma
+  
+      LCL <- -cc
+      UCL <- cc
+    }else{
+      mu <- mean(X)
+      gamma <- sd(X)
+  
+      stdX <- X
+  
+      LCL <- -cc * gamma + mu
+      UCL <- cc * gamma + mu
+    }
+  } else if (case == "K") {
+    
+    if (standardize){
+      mu <- mu0
+      gamma <- sigma0
+  
+      stdX <- (X - mu) / gamma
+  
+      LCL <- -cc
+      UCL <- cc
+    }else{
+      mu <- mu0
+      gamma <- sigma0
+  
+      stdX <- X
+  
+      LCL <- -cc * gamma + mu
+      UCL <- cc * gamma + mu
+    }
+    
   }
+  
+  
 
   if (plot.option == TRUE) {
 

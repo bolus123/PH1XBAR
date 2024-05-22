@@ -124,7 +124,7 @@ sim.ARMA.process <- function(n, order = c(1, 0, 0), phi.vec = 0.5, theta.vec = N
   }
 }
 
-sim.coef.dist <- function(n, order = c(1, 0, 0), phi.vec = 0.5, theta.vec = NULL, method = "Method 3",
+sim.coef.dist <- function(n, order = c(1, 0, 0), phi.vec = 0.5, theta.vec = NULL, method = "MLE+MOM",
                         nsim = 100, burn.in = 50, sim.type = "Matrix",
                         SigMat = sigma.mat(n, order, phi.vec, theta.vec, sigma2 = 1, burn.in = burn.in)) {
   outAR <- matrix(NA, nrow = nsim, ncol = order[1])
@@ -141,9 +141,9 @@ sim.coef.dist <- function(n, order = c(1, 0, 0), phi.vec = 0.5, theta.vec = NULL
         sim.type = sim.type, SigMat = SigMat
       )
 
-      if (method == "Method 1" | method == "Method 3") {
+      if (method == "MLE" | method == "MLE+MOM") {
         model <- try(arima(sim, order = order, method = "CSS-ML"), silent = TRUE)
-      } else if (method == "Method 2") {
+      } else if (method == "CSS") {
         model <- try(arima(sim, order = order, method = "CSS"), silent = TRUE)
       }
 
@@ -186,7 +186,7 @@ sim.coef.dist <- function(n, order = c(1, 0, 0), phi.vec = 0.5, theta.vec = NULL
 
 
 
-fap.PH1ARMA <- function(cc = 3, n = 50, order = c(1, 0, 0), phi.vec = 0.5, theta.vec = NULL, case = "U", method = "Method 3",
+fap.PH1ARMA <- function(cc = 3, n = 50, order = c(1, 0, 0), phi.vec = 0.5, theta.vec = NULL, case = "U", method = "MLE+MOM",
                        nsim = 1000, burn.in = 50, sim.type = "Matrix") {
   if (sim.type == "Matrix") {
     sigMat1 <- sigma.mat(n, order, phi.vec, theta.vec, sigma2 = 1, burn.in = burn.in)
@@ -209,12 +209,12 @@ fap.PH1ARMA <- function(cc = 3, n = 50, order = c(1, 0, 0), phi.vec = 0.5, theta
       )
 
       if (case == "U") {
-        if (method == "Method 2" | method == "Method 3") {
+        if (method == "CSS" | method == "MLE+MOM") {
           sim <- (sim - mean(sim)) / sd(sim)
           flg <- 0
           out1 <- sum(-cc <= sim & sim <= cc) != n
           return(out1)
-        } else if (method == "Method 1") {
+        } else if (method == "MLE") {
           m1 <- try(arima(sim, order = order, method = "CSS-ML"), silent = TRUE)
 
           if (class(m1)[1] != "try-error") {
@@ -254,7 +254,7 @@ fap.PH1ARMA <- function(cc = 3, n = 50, order = c(1, 0, 0), phi.vec = 0.5, theta
 }
 
 
-getCC.PH1ARMA.sim <- function(fap0 = 0.1, interval = c(1, 4), n = 50, order = c(1, 0, 0), phi.vec = 0.5, theta.vec = NULL, case = "U", method = "Method 3",
+getCC.PH1ARMA.sim <- function(fap0 = 0.1, interval = c(1, 4), n = 50, order = c(1, 0, 0), phi.vec = 0.5, theta.vec = NULL, case = "U", method = "MLE+MOM",
                             nsim = 1000, burn.in = 50, sim.type = "Matrix", verbose = FALSE) {
   root.finding <- function(fap0, cc, n, order, phi.vec, theta.vec, case, method, nsim1, nsim2, burn.in, sim.type) {
     if (nsim1 > 0) {
@@ -313,7 +313,7 @@ getCC.ARMA <- function(fap0 = 0.1,
                        phi.vec = 0.5,
                        theta.vec = NULL,
                        case = "U",
-                       method = "Method 3",
+                       method = "MLE+MOM",
                        nsim.coefs = 100,
                        nsim.process = 1000,
                        burn.in = 50,
