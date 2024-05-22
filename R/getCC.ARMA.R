@@ -305,8 +305,36 @@ getCC.PH1ARMA.sim <- function(fap0 = 0.1, interval = c(1, 4), n = 50, order = c(
 }
 
 
-
-getCC.ARMA <- function(fap0 = 0.1,
+#' get Phase I corrected charting constant with an ARMA model
+#' 
+#' @param fap0 nominal false Alarm Probabilty in Phase 1 
+#' @param interval searching range of charting constants for the exact method 
+#' @param n number of observations 
+#' @param order order for ARMA model 
+#' @param phi.vec given vectors of autoregressive parameters for ARMA models 
+#' @param theta.vec given vectors of moving-average parameters for ARMA models 
+#' @param case known or unknown case.  When case = 'U', the parameters are unknown and the charting constant is calculated based on a bootstrapping method.  When case = 'K', the parameters are known and the charting constant is found using the quantile function of multivariate normal distribution
+#' @param phi vector of autoregressive coefficient(s).  When case = 'K', it must be provided. The length must be the same as the first value in the order.  It needs to be NULL if no autoregressor presents
+#' @param theta vector of moving-average coefficient(s).  When case = 'K', it must be provided. The length must be the same as the third value in the order.  It needs to be NULL if no moving average presents
+#' @param method estimation method for the control chart. When method = 'Method 3' is maximum likehood estimations plus method of moments. Other options are 'Method 1' which is pure MLE and 'Method 2' which is pure CSS. 
+#' @param nsim.coefs number of simulation for coeficients.  It is functional when double.sim = TRUE. 
+#' @param nsim.process number of simulation for ARMA processes 
+#' @param burn.in number of burn-ins.  When burn.in = 0, the ECM gets involved.  When burn.in is large enough, the ACM gets involved. 
+#' @param sim.type type of simulation.  When sim.type = 'Matrix', the simulation is generated using matrix computation.  When sim.type = 'Recursive', the simulation is based on a recursion. 
+#' @param verbose print diagnostic information about fap0 and the charting constant during the simulations for the exact method 
+#' @return Object type double. The corrected charting constant.
+#' 
+#' 
+#' @export
+#' 
+#' @examples
+#' # load the data in the package as an example
+#' set.seed(12345)
+#' 
+#' # Calculate the charting constant using fap0 of 0.05, and 50 observations
+#' getCC.ARMA(fap0=0.05, n=50, nsim.coefs=10, nsim.process=10)
+#' 
+getCC.ARMA <- function(fap0 = 0.05,
                        interval = c(1, 4),
                        n = 50,
                        order = c(1, 0, 0),

@@ -1,3 +1,45 @@
+#' Phase I X-bar control chart with a corrected charting constant
+#' 
+#' Build a Phase I Shewhart control chart for the variance components model if the data are subgrouped or for the basic Shewhart model if the data are individual. The charting constant is correted by this approach.
+#' @param X input and it must be a matrix 
+#' @param cc nominal Phase I charting constant. If this is given, the function will not recompute the charting constant. 
+#' @param fap0 nominal false Alarm Probabilty in Phase 1 
+#' @param var.est 'S' - use mean-square-based estimator, 'MR' - use moving-range-based estimator
+#' @param ub.option TRUE - the standard deviation estimator corrected by a unbiasing constant. For S, it is c4 and for MR, it is d2. FALSE - no unbiasing constant 
+#' @param method 'exact' - calculate results using the exact method, 'BA' - calculate results using the Bonfferoni approximation 
+#' @param plot.option - draw a plot for the process; FALSE - Not draw a plot for the process
+#' @param interval searching range of charting constants for the exact method 
+#' @param nsim number of simulation for the exact method 
+#' @param verbose print diagnostic information about fap0 and the charting constant during the simulations for the exact method
+#' @return CL Object type double - central line
+#' @return var.est Object type double - variance estimate
+#' @return ub.cons Object type double - unbiasing constant
+#' @return cc Object type double - charting constant
+#' @return m Object type integer - number of observations
+#' @return nu Object type integer - degrees of freedom
+#' @return lambda Object type integer - chi-squared unbiasing constant
+#' @return LCL Object type double - lower charting limit
+#' @return UCL Object type double - upper charting limit
+#' @return CS Object type double - charting statistic
+#' @references Champ, C.W., and Jones, L.A. (2004) Designing Phase I X-bar charts with small sample sizes. Quality and Reliability Engineering International. 20(5), 497-510
+#' @references Yao, Y., Hilton, C.W., and Chakraborti, S. (2017) Designing Phase I Shewhart X-bar charts: Extended tables and software. Quality and Reliability Engineering International. 33(8), 2667-2672.
+#' @references Yao, Y., and Chakraborti, S. (2021). Phase I monitoring of individual normal data: Design and implementation. Quality Engineering, 33(3), 443-456.
+#' @references Yao, Y., and Chakraborti, S. (2021). Phase I process monitoring: The case of the balanced one-way random effects model. Quality and Reliability Engineering International, 37(3), 1244-1265.
+#' 
+#' 
+#' @export
+#' @examples
+#' 
+#' 
+#' set.seed(12345)
+#' 
+#' # load the data in the package as an example
+#' data(grinder_data)
+#' 
+#' # An example using a false alarm probability of 0.05, and 10 simulations
+#' PH1XBAR(grinder_data, fap0 = 0.05, nsim=10, verbose=TRUE)
+#' 
+#' 
 PH1XBAR <- function(X,
                     cc = NULL,
                     fap0 = 0.05,
