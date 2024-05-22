@@ -1,6 +1,6 @@
 PH1XBAR <- function(X,
                     cc = NULL,
-                    fap0 = 0.1,
+                    fap0 = 0.05,
                     var.est = c("S", "MR"),
                     ub.option = TRUE,
                     method = c("exact", "BA"),

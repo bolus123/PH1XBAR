@@ -26,13 +26,14 @@ getCC.ARMA(
   \item{order}{ order for ARMA model }
   \item{phi.vec}{ given vectors of autoregressive parameters for ARMA models }
   \item{theta.vec}{ given vectors of moving-average parameters for ARMA models }
-  \item{case}{ known or unknown case.  When case = 'U', the parameters are estimated }
+  \item{case}{ known or unknown case.  When case = 'U', the parameters are unknown and the charting constant is calculated based on a bootstrapping method.  When case = 'K', the parameters are known and the charting constant is found using the quantile function of multivariate normal distribution}
+  \item{phi}{ vector of autoregressive coefficient(s).  When case = 'K', it must be provided. The length must be the same as the first value in the order.  It needs to be NULL if no autoregressor presents}
+  \item{theta}{ vector of moving-average coefficient(s).  When case = 'K', it must be provided. The length must be the same as the third value in the order.  It needs to be NULL if no moving average presents}
   \item{method}{ estimation method for the control chart. When method = 'Method 3' is maximum likehood estimations plus method of moments. Other options are 'Method 1' which is pure MLE and 'Method 2' which is pure CSS. }
   \item{nsim.coefs}{ number of simulation for coeficients.  It is functional when double.sim = TRUE. }
   \item{nsim.process}{ number of simulation for ARMA processes }
   \item{burn.in}{ number of burn-ins.  When burn.in = 0, the ECM gets involved.  When burn.in is large enough, the ACM gets involved. }
   \item{sim.type}{ type of simulation.  When sim.type = 'Matrix', the simulation is generated using matrix computation.  When sim.type = 'Recursive', the simulation is based on a recursion. }
-  \item{logliktol}{ convergence tolerance for the log likelihood }
   \item{verbose}{ print diagnostic information about fap0 and the charting constant during the simulations for the exact method }
 }
 \value{

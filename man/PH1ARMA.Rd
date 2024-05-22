@@ -5,22 +5,20 @@
 PH1ARMA(
 	X
 	,cc = NULL
-	,fap0 = 0.1
-	,order = NULL
+	,fap0 = 0.05
+	,order = c(1, 0, 0)
 	,plot.option = TRUE
 	,interval = c(1, 4)
 	,case = 'U'
-	,method = 'Method 3'
+	,phi = NULL
+	,theta = NULL
+	,method = 'MLE+MOM'
 	,nsim.coefs = 100
 	,nsim.process = 1000
 	,burn.in = 50
 	,sim.type = 'Matrix'
-	,logliktol = 1e-2
+	,standardize=TRUE
 	,verbose = FALSE
-	,max.p=1
-	,max.q=0
-	,max.d=0
-  ,standardize=TRUE
 )
 }
 \arguments{
@@ -31,17 +29,15 @@ PH1ARMA(
   \item{plot.option}{TRUE - draw a plot for the process; FALSE - Not draw a plot for the process}
   \item{interval}{ searching range of charting constants for the exact method }
   \item{case}{ known or unknown case.  When case = 'U', the parameters are estimated }
-  \item{method}{ estimation method for the control chart. When method = 'Method 3' is maximum likehood estimations plus method of moments. Other options are 'Method 1' which is pure MLE and 'Method 2' which is pure CSS. }
+  \item{phi}{ vector of autoregressive coefficient(s).  When case = 'K', the vector needs to be provided with the length same as the first value in the order.  If autoregressive coefficents does not present, phi needs to be NULL}
+  \item{theta}{ vector of moving-average coefficient(s).  When case = 'K', the vector needs to be provided with the length same as the third value in the order.  If moving-average coefficents does not present, theta needs to be NULL}
+  \item{method}{ estimation method for the control chart. When method = 'MLE+MOM' is maximum likehood estimations plus method of moments. Other options are 'MLE' which is pure MLE and 'CSS' which is pure CSS. }
   \item{nsim.coefs}{ number of simulation for coeficients.}
   \item{nsim.process}{ number of simulation for ARMA processes }
-  \item{burn.in}{ number of burn-ins.  When burn.in = 0, the ECM gets involved.  When burn.in is large enough, the ACM gets involved. }
+  \item{burn.in}{ number of burn-ins.  When burn.in = 0, the simulated process is assumed to be in the initial stage.  When burn.in is large enough, the simulated process is assumed to be in the stable stage. }
   \item{sim.type}{ type of simulation.  When sim.type = 'Matrix', the simulation is generated using matrix computation.  When sim.type = 'Recursive', the simulation is based on a recursion. }
-  \item{logliktol}{ convergence tolerance for the log likelihood }
+  \item{standardize}{ Output standardized data instead of raw data }
   \item{verbose}{ print diagnostic information about fap0 and the charting constant during the simulations for the exact method }
-  \item{max.p}{ max.p for auto.arima }
-  \item{max.q}{ max.q for auto.arima }
-  \item{max.d}{ max.d for auto.arima }
-  \item{standardize}{ Output z-scores instead of raw data }
 }
 \value{
 Object of type list. A named list with the following objects:
@@ -75,4 +71,7 @@ PH1ARMA(preston_data, nsim.process = nsim.process, nsim.coefs = nsim.coefs)
 PH1ARMA(preston_data, fap0 = 0.05, 
 	nsim.process = nsim.process, nsim.coefs = nsim.coefs, sim.type = 'Recursive')
 
+}
+\references{
+Yao, Y., Chakraborti, S., Yang, X., Parton, J., Lewis Jr, D., and Hudnall, M. (2023). Phase I control chart for individual autocorrelated data: application to prescription opioid monitoring. Journal of Quality Technology, 55(3), 302-317.
 }
