@@ -88,7 +88,7 @@ PH1ARMA <- function(X, cc = NULL, fap0 = 0.05, order = c(1, 0, 0), plot.option =
         method = method, nsim.coefs = nsim.coefs, nsim.process = nsim.process, burn.in = burn.in, sim.type = sim.type, verbose = verbose)
 
     } else if (case == 'K') {
-      cc <- getCC.ARMA(fap0 = fap0, interval = interval, n, order = order, phi.vec = phi, theta.vec = theta, case = case,
+      cc <- getCC.ARMA(fap0 = fap0, interval = interval, n, order = order, phi.vec = phi.vec, theta.vec = theta.vec, case = case,
         method = method, nsim.coefs = nsim.coefs, nsim.process = nsim.process, burn.in = burn.in, sim.type = sim.type, verbose = verbose)
 
     }
