@@ -5,7 +5,7 @@
 \alias{grinder_data}
 \title{Thickness measurement of silicon wafer}
 \format{
-A data frame with 30 rows and 5 variables:
+A matrix with 30 rows and 5 variables:
 \describe{
   \item{pos1}{Thickness measurement at Position 1 (outer circle)}
   \item{pos2}{Thickness measurement at Position 2 (outer circle)}

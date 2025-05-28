@@ -3,7 +3,7 @@
 #' A dataset containing the thickness measurements in nm
 #' at different positions on the silicon wafer
 #'
-#' @format A data frame with 30 rows and 5 variables:
+#' @format A matrix with 30 rows and 5 variables:
 #' \describe{
 #'   \item{pos1}{Thickness measurement at Position 1 (outer circle)}
 #'   \item{pos2}{Thickness measurement at Position 2 (outer circle)}
@@ -18,7 +18,7 @@
 #'
 #' A dataset cotaining bore diameter measurements in mm
 #'
-#' @format A data frame with 20 rows and 5 variables:
+#' @format A matrix with 20 rows and 5 variables:
 #' \describe{
 #'   \item{X1}{Diameter measurement at Position 1}
 #'   \item{X2}{Diameter measurement at Position 2}
@@ -50,3 +50,30 @@
 #'  }
 #' @references Mukherjee, P. S. (2016). On phase II monitoring of the probability distributions of univariate continuous processes. Statistical Papers, 57(2), 539-562.
 "snowfall_data"
+
+
+#' Pistonring data
+#'
+#' A dataset containing piston ring data
+#'
+#' @format A data frame with 25 rows and 5 variables:
+#' \describe{
+#'   \item{X1}{Observation 1 in subgroups}
+#'   \item{X2}{Observation 2 in subgroups}
+#'   \item{X3}{Observation 3 in subgroups}
+#'   \item{X4}{Observation 4 in subgroups}
+#'   \item{X5}{Observation 5 in subgroups}
+#'  }
+#' @references Montgomery, Douglas C. 2005. Introduction to Statistical Quality Control. John Wiley & Sons.
+"pistonring_data"
+
+#' Semiconductor data
+#'
+#' A dataset cotaining the 151st feature in SECOM dataset 
+#'
+#' @format A vector with 50 observations:
+#' \describe{
+#'   \item{obs}{the 151st feature}
+#'  }
+#' @references McCann, Michael, and Adrian Johnston. 2008. “SECOM.” UCI Machine Learning Repository. DOI: https://doi.org/10.24432/C54305.
+"semiconductor_data"

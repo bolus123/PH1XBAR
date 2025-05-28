@@ -10,6 +10,9 @@
 #' @param plot.option - draw a plot for the process; FALSE - Not draw a plot for the process
 #' @param interval searching range of charting constants for the exact method 
 #' @param nsim number of simulation for the exact method 
+#' @param transform type of transformation. When transform = 'none', no transformation is performed. When transform = 'boxcox', the Box-Cox transformation is used. When transform = 'yeojohnson', the Yeo-Johnson transformation is used. 
+#' @param lambda parameter used in the transformation.
+#' @param standardize Output standardized data instead of raw data.
 #' @param verbose print diagnostic information about fap0 and the charting constant during the simulations for the exact method
 #' @return CL Object type double - central line
 #' @return var.est Object type double - variance estimate
@@ -48,7 +51,10 @@ PH1XBAR <- function(X,
                     method = c("exact", "BA"),
                     plot.option = TRUE,
                     interval = c(1, 5),
-                    nsim = 10000,
+                    nsim = 10000, 
+                    transform = "none", 
+                    lambda = 1, 
+                    standardize=FALSE,
                     verbose = FALSE) {
   var.est <- var.est[1]
   method <- method[1]
@@ -56,16 +62,24 @@ PH1XBAR <- function(X,
   m <- dim(X)[1]
   n <- dim(X)[2]
 
+  lambda2 <- NA
+  if (transform == "boxcox") {
+    lambda2 <- lambda
+    X <- forecast::BoxCox(X, lambda2)
+  } else if (transform == "yeojohnson") {
+    lambda2 <- lambda
+    X <- VGAM::yeo.johnson(X, lambda2)
+  }
+  
   X.bar <- rowMeans(X)
 
   X.bar.bar <- mean(X.bar)
 
   ub.cons <- 1
 
-
   if (var.est == "S") {
     nu <- m - 1
-    lambda <- 1
+    lambda1 <- 1
 
     ub.cons <- ifelse(ub.option == TRUE, c4.f(nu), 1)
 
@@ -74,13 +88,12 @@ PH1XBAR <- function(X,
     pars <- pars.root.finding(m - 1, 2, lower = 1e-6)
 
     nu <- pars[1]
-    lambda <- pars[2]
+    lambda1 <- pars[2]
 
     ub.cons <- ifelse(ub.option == TRUE, 1.128, 1)
 
     sigma.v <- mean(abs(diff(X.bar))) / ub.cons
   }
-
 
   if (is.null(cc)) {
     cc <- getCC.XBAR(
@@ -92,21 +105,38 @@ PH1XBAR <- function(X,
       interval = interval,
       nsim = nsim,
       nu = nu,
-      lambda = lambda,
+      lambda = lambda1,
       verbose = verbose
     )
+  } 
+
+  if (standardize) {
+    CS <- (X.bar - X.bar.bar) / sigma.v
+    LCL <- - cc
+    UCL <- cc
   } else {
-    cc <- cc
+    CS <- X.bar
+    LCL <- X.bar.bar - cc * sigma.v
+    UCL <- X.bar.bar + cc * sigma.v
+    
+    if (transform == "boxcox") {
+      CS <- forecast::InvBoxCox(CS, lambda2)
+      X.bar.bar <- forecast::InvBoxCox(X.bar.bar, lambda2)
+      LCL <- forecast::InvBoxCox(LCL, lambda2)
+      UCL <- forecast::InvBoxCox(UCL, lambda2)
+    } else if (transform == "yeojohnson") {
+      CS <- VGAM::yeo.johnson(CS, lambda2, inverse = TRUE)
+      X.bar.bar <- VGAM::yeo.johnson(X.bar.bar, lambda2, inverse = TRUE)
+      LCL <- VGAM::yeo.johnson(LCL, lambda2, inverse = TRUE)
+      UCL <- VGAM::yeo.johnson(UCL, lambda2, inverse = TRUE)
+    }
   }
-
-  LCL <- X.bar.bar - cc * sigma.v
-  UCL <- X.bar.bar + cc * sigma.v
-
+  
   if (plot.option == TRUE) {
     main.text <- paste("Phase I X-bar Chart for fap0 =", fap0)
 
     plot(c(1, m), c(LCL, UCL), xaxt = "n", xlab = "Subgroup",
-        ylab = "Sample Mean", type = "n", main = main.text)
+        ylab = "Charting Statistic", type = "n", main = main.text)
 
     axis(side = 1, at = 1:m)
 
@@ -119,7 +149,7 @@ PH1XBAR <- function(X,
   }
 
   res <- list(CL = X.bar.bar, var.est = sigma.v * ub.cons, ub.cons = ub.cons,
-              cc = cc, m = m, nu = nu, lambda = lambda, LCL = LCL, UCL = UCL,
-              CS = X.bar)
+              cc = cc, m = m, nu = nu, lambda1 = lambda1, LCL = LCL, UCL = UCL,
+              CS = CS, transform = transform, lambda = lambda2, standardize = standardize)
   invisible(res)
 }

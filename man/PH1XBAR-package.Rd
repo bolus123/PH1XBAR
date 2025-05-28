@@ -43,9 +43,9 @@ Useful links:
 
 Other contributors:
 \itemize{
-  \item Subha Chakraborti \email{schakrab@cba.ua.edu} [contributor]
+  \item Subha Chakraborti \email{schakrab@ua.edu} [contributor]
   \item Tyler Thomas \email{tjthomas7@crimson.ua.edu} [contributor]
-  \item Jason Parton \email{jmparton@cba.ua.edu} [contributor]
+  \item Jason Parton \email{jmparton@ua.edu} [contributor]
   \item Xin Yang \email{xyang15@cba.ua.edu} [contributor]
 }
 

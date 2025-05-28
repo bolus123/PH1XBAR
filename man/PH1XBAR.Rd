@@ -14,6 +14,9 @@ PH1XBAR(
   plot.option = TRUE,
   interval = c(1, 5),
   nsim = 10000,
+  transform = "none",
+  lambda = 1,
+  standardize = FALSE,
   verbose = FALSE
 )
 }
@@ -35,6 +38,12 @@ PH1XBAR(
 \item{interval}{searching range of charting constants for the exact method}
 
 \item{nsim}{number of simulation for the exact method}
+
+\item{transform}{type of transformation. When transform = 'none', no transformation is performed. When transform = 'boxcox', the Box-Cox transformation is used. When transform = 'yeojohnson', the Yeo-Johnson transformation is used.}
+
+\item{lambda}{parameter used in the transformation.}
+
+\item{standardize}{Output standardized data instead of raw data.}
 
 \item{verbose}{print diagnostic information about fap0 and the charting constant during the simulations for the exact method}
 }

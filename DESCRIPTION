@@ -1,7 +1,7 @@
 Package: PH1XBAR
 Type: Package
 Title: Phase I Shewhart X-Bar Chart 
-Version: 0.11.2
+Version: 0.11.3
 Authors@R: c(
 				person("Yuhui", "Yao", role = c("aut", "cre"), email = "yyao17@ua.edu"),
 				person("Subha", "Chakraborti", role = c("ctb"), email = "schakrab@ua.edu"),
@@ -19,6 +19,7 @@ Depends:
 Imports: 
 	forecast, 
 	mvtnorm,
-	pracma
+	pracma,
+	VGAM
 URL: https://github.com/bolus123/PH1XBAR
 RoxygenNote: 7.2.3

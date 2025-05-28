@@ -5,7 +5,7 @@
 \alias{bore_diameter_data}
 \title{Bore diameter in manufacturing automotive driver gears}
 \format{
-A data frame with 20 rows and 5 variables:
+A matrix with 20 rows and 5 variables:
 \describe{
   \item{X1}{Diameter measurement at Position 1}
   \item{X2}{Diameter measurement at Position 2}

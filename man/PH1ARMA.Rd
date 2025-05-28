@@ -21,7 +21,9 @@ PH1ARMA(
   nsim.process = 1000,
   burn.in = 50,
   sim.type = "Matrix",
-  standardize = TRUE,
+  transform = "none",
+  lambda = 1,
+  standardize = FALSE,
   verbose = FALSE
 )
 }
@@ -58,7 +60,11 @@ PH1ARMA(
 
 \item{sim.type}{type of simulation.  When sim.type = 'Matrix', the simulation is generated using matrix computation.  When sim.type = 'Recursive', the simulation is based on a recursion.}
 
-\item{standardize}{Output standardized data instead of raw data}
+\item{transform}{type of transformation. When transform = 'none', no transformation is performed. When transform = 'boxcox', the Box-Cox transformation is used. When transform = 'yeojohnson', the Yeo-Johnson transformation is used.}
+
+\item{lambda}{parameter used in the transformation.}
+
+\item{standardize}{Output standardized data instead of raw data.}
 
 \item{verbose}{print diagnostic information about fap0 and the charting constant during the simulations for the exact method}
 }

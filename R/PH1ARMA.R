@@ -17,7 +17,9 @@
 #' @param nsim.process number of simulation for ARMA processes 
 #' @param burn.in number of burn-ins.  When burn.in = 0, the simulated process is assumed to be in the initial stage.  When burn.in is large enough, the simulated process is assumed to be in the stable stage. 
 #' @param sim.type type of simulation.  When sim.type = 'Matrix', the simulation is generated using matrix computation.  When sim.type = 'Recursive', the simulation is based on a recursion. 
-#' @param standardize Output standardized data instead of raw data 
+#' @param transform type of transformation. When transform = 'none', no transformation is performed. When transform = 'boxcox', the Box-Cox transformation is used. When transform = 'yeojohnson', the Yeo-Johnson transformation is used. 
+#' @param lambda parameter used in the transformation.
+#' @param standardize Output standardized data instead of raw data.
 #' @param verbose print diagnostic information about fap0 and the charting constant during the simulations for the exact method 
 #' @return CL Object type double - central line
 #' @return gamma Object type double - process variance estimate
@@ -50,27 +52,37 @@
 #' 
 PH1ARMA <- function(X, cc = NULL, fap0 = 0.05, order = c(1, 0, 0), plot.option = TRUE, interval = c(1, 4),
                     case = 'U', phi.vec = NULL, theta.vec = NULL, mu0 = NULL, sigma0 = NULL, method = 'MLE+MOM', nsim.coefs = 100, nsim.process = 1000, burn.in = 50, 
-                    sim.type = 'Matrix', standardize=TRUE, verbose = FALSE) {
+                    sim.type = 'Matrix', transform = "none", lambda = 1, standardize=FALSE, verbose = FALSE) {
 
   if (!is.vector(X)) {
-	if (dim(X)[1] == 1 | dim(X)[2] == 1) {
-		X <- as.vector(X)
-	} else {
-		stop('X is not a vector, or a m x 1 or 1 x m matrix.')
-	}
+  	if (dim(X)[1] == 1 | dim(X)[2] == 1) {
+  		X <- as.vector(X)
+  	} else {
+  		stop('X is not a vector, or a m x 1 or 1 x m matrix.')
+  	}
   } 
 
+  lambda1 <- NA
+  if (transform == "boxcox") {
+    lambda1 <- lambda
+    X <- forecast::BoxCox(X, lambda1)
+  } else if (transform == "yeojohnson") {
+    lambda1 <- lambda
+    X <- VGAM::yeo.johnson(X, lambda1)
+  }
+  
   n <- length(X)
 
   if (is.null(cc)) {
 
-    if (case == 'U') {
       if ((method == "MLE")||(method == "MLE+MOM")) {
-        model <- arima(X, order = order, method = "CSS-ML")
+        method1 <- "CSS-ML"
       } else {
-        model <- arima(X, order = order, method = "CSS")
+        method1 <- "CSS"
       }
-      
+    
+    if (case == 'U') {
+      model <- arima(X, order = order, method = method1)
       
       if (length(model$model$phi) > 0) {
         phi.vec <- model$model$phi
@@ -88,6 +100,7 @@ PH1ARMA <- function(X, cc = NULL, fap0 = 0.05, order = c(1, 0, 0), plot.option =
         method = method, nsim.coefs = nsim.coefs, nsim.process = nsim.process, burn.in = burn.in, sim.type = sim.type, verbose = verbose)
 
     } else if (case == 'K') {
+      
       cc <- getCC.ARMA(fap0 = fap0, interval = interval, n, order = order, phi.vec = phi.vec, theta.vec = theta.vec, case = case,
         method = method, nsim.coefs = nsim.coefs, nsim.process = nsim.process, burn.in = burn.in, sim.type = sim.type, verbose = verbose)
 
@@ -95,7 +108,9 @@ PH1ARMA <- function(X, cc = NULL, fap0 = 0.05, order = c(1, 0, 0), plot.option =
     
     
   }
-
+  
+  
+  
   if (order[2] > 0) {
 
     X <- diff(X, differences = order[2])
@@ -103,56 +118,48 @@ PH1ARMA <- function(X, cc = NULL, fap0 = 0.05, order = c(1, 0, 0), plot.option =
   }
 
   if (case == "U") {
-    if (standardize){
-      mu <- mean(X)
-      gamma <- sd(X)
-  
-      stdX <- (X - mu) / gamma
-  
-      LCL <- -cc
-      UCL <- cc
-    }else{
-      mu <- mean(X)
-      gamma <- sd(X)
-  
-      stdX <- X
-  
-      LCL <- -cc * gamma + mu
-      UCL <- cc * gamma + mu
-    }
+     mu <- mean(X)
+     gamma <- sd(X)
+      
   } else if (case == "K") {
-    
-    if (standardize){
-      mu <- mu0
-      gamma <- sigma0
-  
-      stdX <- (X - mu) / gamma
-  
-      LCL <- -cc
-      UCL <- cc
-    }else{
-      mu <- mu0
-      gamma <- sigma0
-  
-      stdX <- X
-  
-      LCL <- -cc * gamma + mu
-      UCL <- cc * gamma + mu
-    }
+    mu <- mu0
+    gamma <- sigma0
     
   }
   
+  if (standardize){
+    CS <- (X - mu) / gamma
   
-
+    LCL <- -cc
+    UCL <- cc
+  }else{
+    CS <- X
+  
+    LCL <- -cc * gamma + mu
+    UCL <- cc * gamma + mu
+    
+    if (transform == "boxcox") {
+      CS <- forecast::InvBoxCox(CS, lambda1)
+      mu <- forecast::InvBoxCox(mu, lambda1)
+      LCL <- forecast::InvBoxCox(LCL, lambda1)
+      UCL <- forecast::InvBoxCox(UCL, lambda1)
+    } else if (transform == "yeojohnson") {
+      CS <- VGAM::yeo.johnson(CS, lambda1, inverse = TRUE)
+      mu <- VGAM::yeo.johnson(mu, lambda1, inverse = TRUE)
+      LCL <- VGAM::yeo.johnson(LCL, lambda1, inverse = TRUE)
+      UCL <- VGAM::yeo.johnson(UCL, lambda1, inverse = TRUE)
+    }
+  }
+  
   if (plot.option == TRUE) {
 
     main.text <- paste('Phase I Individual Chart for fap0 =', fap0, 'with an ARMA model')
 
-    plot(c(1, n), c(min(LCL, stdX), max(UCL, stdX)), xaxt = "n", xlab = 'Observation', ylab = 'Charting Statistic', type = 'n', main = main.text)
+    plot(c(1, n), c(min(LCL, CS), max(UCL, CS)), xaxt = "n", xlab = 'Observation', ylab = 'Charting Statistic', type = 'n', main = main.text)
 
     axis(side = 1, at = 1:n)
 
-    points((1 + order[2]):n, stdX, type = 'o')
+    points((1 + order[2]):n, CS, type = 'o')
     points(c(-1, n + 2), c(LCL, LCL), type = 'l', col = 'red')
     points(c(-1, n + 2), c(UCL, UCL), type = 'l', col = 'red')
     points(c(-1, n + 2), c(mu, mu), type = 'l', col = 'blue')
@@ -161,7 +168,8 @@ PH1ARMA <- function(X, cc = NULL, fap0 = 0.05, order = c(1, 0, 0), plot.option =
 
   }
 
-  res <- list(CL = mu, gamma = gamma, cc = cc, order = order, phi.vec = phi.vec, theta.vec = theta.vec, LCL = LCL, UCL = UCL, CS = stdX)
+  res <- list(CL = mu, gamma = gamma, cc = cc, order = order, phi.vec = phi.vec, theta.vec = theta.vec, 
+              LCL = LCL, UCL = UCL, CS = CS, transform = transform, lambda = lambda1, standardize = standardize)
 
   return(invisible(res))
 }
