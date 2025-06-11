@@ -329,7 +329,7 @@ getCC.PH1ARMA.sim <- function(fap0 = 0.1, interval = c(1, 4), n = 50, order = c(
 #' set.seed(12345)
 #' 
 #' # Calculate the charting constant using fap0 of 0.05, and 50 observations
-#' getCC.ARMA(fap0=0.05, n=50, nsim.coefs=10, nsim.process=10)
+#' getCC.ARMA(fap0=0.05, m=50, nsim.coefs=10, nsim.process=10)
 #' 
 getCC.ARMA <- function(fap0 = 0.05,
                        interval = c(1, 4),
