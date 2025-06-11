@@ -16,10 +16,10 @@
 #' @param nsim.coefs number of simulation for coefficients.
 #' @param nsim.process number of simulation for ARMA processes 
 #' @param burn.in number of burn-ins.  When burn.in = 0, the simulated process is assumed to be in the initial stage.  When burn.in is sufficiently large (e.g., the default value of 50), the simulated process is assumed to have reached a stable state. 
-#' @param sim.type type of simulation. When sim.type = 'Recursive', the simulation is generated recursively, as in the ARMA model. When sim.type = 'Matrix', the simulation is generated using the covariance matrix among observations, derived from the relationship between the ARMA coefficient(s) and the partial autocorrelation(s). Note that sim.type = 'Matrix' is is primarily used as a proof of concept and is not recommended for practical use due to its high computational cost.    
+#' @param sim.type type of simulation. When sim.type = 'Recursive', the simulation is generated recursively, as in the ARMA model. When sim.type = 'Matrix', the simulation is generated using the covariance matrix among observations, derived from the relationship between the ARMA coefficient(s) and the partial autocorrelation(s). Note that sim.type = 'Matrix' is primarily used as a proof of concept and is not recommended for practical use due to its high computational cost.    
 #' @param transform type of transformation. When transform = 'none', no transformation is performed. When transform = 'boxcox', the Box-Cox transformation is used. When transform = 'yeojohnson', the Yeo-Johnson transformation is used. 
-#' @param lambda parameter used in the transformation.
-#' @param standardize Output standardized data instead of raw data.
+#' @param lambda parameter used in the Box-Cox or Yeo-Johnson transformation.
+#' @param standardize Output standardized charting statistics instead of raw ones. When standardize = TRUE, the standardization is used.  When standardize = FALSE, the standardization is not performed.
 #' @param verbose print diagnostic information about fap0 and the charting constant during the simulations for the exact method 
 #' @return CL Object type double - central line
 #' @return gamma Object type double - process variance estimate
@@ -150,16 +150,21 @@ PH1ARMA <- function(X, cc = NULL, fap0 = 0.05, order = c(1, 0), plot.option = TR
 
     main.text <- paste('Phase I Individual Chart')
 
-    plot(c(1, n), c(min(LCL, CS), max(UCL, CS)), xaxt = "n", xlab = 'Observation', ylab = 'Charting Statistic', type = 'n', main = main.text)
+    plot(c(1, m), c(min(LCL, CS), max(UCL, CS)), xaxt = "n", xlab = 'Observation', ylab = 'Charting Statistic', type = 'n', main = main.text)
 
-    axis(side = 1, at = 1:n)
+    axis(side = 1, at = 1:m)
 
     points(1:m, CS, type = 'o')
-    points(c(-1, n + 2), c(LCL, LCL), type = 'l', col = 'red')
-    points(c(-1, n + 2), c(UCL, UCL), type = 'l', col = 'red')
-    points(c(-1, n + 2), c(mu, mu), type = 'l', col = 'blue')
-    text(round(n * 0.8), UCL, paste('UCL = ', round(UCL, 4)), pos = 1)
-    text(round(n * 0.8), LCL, paste('LCL = ', round(LCL, 4)), pos = 3)
+    points(c(-1, m + 2), c(LCL, LCL), type = 'l', col = 'red')
+    points(c(-1, m + 2), c(UCL, UCL), type = 'l', col = 'red')
+    if (standardize) {
+      points(c(-1, m + 2), c(0, 0), type = 'l', col = 'blue')
+    } else {
+      points(c(-1, m + 2), c(mu, mu), type = 'l', col = 'blue')
+    }
+    
+    text(round(m * 0.8), UCL, paste('UCL = ', round(UCL, 4)), pos = 1)
+    text(round(m * 0.8), LCL, paste('LCL = ', round(LCL, 4)), pos = 3)
 
   }
 

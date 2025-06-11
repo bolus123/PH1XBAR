@@ -140,14 +140,12 @@ sim.coef.dist <- function(n, order = c(1, 0, 0), phi.vec = 0.5, theta.vec = NULL
         sim.type = sim.type, SigMat = SigMat
       )
 
-      ##if (method == "MLE" | method == "MLE+MOM") {
-      ##  model <- try(arima(sim, order = order, method = "CSS-ML"), silent = TRUE)
-      ##} else if (method == "CSS") {
-      ##  model <- try(arima(sim, order = order, method = "CSS"), silent = TRUE)
-      ##}
+      if (method == "MLE" | method == "MLE+MOM") {
+        model <- try(arima(sim, order = order, method = "CSS-ML"), silent = TRUE)
+      } else if (method == "CSS") {
+        model <- try(arima(sim, order = order, method = "CSS"), silent = TRUE)
+      }
       
-      model <- try(arima(sim, order = order, method = method), silent = TRUE)
-
       check1 <- 1
       check2 <- 1
 

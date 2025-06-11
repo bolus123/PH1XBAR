@@ -11,8 +11,8 @@
 #' @param interval searching range of charting constants for the exact method 
 #' @param nsim number of simulation for the exact method 
 #' @param transform type of transformation. When transform = 'none', no transformation is performed. When transform = 'boxcox', the Box-Cox transformation is used. When transform = 'yeojohnson', the Yeo-Johnson transformation is used. 
-#' @param lambda parameter used in the transformation.
-#' @param standardize Output standardized data instead of raw data.
+#' @param lambda parameter used in the Box-Cox or Yeo-Johnson transformation.
+#' @param standardize Output standardized charting statistics instead of raw ones. When standardize = TRUE, the standardization is used.  When standardize = FALSE, the standardization is not performed.
 #' @param verbose print diagnostic information about fap0 and the charting constant during the simulations for the exact method
 #' @return CL Object type double - central line
 #' @return var.est Object type double - variance estimate
@@ -58,6 +58,11 @@ PH1XBAR <- function(X,
                     verbose = FALSE) {
   var.est <- var.est[1]
   method <- method[1]
+  
+  if (is.vector(X)) {
+    X <- matrix(X, ncol = 1)
+  }
+  
 
   m <- dim(X)[1]
   n <- dim(X)[2]
@@ -148,10 +153,14 @@ PH1XBAR <- function(X,
 
     axis(side = 1, at = 1:m)
 
-    points(1:m, X.bar, type = "o")
+    points(1:m, CS, type = "o")
     points(c(-1, m + 2), c(LCL, LCL), type = "l", col = "red")
     points(c(-1, m + 2), c(UCL, UCL), type = "l", col = "red")
-    points(c(-1, m + 2), c(X.bar.bar, X.bar.bar), type = "l", col = "blue")
+    if (standardize) {
+      points(c(-1, m + 2), c(0, 0), type = "l", col = "blue")
+    } else {
+      points(c(-1, m + 2), c(X.bar.bar, X.bar.bar), type = "l", col = "blue")
+    }
     text(round(m * 0.8), UCL, paste("UCL = ", round(UCL, 4)), pos = 1)
     text(round(m * 0.8), LCL, paste("LCL = ", round(LCL, 4)), pos = 3)
   }
