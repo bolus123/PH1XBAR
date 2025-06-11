@@ -5,15 +5,15 @@
 #' @aliases getCC.XBAR
 #' @aliases getCC
 #' 
-#' @param m nominal false Alarm Probabilty in Phase 1
-#' @param fap0 number of subgroups
+#' @param m number of subgroups when the data are subgrouped or number of observations when the data are individual.
+#' @param fap0 nominal False Alarm Probabilty in Phase 1
 #' @param var.est 'S' - use mean-square-based estimator, 'MR' - use moving-range-based estimator
 #' @param ub.cons unbiasing constant 
 #' @param method 'exact' - calculate results using the exact method, 'BA' - calculate results using the Bonfferoni approximation 
 #' @param interval searching range of charting constants for the exact method 
 #' @param nsim number of simulation for the exact method 
-#' @param nu degrees of freedom for the Bonfferoni approximation
-#' @param lambda constant for the Bonfferoni approximation 
+#' @param nu degrees of freedom; When var.est = 'S', the degrees of freedom is that of the chi-squared distribution itself for the variance estimator.  When var.est = 'MR', the degrees of freedom is that of the chi-squared distribution approximating to the actual distribution.
+#' @param lambda unbiasing constant for the chi-squared distribution approximation. When var.est = 'S', there is no need to do the unbiasing.  When var.est = 'MR', the unbiasing constant needs to be used.
 #' @param verbose print diagnostic information about fap0 and the charting constant during the simulations for the exact method 
 #' @return Object type double. The corrected charting constant. 
 #' 

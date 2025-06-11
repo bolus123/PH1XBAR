@@ -1,22 +1,22 @@
 #' Phase I individual control chart with an ARMA model
 #' 
 #' Build a Phase I individual control chart for the ARMA models. The charting constant is corrected by this approach.
-#' @param X input and it must be a vector 
+#' @param X input and it must be a vector (m by 1)
 #' @param cc nominal Phase I charting constant. If this is given, the function will not re-compute the charting constant. 
 #' @param fap0 nominal false Alarm Probabilty in Phase I 
-#' @param order order for ARMA model 
-#' @param plot.option - draw a plot for the process; FALSE - Not draw a plot for the process
+#' @param order order for ARMA(p, q) model 
+#' @param plot.option - draw a plot for the process; TRUE - Draw a plot for the process, FALSE - Not draw a plot for the process
 #' @param interval searching range of charting constants for the exact method 
-#' @param case known or unknown case.  When case = 'U', the parameters are estimated 
-#' @param phi.vec vector of autoregressive coefficient(s).  When case = 'K', the vector needs to be provided with the length same as the first value in the order.  If autoregressive coefficents does not present, phi needs to be NULL
-#' @param theta.vec vector of moving-average coefficient(s).  When case = 'K', the vector needs to be provided with the length same as the third value in the order.  If moving-average coefficents does not present, theta needs to be NULL
+#' @param case known or unknown case.  When case = 'U', the parameters are estimated, when case = 'K', the parameters need to be input
+#' @param phi.vec a vector of length p containing autoregressive coefficient(s).  When case = 'K', the vector must have a length equal to the first value in the order.  If no autoregressive coefficent presents, set phi.vec = NULL
+#' @param theta.vec a vector of length q containing moving-average coefficient(s).  When case = 'K', the vector must have a length equal to the first value in the order.  If no moving-average coefficent presents, set theta.vec = NULL
 #' @param mu0 value of the IC process mean.  When case = 'K', the value needs to be provided.
 #' @param sigma0 value of the IC process standard deviation.  When case = 'K', the value needs to be provided.
 #' @param method estimation method for the control chart. When method = 'MLE+MOM' is maximum likehood estimations plus method of moments. Other options are 'MLE' which is pure MLE and 'CSS' which is pure CSS. 
-#' @param nsim.coefs number of simulation for coeficients.
+#' @param nsim.coefs number of simulation for coefficients.
 #' @param nsim.process number of simulation for ARMA processes 
-#' @param burn.in number of burn-ins.  When burn.in = 0, the simulated process is assumed to be in the initial stage.  When burn.in is large enough, the simulated process is assumed to be in the stable stage. 
-#' @param sim.type type of simulation.  When sim.type = 'Matrix', the simulation is generated using matrix computation.  When sim.type = 'Recursive', the simulation is based on a recursion. 
+#' @param burn.in number of burn-ins.  When burn.in = 0, the simulated process is assumed to be in the initial stage.  When burn.in is sufficiently large (e.g., the default value of 50), the simulated process is assumed to have reached a stable state. 
+#' @param sim.type type of simulation. When sim.type = 'Recursive', the simulation is generated recursively, as in the ARMA model. When sim.type = 'Matrix', the simulation is generated using the covariance matrix among observations, derived from the relationship between the ARMA coefficient(s) and the partial autocorrelation(s). Note that sim.type = 'Matrix' is is primarily used as a proof of concept and is not recommended for practical use due to its high computational cost.    
 #' @param transform type of transformation. When transform = 'none', no transformation is performed. When transform = 'boxcox', the Box-Cox transformation is used. When transform = 'yeojohnson', the Yeo-Johnson transformation is used. 
 #' @param lambda parameter used in the transformation.
 #' @param standardize Output standardized data instead of raw data.
@@ -50,10 +50,12 @@
 #' PH1ARMA(preston_data, fap0 = 0.05, 
 #' 	nsim.process = nsim.process, nsim.coefs = nsim.coefs, sim.type = 'Recursive')
 #' 
-PH1ARMA <- function(X, cc = NULL, fap0 = 0.05, order = c(1, 0, 0), plot.option = TRUE, interval = c(1, 4),
+PH1ARMA <- function(X, cc = NULL, fap0 = 0.05, order = c(1, 0), plot.option = TRUE, interval = c(1, 4),
                     case = 'U', phi.vec = NULL, theta.vec = NULL, mu0 = NULL, sigma0 = NULL, method = 'MLE+MOM', nsim.coefs = 100, nsim.process = 1000, burn.in = 50, 
-                    sim.type = 'Matrix', transform = "none", lambda = 1, standardize=FALSE, verbose = FALSE) {
-
+                    sim.type = 'Recursive', transform = "none", lambda = 1, standardize=FALSE, verbose = FALSE) {
+  
+  neworder <- c(order[1], 0, order[2])
+  
   if (!is.vector(X)) {
   	if (dim(X)[1] == 1 | dim(X)[2] == 1) {
   		X <- as.vector(X)
@@ -82,7 +84,7 @@ PH1ARMA <- function(X, cc = NULL, fap0 = 0.05, order = c(1, 0, 0), plot.option =
       }
     
     if (case == 'U') {
-      model <- arima(X, order = order, method = method1)
+      model <- arima(X, order = neworder, method = method1)
       
       if (length(model$model$phi) > 0) {
         phi.vec <- model$model$phi
@@ -96,12 +98,12 @@ PH1ARMA <- function(X, cc = NULL, fap0 = 0.05, order = c(1, 0, 0), plot.option =
         theta.vec <- NULL
       }
   
-      cc <- getCC.ARMA(fap0 = fap0, interval = interval, n, order = order, phi.vec = phi.vec, theta.vec = theta.vec, case = case,
+      cc <- getCC.ARMA(fap0 = fap0, interval = interval, n, order = neworder, phi.vec = phi.vec, theta.vec = theta.vec, case = case,
         method = method, nsim.coefs = nsim.coefs, nsim.process = nsim.process, burn.in = burn.in, sim.type = sim.type, verbose = verbose)
 
     } else if (case == 'K') {
       
-      cc <- getCC.ARMA(fap0 = fap0, interval = interval, n, order = order, phi.vec = phi.vec, theta.vec = theta.vec, case = case,
+      cc <- getCC.ARMA(fap0 = fap0, interval = interval, n, order = neworder, phi.vec = phi.vec, theta.vec = theta.vec, case = case,
         method = method, nsim.coefs = nsim.coefs, nsim.process = nsim.process, burn.in = burn.in, sim.type = sim.type, verbose = verbose)
 
     }
@@ -109,13 +111,6 @@ PH1ARMA <- function(X, cc = NULL, fap0 = 0.05, order = c(1, 0, 0), plot.option =
     
   }
   
-  
-  
-  if (order[2] > 0) {
-
-    X <- diff(X, differences = order[2])
-
-  }
 
   if (case == "U") {
      mu <- mean(X)
@@ -153,13 +148,13 @@ PH1ARMA <- function(X, cc = NULL, fap0 = 0.05, order = c(1, 0, 0), plot.option =
   
   if (plot.option == TRUE) {
 
-    main.text <- paste('Phase I Individual Chart for fap0 =', fap0, 'with an ARMA model')
+    main.text <- paste('Phase I Individual Chart')
 
     plot(c(1, n), c(min(LCL, CS), max(UCL, CS)), xaxt = "n", xlab = 'Observation', ylab = 'Charting Statistic', type = 'n', main = main.text)
 
     axis(side = 1, at = 1:n)
 
-    points((1 + order[2]):n, CS, type = 'o')
+    points(1:n, CS, type = 'o')
     points(c(-1, n + 2), c(LCL, LCL), type = 'l', col = 'red')
     points(c(-1, n + 2), c(UCL, UCL), type = 'l', col = 'red')
     points(c(-1, n + 2), c(mu, mu), type = 'l', col = 'blue')
@@ -168,7 +163,7 @@ PH1ARMA <- function(X, cc = NULL, fap0 = 0.05, order = c(1, 0, 0), plot.option =
 
   }
 
-  res <- list(CL = mu, gamma = gamma, cc = cc, order = order, phi.vec = phi.vec, theta.vec = theta.vec, 
+  res <- list(CL = mu, gamma = gamma, cc = cc, order = neworder, phi.vec = phi.vec, theta.vec = theta.vec, 
               LCL = LCL, UCL = UCL, CS = CS, transform = transform, lambda = lambda1, standardize = standardize)
 
   return(invisible(res))

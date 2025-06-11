@@ -16,47 +16,45 @@ invert.q <- function(coef) {
 
   return(out)
 }
-#
-#pars.mat <- function(n, parsVec, norder = 1) {
-#  Check <- invert.q(parsVec)
-#  if (Check == 0) {
-#    NULL
-#  } else {
-#    Mat <- diag(n)
-#    for (i in 1:norder) {
-#      Mat <- Mat + Diag(rep(parsVec[i], n - i), k = -i)
-#    }
-#    Mat
-#  }
-#}
+
+pars.mat <- function(n, parsVec, norder = 1) {
+  Check <- invert.q(parsVec)
+  if (Check == 0) {
+    NULL
+  } else {
+    Mat <- diag(n)
+    for (i in 1:norder) {
+      Mat <- Mat + Diag(rep(parsVec[i], n - i), k = -i)
+    }
+    Mat
+  }
+}
 
 
 
 sigma.mat <- function(n, order = c(1, 0, 0), phi.vec = 0.5, theta.vec = NULL, sigma2 = 1, burn.in = 50) {
-  #if (order[1] == 0) {
-  #  phiMat <- diag(n + burn.in)
-  #} else {
-  #  phiMat <- pars.mat(n + burn.in, -phi.vec, norder = order[1])
-  #}
-#
-  #if (order[3] == 0) {
-  #  thetaMat <- diag(n + burn.in)
-  #} else {
-  #  thetaMat <- pars.mat(n + burn.in, theta.vec, norder = order[3])
-  #}
+  if (order[1] == 0) {
+    phiMat <- diag(n + burn.in)
+  } else {
+    phiMat <- pars.mat(n + burn.in, -phi.vec, norder = order[1])
+  }
 
-  h <- stats::ARMAacf(phi.vec, theta.vec, lag.max = n - 1)
-  #out <- solve(phiMat) %*% thetaMat %*% t(thetaMat) %*% t(solve(phiMat)) * sigma2
+  if (order[3] == 0) {
+    thetaMat <- diag(n + burn.in)
+  } else {
+    thetaMat <- pars.mat(n + burn.in, theta.vec, norder = order[3])
+  }
+
+  out <- solve(phiMat) %*% thetaMat %*% t(thetaMat) %*% t(solve(phiMat)) * sigma2
   
-  out <- stats::toeplitz(h) * sigma2
 
-  #gamma0 <- out[dim(out)[1], dim(out)[2]]
+  gamma0 <- out[dim(out)[1], dim(out)[2]]
 
-  #if (burn.in > 0) {
-  #  out <- out[-c(1:burn.in), -c(1:burn.in)]
-  #}
+  if (burn.in > 0) {
+    out <- out[-c(1:burn.in), -c(1:burn.in)]
+  }
 
-  list(sigma.mat = out, sqrtsigma.mat = chol(out), gamma0 = out[1, 1])
+  list(sigma.mat = out, sqrtsigma.mat = chol(out), gamma0 = gamma0)
 }
 
 ##############################################

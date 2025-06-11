@@ -1,13 +1,13 @@
 #' Phase I X-bar control chart with a corrected charting constant
 #' 
 #' Build a Phase I Shewhart control chart for the variance components model if the data are subgrouped or for the basic Shewhart model if the data are individual. The charting constant is correted by this approach.
-#' @param X input and it must be a matrix 
+#' @param X input and it must be a matrix (m by n) or a vector (m by 1)
 #' @param cc nominal Phase I charting constant. If this is given, the function will not recompute the charting constant. 
-#' @param fap0 nominal false Alarm Probabilty in Phase 1 
+#' @param fap0 nominal False Alarm Probabilty in Phase 1 
 #' @param var.est 'S' - use mean-square-based estimator, 'MR' - use moving-range-based estimator
 #' @param ub.option TRUE - the standard deviation estimator corrected by a unbiasing constant. For S, it is c4 and for MR, it is d2. FALSE - no unbiasing constant 
 #' @param method 'exact' - calculate results using the exact method, 'BA' - calculate results using the Bonfferoni approximation 
-#' @param plot.option - draw a plot for the process; FALSE - Not draw a plot for the process
+#' @param plot.option - draw a plot for the process; TRUE - Draw a plot for the process, FALSE - Not draw a plot for the process
 #' @param interval searching range of charting constants for the exact method 
 #' @param nsim number of simulation for the exact method 
 #' @param transform type of transformation. When transform = 'none', no transformation is performed. When transform = 'boxcox', the Box-Cox transformation is used. When transform = 'yeojohnson', the Yeo-Johnson transformation is used. 
@@ -18,9 +18,9 @@
 #' @return var.est Object type double - variance estimate
 #' @return ub.cons Object type double - unbiasing constant
 #' @return cc Object type double - charting constant
-#' @return m Object type integer - number of observations
-#' @return nu Object type integer - degrees of freedom
-#' @return lambda Object type integer - chi-squared unbiasing constant
+#' @return m Object type integer - number of subgroups when X is a matrix or number of observations when X is a vector
+#' @return nu Object type integer - degrees of freedom; When var.est = 'S', the degrees of freedom is that of the chi-squared distribution itself for the variance estimator.  When var.est = 'MR', the degrees of freedom is that of the chi-squared distribution approximating to the actual distribution.
+#' @return lambda Object type integer - chi-squared unbiasing constant for the chi-squared distribution approximation
 #' @return LCL Object type double - lower charting limit
 #' @return UCL Object type double - upper charting limit
 #' @return CS Object type double - charting statistic
@@ -133,10 +133,18 @@ PH1XBAR <- function(X,
   }
   
   if (plot.option == TRUE) {
-    main.text <- paste("Phase I X-bar Chart for fap0 =", fap0)
-
-    plot(c(1, m), c(LCL, UCL), xaxt = "n", xlab = "Subgroup",
+    if (n > 1) {
+      main.text <- paste("Phase I X-bar Chart")
+      plot(c(1, m), c(LCL, UCL), xaxt = "n", xlab = "Subgroup",
         ylab = "Charting Statistic", type = "n", main = main.text)
+    } else {
+      main.text <- paste("Phase I Individual Chart")
+      plot(c(1, m), c(LCL, UCL), xaxt = "n", xlab = "Observation",
+        ylab = "Charting Statistic", type = "n", main = main.text)
+    }
+    
+
+    
 
     axis(side = 1, at = 1:m)
 
