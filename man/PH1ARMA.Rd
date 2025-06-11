@@ -8,7 +8,7 @@ PH1ARMA(
   X,
   cc = NULL,
   fap0 = 0.05,
-  order = c(1, 0, 0),
+  order = c(1, 0),
   plot.option = TRUE,
   interval = c(1, 4),
   case = "U",
@@ -20,7 +20,7 @@ PH1ARMA(
   nsim.coefs = 100,
   nsim.process = 1000,
   burn.in = 50,
-  sim.type = "Matrix",
+  sim.type = "Recursive",
   transform = "none",
   lambda = 1,
   standardize = FALSE,
@@ -28,23 +28,23 @@ PH1ARMA(
 )
 }
 \arguments{
-\item{X}{input and it must be a vector}
+\item{X}{input and it must be a vector (m by 1)}
 
 \item{cc}{nominal Phase I charting constant. If this is given, the function will not re-compute the charting constant.}
 
 \item{fap0}{nominal false Alarm Probabilty in Phase I}
 
-\item{order}{order for ARMA model}
+\item{order}{order for ARMA(p, q) model}
 
-\item{plot.option}{- draw a plot for the process; FALSE - Not draw a plot for the process}
+\item{plot.option}{- draw a plot for the process; TRUE - Draw a plot for the process, FALSE - Not draw a plot for the process}
 
 \item{interval}{searching range of charting constants for the exact method}
 
-\item{case}{known or unknown case.  When case = 'U', the parameters are estimated}
+\item{case}{known or unknown case.  When case = 'U', the parameters are estimated, when case = 'K', the parameters need to be input}
 
-\item{phi.vec}{vector of autoregressive coefficient(s).  When case = 'K', the vector needs to be provided with the length same as the first value in the order.  If autoregressive coefficents does not present, phi needs to be NULL}
+\item{phi.vec}{a vector of length p containing autoregressive coefficient(s).  When case = 'K', the vector must have a length equal to the first value in the order.  If no autoregressive coefficent presents, set phi.vec = NULL}
 
-\item{theta.vec}{vector of moving-average coefficient(s).  When case = 'K', the vector needs to be provided with the length same as the third value in the order.  If moving-average coefficents does not present, theta needs to be NULL}
+\item{theta.vec}{a vector of length q containing moving-average coefficient(s).  When case = 'K', the vector must have a length equal to the first value in the order.  If no moving-average coefficent presents, set theta.vec = NULL}
 
 \item{mu0}{value of the IC process mean.  When case = 'K', the value needs to be provided.}
 
@@ -52,13 +52,13 @@ PH1ARMA(
 
 \item{method}{estimation method for the control chart. When method = 'MLE+MOM' is maximum likehood estimations plus method of moments. Other options are 'MLE' which is pure MLE and 'CSS' which is pure CSS.}
 
-\item{nsim.coefs}{number of simulation for coeficients.}
+\item{nsim.coefs}{number of simulation for coefficients.}
 
 \item{nsim.process}{number of simulation for ARMA processes}
 
-\item{burn.in}{number of burn-ins.  When burn.in = 0, the simulated process is assumed to be in the initial stage.  When burn.in is large enough, the simulated process is assumed to be in the stable stage.}
+\item{burn.in}{number of burn-ins.  When burn.in = 0, the simulated process is assumed to be in the initial stage.  When burn.in is sufficiently large (e.g., the default value of 50), the simulated process is assumed to have reached a stable state.}
 
-\item{sim.type}{type of simulation.  When sim.type = 'Matrix', the simulation is generated using matrix computation.  When sim.type = 'Recursive', the simulation is based on a recursion.}
+\item{sim.type}{type of simulation. When sim.type = 'Recursive', the simulation is generated recursively, as in the ARMA model. When sim.type = 'Matrix', the simulation is generated using the covariance matrix among observations, derived from the relationship between the ARMA coefficient(s) and the partial autocorrelation(s). Note that sim.type = 'Matrix' is is primarily used as a proof of concept and is not recommended for practical use due to its high computational cost.}
 
 \item{transform}{type of transformation. When transform = 'none', no transformation is performed. When transform = 'boxcox', the Box-Cox transformation is used. When transform = 'yeojohnson', the Yeo-Johnson transformation is used.}
 

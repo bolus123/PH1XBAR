@@ -21,11 +21,11 @@ PH1XBAR(
 )
 }
 \arguments{
-\item{X}{input and it must be a matrix}
+\item{X}{input and it must be a matrix (m by n) or a vector (m by 1)}
 
 \item{cc}{nominal Phase I charting constant. If this is given, the function will not recompute the charting constant.}
 
-\item{fap0}{nominal false Alarm Probabilty in Phase 1}
+\item{fap0}{nominal False Alarm Probabilty in Phase 1}
 
 \item{var.est}{'S' - use mean-square-based estimator, 'MR' - use moving-range-based estimator}
 
@@ -33,7 +33,7 @@ PH1XBAR(
 
 \item{method}{'exact' - calculate results using the exact method, 'BA' - calculate results using the Bonfferoni approximation}
 
-\item{plot.option}{- draw a plot for the process; FALSE - Not draw a plot for the process}
+\item{plot.option}{- draw a plot for the process; TRUE - Draw a plot for the process, FALSE - Not draw a plot for the process}
 
 \item{interval}{searching range of charting constants for the exact method}
 
@@ -56,11 +56,11 @@ ub.cons Object type double - unbiasing constant
 
 cc Object type double - charting constant
 
-m Object type integer - number of observations
+m Object type integer - number of subgroups when X is a matrix or number of observations when X is a vector
 
-nu Object type integer - degrees of freedom
+nu Object type integer - degrees of freedom; When var.est = 'S', the degrees of freedom is that of the chi-squared distribution itself for the variance estimator.  When var.est = 'MR', the degrees of freedom is that of the chi-squared distribution approximating to the actual distribution.
 
-lambda Object type integer - chi-squared unbiasing constant
+lambda Object type integer - chi-squared unbiasing constant for the chi-squared distribution approximation
 
 LCL Object type double - lower charting limit
 

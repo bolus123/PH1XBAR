@@ -7,8 +7,8 @@
 getCC.ARMA(
   fap0 = 0.05,
   interval = c(1, 4),
-  n = 50,
-  order = c(1, 0, 0),
+  m = 50,
+  order = c(1, 0),
   phi.vec = 0.5,
   theta.vec = NULL,
   case = "U",
@@ -25,15 +25,15 @@ getCC.ARMA(
 
 \item{interval}{searching range of charting constants for the exact method}
 
-\item{n}{number of observations}
+\item{m}{number of observations}
 
-\item{order}{order for ARMA model}
+\item{order}{order for ARMA(p, q) model}
 
-\item{phi.vec}{given vectors of autoregressive parameters for ARMA models}
+\item{phi.vec}{a vector of length p containing autoregressive coefficient(s).  When case = 'K', the vector must have a length equal to the first value in the order.  If no autoregressive coefficent presents, set phi.vec = NULL}
 
-\item{theta.vec}{given vectors of moving-average parameters for ARMA models}
+\item{theta.vec}{a vector of length q containing moving-average coefficient(s).  When case = 'K', the vector must have a length equal to the first value in the order.  If no moving-average coefficent presents, set theta.vec = NULL}
 
-\item{case}{known or unknown case.  When case = 'U', the parameters are unknown and the charting constant is calculated based on a bootstrapping method.  When case = 'K', the parameters are known and the charting constant is found using the quantile function of multivariate normal distribution}
+\item{case}{known or unknown case.  When case = 'U', the parameters are estimated, when case = 'K', the parameters need to be input}
 
 \item{method}{estimation method for the control chart. When method = 'Method 3' is maximum likehood estimations plus method of moments. Other options are 'Method 1' which is pure MLE and 'Method 2' which is pure CSS.}
 
@@ -46,10 +46,6 @@ getCC.ARMA(
 \item{sim.type}{type of simulation.  When sim.type = 'Matrix', the simulation is generated using matrix computation.  When sim.type = 'Recursive', the simulation is based on a recursion.}
 
 \item{verbose}{print diagnostic information about fap0 and the charting constant during the simulations for the exact method}
-
-\item{phi}{vector of autoregressive coefficient(s).  When case = 'K', it must be provided. The length must be the same as the first value in the order.  It needs to be NULL if no autoregressor presents}
-
-\item{theta}{vector of moving-average coefficient(s).  When case = 'K', it must be provided. The length must be the same as the third value in the order.  It needs to be NULL if no moving average presents}
 }
 \value{
 Object type double. The corrected charting constant.

@@ -19,9 +19,9 @@ getCC.XBAR(
 )
 }
 \arguments{
-\item{m}{nominal false Alarm Probabilty in Phase 1}
+\item{m}{number of subgroups when the data are subgrouped or number of observations when the data are individual.}
 
-\item{fap0}{number of subgroups}
+\item{fap0}{nominal False Alarm Probabilty in Phase 1}
 
 \item{var.est}{'S' - use mean-square-based estimator, 'MR' - use moving-range-based estimator}
 
@@ -33,9 +33,9 @@ getCC.XBAR(
 
 \item{nsim}{number of simulation for the exact method}
 
-\item{nu}{degrees of freedom for the Bonfferoni approximation}
+\item{nu}{degrees of freedom; When var.est = 'S', the degrees of freedom is that of the chi-squared distribution itself for the variance estimator.  When var.est = 'MR', the degrees of freedom is that of the chi-squared distribution approximating to the actual distribution.}
 
-\item{lambda}{constant for the Bonfferoni approximation}
+\item{lambda}{unbiasing constant for the chi-squared distribution approximation. When var.est = 'S', there is no need to do the unbiasing.  When var.est = 'MR', the unbiasing constant needs to be used.}
 
 \item{verbose}{print diagnostic information about fap0 and the charting constant during the simulations for the exact method}
 }

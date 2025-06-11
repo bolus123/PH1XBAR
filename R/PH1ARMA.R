@@ -73,7 +73,7 @@ PH1ARMA <- function(X, cc = NULL, fap0 = 0.05, order = c(1, 0), plot.option = TR
     X <- VGAM::yeo.johnson(X, lambda1)
   }
   
-  n <- length(X)
+  m <- length(X)
 
   if (is.null(cc)) {
 
@@ -98,12 +98,12 @@ PH1ARMA <- function(X, cc = NULL, fap0 = 0.05, order = c(1, 0), plot.option = TR
         theta.vec <- NULL
       }
   
-      cc <- getCC.ARMA(fap0 = fap0, interval = interval, n, order = neworder, phi.vec = phi.vec, theta.vec = theta.vec, case = case,
+      cc <- getCC.ARMA(fap0 = fap0, interval = interval, m, order = order, phi.vec = phi.vec, theta.vec = theta.vec, case = case,
         method = method, nsim.coefs = nsim.coefs, nsim.process = nsim.process, burn.in = burn.in, sim.type = sim.type, verbose = verbose)
 
     } else if (case == 'K') {
       
-      cc <- getCC.ARMA(fap0 = fap0, interval = interval, n, order = neworder, phi.vec = phi.vec, theta.vec = theta.vec, case = case,
+      cc <- getCC.ARMA(fap0 = fap0, interval = interval, m, order = order, phi.vec = phi.vec, theta.vec = theta.vec, case = case,
         method = method, nsim.coefs = nsim.coefs, nsim.process = nsim.process, burn.in = burn.in, sim.type = sim.type, verbose = verbose)
 
     }
@@ -154,7 +154,7 @@ PH1ARMA <- function(X, cc = NULL, fap0 = 0.05, order = c(1, 0), plot.option = TR
 
     axis(side = 1, at = 1:n)
 
-    points(1:n, CS, type = 'o')
+    points(1:m, CS, type = 'o')
     points(c(-1, n + 2), c(LCL, LCL), type = 'l', col = 'red')
     points(c(-1, n + 2), c(UCL, UCL), type = 'l', col = 'red')
     points(c(-1, n + 2), c(mu, mu), type = 'l', col = 'blue')
