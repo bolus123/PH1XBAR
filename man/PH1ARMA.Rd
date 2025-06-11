@@ -58,13 +58,13 @@ PH1ARMA(
 
 \item{burn.in}{number of burn-ins.  When burn.in = 0, the simulated process is assumed to be in the initial stage.  When burn.in is sufficiently large (e.g., the default value of 50), the simulated process is assumed to have reached a stable state.}
 
-\item{sim.type}{type of simulation. When sim.type = 'Recursive', the simulation is generated recursively, as in the ARMA model. When sim.type = 'Matrix', the simulation is generated using the covariance matrix among observations, derived from the relationship between the ARMA coefficient(s) and the partial autocorrelation(s). Note that sim.type = 'Matrix' is is primarily used as a proof of concept and is not recommended for practical use due to its high computational cost.}
+\item{sim.type}{type of simulation. When sim.type = 'Recursive', the simulation is generated recursively, as in the ARMA model. When sim.type = 'Matrix', the simulation is generated using the covariance matrix among observations, derived from the relationship between the ARMA coefficient(s) and the partial autocorrelation(s). Note that sim.type = 'Matrix' is primarily used as a proof of concept and is not recommended for practical use due to its high computational cost.}
 
 \item{transform}{type of transformation. When transform = 'none', no transformation is performed. When transform = 'boxcox', the Box-Cox transformation is used. When transform = 'yeojohnson', the Yeo-Johnson transformation is used.}
 
-\item{lambda}{parameter used in the transformation.}
+\item{lambda}{parameter used in the Box-Cox or Yeo-Johnson transformation.}
 
-\item{standardize}{Output standardized data instead of raw data.}
+\item{standardize}{Output standardized charting statistics instead of raw ones. When standardize = TRUE, the standardization is used.  When standardize = FALSE, the standardization is not performed.}
 
 \item{verbose}{print diagnostic information about fap0 and the charting constant during the simulations for the exact method}
 }

@@ -41,9 +41,9 @@ PH1XBAR(
 
 \item{transform}{type of transformation. When transform = 'none', no transformation is performed. When transform = 'boxcox', the Box-Cox transformation is used. When transform = 'yeojohnson', the Yeo-Johnson transformation is used.}
 
-\item{lambda}{parameter used in the transformation.}
+\item{lambda}{parameter used in the Box-Cox or Yeo-Johnson transformation.}
 
-\item{standardize}{Output standardized data instead of raw data.}
+\item{standardize}{Output standardized charting statistics instead of raw ones. When standardize = TRUE, the standardization is used.  When standardize = FALSE, the standardization is not performed.}
 
 \item{verbose}{print diagnostic information about fap0 and the charting constant during the simulations for the exact method}
 }
