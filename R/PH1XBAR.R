@@ -166,7 +166,7 @@ PH1XBAR <- function(X,
   }
 
   res <- list(CL = X.bar.bar, var.est = sigma.v * ub.cons, ub.cons = ub.cons,
-              cc = cc, m = m, nu = nu, lambda1 = lambda1, LCL = LCL, UCL = UCL,
+              cc = cc, m = m, nu = nu, lambda.chi.approx = lambda1, LCL = LCL, UCL = UCL,
               CS = CS, transform = transform, lambda = lambda2, standardize = standardize)
   invisible(res)
 }

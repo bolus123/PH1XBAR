@@ -342,7 +342,7 @@ getCC.ARMA <- function(fap0 = 0.05,
                        nsim.coefs = 100,
                        nsim.process = 1000,
                        burn.in = 50,
-                       sim.type = "Matrix",
+                       sim.type = "Recursive",
                        verbose = FALSE) {
   
   neworder <- c(order[1], 0, order[2])
