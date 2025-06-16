@@ -146,11 +146,19 @@ PH1ARMA <- function(X, cc = NULL, fap0 = 0.05, order = c(1, 0), plot.option = TR
     }
   }
   
+  
+  if (anyNA(CS) | is.na(mu) | is.na(LCL)| is.na(UCL)) {
+    if (transform != 'none') {
+      warning("The back transformation is erroneous using the given lambda.  Please try other lambda.")
+    }
+  }
+  
+  
   if (plot.option == TRUE) {
 
     main.text <- paste('Phase I Individual Chart')
 
-    plot(c(1, m), c(min(LCL, CS), max(UCL, CS)), xaxt = "n", xlab = 'Observation', ylab = 'Charting Statistic', type = 'n', main = main.text)
+    plot(c(1, m), c(min(LCL, CS, na.rm = TRUE), max(UCL, CS, na.rm = TRUE)), xaxt = "n", xlab = 'Observation', ylab = 'Charting Statistic', type = 'n', main = main.text)
 
     axis(side = 1, at = 1:m)
 
@@ -168,7 +176,7 @@ PH1ARMA <- function(X, cc = NULL, fap0 = 0.05, order = c(1, 0), plot.option = TR
 
   }
 
-  res <- list(CL = mu, gamma = gamma, cc = cc, order = neworder, phi.vec = phi.vec, theta.vec = theta.vec, 
+  res <- list(CL = mu, gamma = gamma, cc = cc, order = order, phi.vec = phi.vec, theta.vec = theta.vec, 
               LCL = LCL, UCL = UCL, CS = CS, transform = transform, lambda = lambda1, standardize = standardize)
 
   return(invisible(res))

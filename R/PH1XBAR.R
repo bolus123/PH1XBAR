@@ -70,13 +70,15 @@ PH1XBAR <- function(X,
   lambda2 <- NA
   if (transform == "boxcox") {
     lambda2 <- lambda
-    X <- forecast::BoxCox(X, lambda2)
+    X1 <- forecast::BoxCox(X, lambda2)
   } else if (transform == "yeojohnson") {
     lambda2 <- lambda
-    X <- VGAM::yeo.johnson(X, lambda2)
+    X1 <- VGAM::yeo.johnson(X, lambda2)
+  } else {
+    X1 <- X
   }
   
-  X.bar <- rowMeans(X)
+  X.bar <- rowMeans(X1)
 
   X.bar.bar <- mean(X.bar)
 
@@ -137,18 +139,22 @@ PH1XBAR <- function(X,
     }
   }
   
+  if (anyNA(CS) | is.na(X.bar.bar) | is.na(LCL)| is.na(UCL)) {
+    if (transform != 'none') {
+      warning("The back transformation is erroneous using the given lambda.  Please try other lambda.")
+    }
+  }
+  
   if (plot.option == TRUE) {
     if (n > 1) {
       main.text <- paste("Phase I X-bar Chart")
-      plot(c(1, m), c(LCL, UCL), xaxt = "n", xlab = "Subgroup",
+      plot(c(1, m), c(min(LCL, CS, na.rm = TRUE), max(UCL, CS, na.rm = TRUE)), xaxt = "n", xlab = "Subgroup",
         ylab = "Charting Statistic", type = "n", main = main.text)
     } else {
       main.text <- paste("Phase I Individual Chart")
-      plot(c(1, m), c(LCL, UCL), xaxt = "n", xlab = "Observation",
+      plot(c(1, m), c(min(LCL, CS, na.rm = TRUE), max(UCL, CS, na.rm = TRUE)), xaxt = "n", xlab = "Observation",
         ylab = "Charting Statistic", type = "n", main = main.text)
     }
-    
-
     
 
     axis(side = 1, at = 1:m)
