@@ -139,10 +139,31 @@ PH1XBAR <- function(X,
     }
   }
   
+  
+  warning_msg <- NA
+  comp_msg <- NULL
+  
   if (anyNA(CS) | is.na(X.bar.bar) | is.na(LCL)| is.na(UCL)) {
     if (transform != 'none') {
-      warning("The back transformation is erroneous using the given lambda.  Please try other lambda or use the standardization.")
+      warning_msg <- paste(warning_msg, "\nThe back transformation is erroneous using the given lambda.  Please try other lambda's or use standardization.\n", sep = '')
     }
+    if (anyNA(CS)) {
+      comp_msg <- c(comp_msg, 'One or more CS')
+    }
+    if (is.na(X.bar.bar)) {
+      comp_msg <- c(comp_msg, 'CL')
+    }
+    if (is.na(LCL)) {
+      comp_msg <- c(comp_msg, 'LCL')
+    }
+    if (is.na(UCL)) {
+      comp_msg <- c(comp_msg, 'UCL')
+    }
+    
+    comp_msg <- paste(comp_msg, sep = ', ')
+    comp_msg <- paste(comp_msg, " cannot be back-transformed.", sep = '')
+    warning_msg <- paste(warning_msg, comp_msg, sep = '')
+    warning(warning_msg)
   }
   
   if (plot.option == TRUE) {
