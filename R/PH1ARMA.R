@@ -149,7 +149,7 @@ PH1ARMA <- function(X, cc = NULL, fap0 = 0.05, order = c(1, 0), plot.option = TR
   
   if (anyNA(CS) | is.na(mu) | is.na(LCL)| is.na(UCL)) {
     if (transform != 'none') {
-      warning("The back transformation is erroneous using the given lambda.  Please try other lambda.")
+      warning("The back transformation is erroneous using the given lambda.  Please try other lambda or use the standardization.")
     }
   }
   

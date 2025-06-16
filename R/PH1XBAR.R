@@ -141,7 +141,7 @@ PH1XBAR <- function(X,
   
   if (anyNA(CS) | is.na(X.bar.bar) | is.na(LCL)| is.na(UCL)) {
     if (transform != 'none') {
-      warning("The back transformation is erroneous using the given lambda.  Please try other lambda.")
+      warning("The back transformation is erroneous using the given lambda.  Please try other lambda or use the standardization.")
     }
   }
   
