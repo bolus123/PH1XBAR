@@ -12,7 +12,7 @@ PH1XBAR(
   ub.option = TRUE,
   method = c("exact", "BA"),
   plot.option = TRUE,
-  interval = c(1, 5),
+  interval = c(1, 4),
   nsim = 10000,
   transform = "none",
   lambda = 1,

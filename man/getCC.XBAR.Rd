@@ -11,7 +11,7 @@ getCC.XBAR(
   var.est = c("S", "MR"),
   ub.cons = 1,
   method = c("exact", "BA"),
-  interval = c(1, 5),
+  interval = c(1, 4),
   nsim = 10000,
   nu = m - 1,
   lambda = 1,
