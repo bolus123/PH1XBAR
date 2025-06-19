@@ -149,14 +149,14 @@ PH1ARMA <- function(X, cc = NULL, fap0 = 0.05, order = c(1, 0), plot.option = TR
   warning_msg <- NA
   comp_msg <- NULL
   
-  if (anyNA(CS) | is.na(X.bar.bar) | is.na(LCL)| is.na(UCL)) {
+  if (anyNA(CS) | is.na(mu) | is.na(LCL)| is.na(UCL)) {
     if (transform != 'none') {
       warning_msg <- paste(warning_msg, "\nThe back transformation is erroneous using the given lambda.  Please try other lambda's or use standardization.\n", sep = '')
     }
     if (anyNA(CS)) {
       comp_msg <- c(comp_msg, 'One or more CS')
     }
-    if (is.na(X.bar.bar)) {
+    if (is.na(mu)) {
       comp_msg <- c(comp_msg, 'CL')
     }
     if (is.na(LCL)) {
